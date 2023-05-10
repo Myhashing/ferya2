@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Investment Packages</title>
+</head>
+<body>
+<h1>Investment Packages</h1>
+<table>
+    <tr>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Price</th>
+        <th>Duration</th>
+        <th>Return On Investment</th>
+    </tr>
+    <tr th:each="package : ${packages}">
+        <td th:text="${package.name}"></td>
+        <td th:text="${package.description}"></td>
+        <td th:text="${package.price}"></td>
+        <td th:text="${package.duration}"></td>
+        <td th:text="${package.returnOnInvestment}"></td>
+    </tr>
+</table>
+</body>
+</html>
