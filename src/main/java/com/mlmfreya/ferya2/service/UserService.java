@@ -1,11 +1,17 @@
-package com.mlmfreya.freya.service;
+package com.mlmfreya.ferya2.service;
 
-import com.mlmfreya.freya.model.User;
-import com.mlmfreya.freya.repository.UserRepository;
+
+import com.mlmfreya.ferya2.model.User;
+import com.mlmfreya.ferya2.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class UserService {
@@ -16,9 +22,51 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private JavaMailSender javaMailSender;
+
+    public User registerUser(User user) {
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        return userRepository.save(user);
+    }
     public Optional<User> getUserByEmail(String email) {
         return userRepository.findByEmail(email);
     }
 
-    // Add more methods as needed...
+    public User findByUsername(String username) {
+        return userRepository.findByEmail(username).orElseThrow(()-> new UsernameNotFoundException("User not found"));
+    }
+
+    public User findByEmail(String email) {
+        return userRepository.findByEmail(email).orElseThrow(()-> new UsernameNotFoundException("User not found"));
+    }
+
+
+
+    public void sendPasswordResetEmail(User user) {
+        String token = UUID.randomUUID().toString();
+        user.setResetPasswordToken(token);
+        userRepository.save(user);
+
+        String resetPasswordLink = "http://localhost:8080/reset-password?token=" + token;
+
+        SimpleMailMessage mailMessage = new SimpleMailMessage();
+        mailMessage.setTo(user.getEmail());
+        mailMessage.setSubject("Password Reset Request");
+        mailMessage.setText("To complete the password reset process, please click here: " + resetPasswordLink);
+        javaMailSender.send(mailMessage);
+    }
+
+    public boolean verifyEmailToken(String token) {
+        User user = userRepository.findByEmailVerificationToken(token);
+        if (user != null && !user.isEmailVerified()) {
+            user.setEmailVerified(true);
+            userRepository.save(user);
+            return true;
+        }
+        return false;
+    }
 }

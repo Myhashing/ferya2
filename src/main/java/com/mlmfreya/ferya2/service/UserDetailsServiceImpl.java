@@ -1,14 +1,18 @@
-package com.mlmfreya.freya.service;
+package com.mlmfreya.ferya2.service;
 
-import com.mlmfreya.freya.repository.UserRepository;
+import com.mlmfreya.ferya2.model.User;
+import com.mlmfreya.ferya2.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import com.mlmfreya.freya.model.User;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
@@ -27,7 +31,10 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         return new org.springframework.security.core.userdetails.User(
                 user.getEmail(),
                 user.getPassword(),
-                new ArrayList<>()
-        );
+                getAuthorities(user));
+    }
+
+    private Collection<? extends GrantedAuthority> getAuthorities(User user) {
+        return Collections.singletonList(new SimpleGrantedAuthority("ROLE_" + user.getRole().name()));
     }
 }

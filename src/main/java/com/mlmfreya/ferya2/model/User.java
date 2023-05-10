@@ -1,4 +1,4 @@
-package com.mlmfreya.freya.model;
+package com.mlmfreya.ferya2.model;
 
 
 import jakarta.persistence.*;
@@ -20,11 +20,12 @@ public class User {
 
     private String email;
 
-
     private String fullName;
 
     private String password;
 
+    @Enumerated(EnumType.STRING)
+    private Role role;
 
     private String tronWalletAddress;
 
@@ -34,5 +35,19 @@ public class User {
     @UpdateTimestamp
     private LocalDateTime updatedAt;
 
-    // Getters and setters...
+    public enum Role {
+        USER, ADMIN
+    }
+
+
+    @Column(name = "reset_password_token")
+    private String resetPasswordToken;
+
+    public void setResetPasswordToken(String resetPasswordToken) {
+        this.resetPasswordToken = resetPasswordToken;
+    }
+
+    private String emailVerificationToken;
+    private boolean isEmailVerified = false;
 }
+
