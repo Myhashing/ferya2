@@ -19,6 +19,15 @@ public class PackageController {
     private InvestmentPackageService investmentPackageService;
 
 
+    @GetMapping("/delete/{id}")
+    public String deletePackage(@PathVariable("id") long id) {
+        InvestmentPackage investmentPackage = investmentPackageService.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("InvestmentPackage", "id", id));
+
+        investmentPackageService.deletePackage(investmentPackage.getId());
+        return "redirect:/admin/packages/list";
+    }
+
     @PostMapping("/update")
     public String updatePackage(@ModelAttribute InvestmentPackage investmentPackage, BindingResult result) {
         if (result.hasErrors()) {

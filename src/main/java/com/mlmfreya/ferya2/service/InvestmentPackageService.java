@@ -5,9 +5,9 @@ import com.mlmfreya.ferya2.model.InvestmentPackage;
 import com.mlmfreya.ferya2.repository.InvestmentPackageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.mlmfreya.ferya2.exception.ResourceNotFoundException;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class InvestmentPackageService {
@@ -28,7 +28,8 @@ public class InvestmentPackageService {
     }
 
     public InvestmentPackage getPackage(Long id) {
-        return investmentPackageRepository.findById(id).orElseThrow(()-> new ResourceNotFoundException("InvestmentPackage", "id", id));
+        return investmentPackageRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("InvestmentPackage", "id", id));
     }
 
     public InvestmentPackage updatePackage(Long id, InvestmentPackage investmentPackage) {
@@ -44,5 +45,9 @@ public class InvestmentPackageService {
     public void deletePackage(Long id) {
         InvestmentPackage existingPackage = getPackage(id);
         investmentPackageRepository.delete(existingPackage);
+    }
+
+    public Optional<InvestmentPackage> findById(long id) {
+        return investmentPackageRepository.findById(id);
     }
 }

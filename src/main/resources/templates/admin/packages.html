@@ -12,6 +12,7 @@
         <th>Price</th>
         <th>Duration</th>
         <th>Return On Investment</th>
+        <th>Actions</th>
     </tr>
     <tr th:each="package : ${packages}">
         <td th:text="${package.name}"></td>
@@ -19,7 +20,12 @@
         <td th:text="${package.price}"></td>
         <td th:text="${package.duration}"></td>
         <td th:text="${package.returnOnInvestment}"></td>
+        <td>
+            <a th:href="@{/admin/packages/edit/{id}(id=${package.id})}">Edit</a> |
+            <a th:href="@{/admin/packages/delete/{id}(id=${package.id})}">Delete</a>
+        </td>
     </tr>
 </table>
+<a href="/admin/packages/new">Create New Package</a>
 </body>
 </html>

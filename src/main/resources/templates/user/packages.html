@@ -1,0 +1,21 @@
+<!-- packages.html -->
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <!-- Add necessary CSS and scripts -->
+</head>
+<body>
+<h1>Available Packages</h1>
+<ul>
+  <!-- Loop through the packages and display package information -->
+  <li th:each="package : ${packages}">
+    <h3 th:text="${package.name}"></h3>
+    <p th:text="${package.description}"></p>
+    <p th:text="'Price: $' + ${package.price}"></p>
+    <form action="/add-to-cart" method="POST">
+      <input type="hidden" name="packageId" th:value="${package.id}" />
+      <button type="submit">Add to Cart</button>
+    </form>
+  </li>
+</ul>
+</body>
+</html>

@@ -61,4 +61,17 @@ public class UserController {
         }
     }
 
+    //create login endpoint and then create second login endpoint for receive the form data and check if user authenticated
+
+    @GetMapping("/login")
+    public String login() {
+        return "login";}
+
+    //create login post endpoint to receive form data validate and authenticate user
+
+
+
+
+
+
 }
