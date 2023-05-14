@@ -59,30 +59,15 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-mail</artifactId>
 		</dependency>
-			<dependency>
-				<groupId>org.tron.trident</groupId>
-				<artifactId>trident-abi</artifactId>
-				<version>0.5.0</version>
-				<scope>system</scope>
-				<systemPath>C:/Users/arian/IdeaProjects/ferya2/trident/abi/build/libs/abi-0.5.0.jar</systemPath>
-			</dependency>
-			<dependency>
-				<groupId>org.tron.trident</groupId>
-				<artifactId>trident-utils</artifactId>
-				<version>0.5.0</version>
-				<scope>system</scope>
-				<systemPath>C:/Users/arian/IdeaProjects/ferya2/trident/utils/build/libs/utils-0.5.0.jar</systemPath>
-			</dependency>
-			<dependency>
-				<groupId>org.tron.trident</groupId>
-				<artifactId>trident-core</artifactId>
-				<version>0.5.0</version>
-				<scope>system</scope>
-				<systemPath>C:/Users/arian/IdeaProjects/ferya2/trident/core/build/libs/core-0.5.0.jar</systemPath>
-			</dependency>
-
-
-
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpclient</artifactId>
+			<version>4.5.13</version>
+		</dependency>
+		<dependency>
+			<groupId>com.vaadin.external.google</groupId>
+			<artifactId>android-json</artifactId>
+		</dependency>
 
 	</dependencies>
 

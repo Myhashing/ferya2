@@ -22,7 +22,7 @@ public class PaymentRequest {
     private BigDecimal amount; // The amount of USDT to be paid
 
     @Column(nullable = false)
-    private String address; // The wallet address for the payment
+    private String walletAddress; // The wallet address for the payment
 
     @Column
     private LocalDateTime created; // When the payment request was created

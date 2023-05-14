@@ -1,11 +1,11 @@
 package com.mlmfreya.ferya2.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mlmfreya.ferya2.dto.UserRegistrationDto;
+import com.mlmfreya.ferya2.dto.WalletResponse;
 import com.mlmfreya.ferya2.model.InvestmentPackage;
 import com.mlmfreya.ferya2.model.PaymentRequest;
-import com.mlmfreya.ferya2.service.InvestmentPackageService;
-import com.mlmfreya.ferya2.service.PaymentGatewayService;
-import com.mlmfreya.ferya2.service.ShoppingCart;
+import com.mlmfreya.ferya2.service.*;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,6 +14,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import java.io.IOException;
+
+import org.json.JSONObject;
+
 
 @Controller
 public class OrderController {
@@ -26,6 +31,12 @@ public class OrderController {
     @Autowired
     private PaymentGatewayService paymentService;
 
+    @Autowired
+    private TransactionService transactionService;
+
+    @Autowired
+    private TronWebService tronWebService;
+
     @PostMapping("/add-to-cart")
     public String addToCart(@RequestParam("packageId") Long packageId) {
         InvestmentPackage investmentPackage = packageService.getPackage(packageId);
@@ -34,7 +45,8 @@ public class OrderController {
         return "redirect:/user/form";
     }
 
-/*    @PostMapping("/checkout")
+
+    @PostMapping("/checkout")
     public String checkout(@ModelAttribute UserRegistrationDto userRegistrationDto, HttpSession session, Model model) {
 
         // save user registration data in session
@@ -44,13 +56,24 @@ public class OrderController {
         InvestmentPackage investmentPackage = cart.getPackage();
 
         // create a new wallet address for this transaction
-        String paymentWalletAddress = paymentService.createWalletAddress();
+        String paymentWalletAddress;
+        try {
+            String createWalletApiUrl = "http://localhost:3000/api/tron/create-account";
+            String apiResponse = tronWebService.makeApiRequest(createWalletApiUrl);
+            ObjectMapper mapper = new ObjectMapper();
+            WalletResponse response = mapper.readValue(apiResponse, WalletResponse.class);
+            paymentWalletAddress = response.getData().getAddress().getBase58();
+        } catch (IOException e) {
+            // handle exception when calling the API
+            e.printStackTrace();
+            return "error";
+        }
 
         // save transaction to the database
         PaymentRequest paymentRequest = new PaymentRequest();
         paymentRequest.setAmount(investmentPackage.getPrice());
         paymentRequest.setWalletAddress(paymentWalletAddress);
-        paymentService.createTransaction(paymentRequest);
+        transactionService.createTransaction(paymentRequest);
 
         // add necessary information to the model
         model.addAttribute("walletAddress", paymentWalletAddress);
@@ -64,6 +87,7 @@ public class OrderController {
         return "payment";
     }
 
+
     @GetMapping("/payment-confirmed")
     public String paymentConfirmed(HttpSession session) {
         // retrieve the user registration data from session
@@ -74,5 +98,5 @@ public class OrderController {
         session.removeAttribute("userRegistration");
         // redirect to a success page
         return "redirect:/success";
-    }*/
+    }
 }
