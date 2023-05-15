@@ -20,9 +20,10 @@ public class InvestmentPackage {
     private Long id;
     private String name;
     private String description;
-    private BigDecimal price;
+
     private int duration;
     private BigDecimal returnOnInvestment;
+    private BigDecimal minInvestmentAmount;  // New field for minimum investment amount
 
     @CreationTimestamp
     private LocalDateTime createdAt;
@@ -30,5 +31,4 @@ public class InvestmentPackage {
     @UpdateTimestamp
     private LocalDateTime updatedAt;
 
-    // Getters and setters
 }

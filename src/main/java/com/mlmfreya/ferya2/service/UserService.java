@@ -1,8 +1,11 @@
 package com.mlmfreya.ferya2.service;
 
 
+import com.mlmfreya.ferya2.dto.UserRegistrationDto;
+import com.mlmfreya.ferya2.model.InvestmentPackage;
 import com.mlmfreya.ferya2.model.User;
 import com.mlmfreya.ferya2.repository.UserRepository;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -10,6 +13,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -28,7 +32,13 @@ public class UserService {
     @Autowired
     private JavaMailSender javaMailSender;
 
-    public User registerUser(User user) {
+    public User registerUser(UserRegistrationDto userRegistrationDto) {
+        ModelMapper modelMapper = new ModelMapper();
+
+        User user = modelMapper.map(userRegistrationDto, User.class);
+
+        user.setRole(User.Role.USER);
+
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         return userRepository.save(user);
     }
@@ -69,4 +79,12 @@ public class UserService {
         }
         return false;
     }
+
+    public void addPackageToUser(User user, InvestmentPackage investmentPackage, BigDecimal investedAmount) {
+        user.getInvestmentPackages().add(investmentPackage);
+        user.getInvestedAmounts().add(investedAmount);
+        userRepository.save(user);
+    }
+
+
 }

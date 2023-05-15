@@ -16,7 +16,7 @@ public class HomeController {
         return "about";
     }
 
-    @GetMapping("/product")
+    @GetMapping("/packages")
     public String showProductPage() {
         return "product";
     }

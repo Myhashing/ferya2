@@ -1,6 +1,7 @@
 package com.mlmfreya.ferya2.config;
 
 
+import com.mlmfreya.ferya2.model.User;
 import com.mlmfreya.ferya2.repository.UserRepository;
 import com.mlmfreya.ferya2.service.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,8 +42,8 @@ public class SecurityConfig {
         http
                 .authorizeHttpRequests(authorizeRequests ->
                         authorizeRequests
-                                .requestMatchers("/", "/home", "/about", "/login", "/register").permitAll()
-                                .requestMatchers("/admin/**").hasRole("ADMIN")
+                                .requestMatchers("/", "/home", "/about", "/login", "/register","/shop/**").permitAll()
+//                                .requestMatchers("/admin/**").hasRole(User.Role.ADMIN.toString())
                                 .anyRequest().authenticated()
                 )
                 .formLogin().loginPage("/login").permitAll()

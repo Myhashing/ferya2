@@ -29,5 +29,13 @@ public class Transaction {
     @Column
     private LocalDateTime timestamp; // When the transaction occurred
 
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = true)
+    private User user;
+
+    @ManyToOne
+    @JoinColumn(name = "investment_package_id", nullable = false)
+    private InvestmentPackage investmentPackage;
+
     // setters and getters here
 }

@@ -5,15 +5,22 @@
 </head>
 <body>
 <h1>Available Packages</h1>
+<p th:if="${error}" th:text="${error}" style="color:red;"></p>
+
 <ul>
   <!-- Loop through the packages and display package information -->
   <li th:each="package : ${packages}">
     <h3 th:text="${package.name}"></h3>
     <p th:text="${package.description}"></p>
-    <p th:text="'Price: $' + ${package.price}"></p>
-    <form action="/add-to-cart" method="POST">
+    <p><strong>Duration:</strong> <span th:text="${package.duration}"></span></p>
+    <p><strong>Return On Investment:</strong> <span th:text="${package.returnOnInvestment}"></span></p>
+    <p><strong>Min Investment Amount:</strong> <span th:text="${package.minInvestmentAmount}"></span></p>
+
+    <form action="/shop/add-to-cart" method="POST">
       <input type="hidden" name="packageId" th:value="${package.id}" />
-      <button type="submit">Add to Cart</button>
+      <label for="investmentAmount">Investment Amount:</label>
+      <input type="number" id="investmentAmount" name="investmentAmount" required>
+      <button type="submit">Buy</button>
     </form>
   </li>
 </ul>

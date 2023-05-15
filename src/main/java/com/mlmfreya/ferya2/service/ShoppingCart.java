@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -23,6 +24,8 @@ public class ShoppingCart {
     private String mobileNumber;
     private String walletAddress;
     private String password;
+    private BigDecimal InvestmentAmount;
+
     private Map<InvestmentPackage, Integer> packages = new HashMap<>();
 
     public void addPackage(InvestmentPackage investmentPackage) {

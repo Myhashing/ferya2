@@ -7,7 +7,10 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Data
@@ -49,5 +52,17 @@ public class User {
 
     private String emailVerificationToken;
     private boolean isEmailVerified = false;
+
+    @ManyToMany
+    @JoinTable(
+            name = "user_packages",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "package_id")
+    )
+    private List<InvestmentPackage> investmentPackages = new ArrayList<>();
+
+    @ElementCollection
+    private List<BigDecimal> investedAmounts = new ArrayList<>();
+
 }
 

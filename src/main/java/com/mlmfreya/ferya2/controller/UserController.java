@@ -1,10 +1,18 @@
 package com.mlmfreya.ferya2.controller;
 
 
+import com.mlmfreya.ferya2.dto.UserRegistrationDto;
 import com.mlmfreya.ferya2.model.User;
+import com.mlmfreya.ferya2.service.UserDetailsServiceImpl;
 import com.mlmfreya.ferya2.service.UserService;
+import jakarta.servlet.http.HttpServletRequest;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -13,10 +21,14 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class UserController {
     private final UserService userService;
+    private final UserDetailsServiceImpl userDetailsService;
+    private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public UserController(UserService userService) {
+    public UserController(UserService userService, UserDetailsServiceImpl userDetailsService, PasswordEncoder passwordEncoder) {
         this.userService = userService;
+        this.userDetailsService = userDetailsService;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @GetMapping("/users/{email}")
@@ -34,7 +46,10 @@ public class UserController {
 
     @PostMapping("/register")
     public String registerUser(@ModelAttribute User user) {
-        userService.registerUser(user);
+        user.setRole(User.Role.ADMIN);
+        ModelMapper modelMapper = new ModelMapper();
+        UserRegistrationDto userDto = modelMapper.map(user, UserRegistrationDto.class);
+        userService.registerUser(userDto);
         return "redirect:/login";
     }
 
@@ -68,6 +83,17 @@ public class UserController {
         return "login";}
 
     //create login post endpoint to receive form data validate and authenticate user
+    @PostMapping("/login")
+    public String authenticateUser(@RequestParam String username, @RequestParam String password, HttpServletRequest request) {
+        UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+        if (passwordEncoder.matches(password, userDetails.getPassword())) {
+            UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+            SecurityContextHolder.getContext().setAuthentication(auth);
+            return "redirect:/home";  // Redirect to a secure page after successful login
+        } else {
+            return "redirect:/login?error";  // Redirect back to login page if authentication fails
+        }
+    }
 
 
 

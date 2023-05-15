@@ -36,7 +36,6 @@ public class InvestmentPackageService {
         InvestmentPackage existingPackage = getPackage(id);
         existingPackage.setName(investmentPackage.getName());
         existingPackage.setDescription(investmentPackage.getDescription());
-        existingPackage.setPrice(investmentPackage.getPrice());
         existingPackage.setDuration(investmentPackage.getDuration());
         existingPackage.setReturnOnInvestment(investmentPackage.getReturnOnInvestment());
         return investmentPackageRepository.save(existingPackage);

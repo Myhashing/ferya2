@@ -16,14 +16,13 @@ public class PaymentRequest {
     private Long id;
 
     @Column(nullable = false)
-    private String userId; // The user who makes the request
-
-    @Column(nullable = false)
     private BigDecimal amount; // The amount of USDT to be paid
 
     @Column(nullable = false)
     private String walletAddress; // The wallet address for the payment
 
+    @Column
+    private String fromAddress;
     @Column
     private LocalDateTime created; // When the payment request was created
 

@@ -1,5 +1,6 @@
 package com.mlmfreya.ferya2.service;
 
+import com.mlmfreya.ferya2.model.InvestmentPackage;
 import com.mlmfreya.ferya2.model.PaymentRequest;
 import com.mlmfreya.ferya2.model.Transaction;
 import com.mlmfreya.ferya2.repository.TransactionRepository;
@@ -19,7 +20,7 @@ public class TransactionService {
         this.transactionRepository = transactionRepository;
     }
 
-    public void createTransaction(PaymentRequest paymentRequest) {
+    public void createTransaction(PaymentRequest paymentRequest, InvestmentPackage investmentPackage) {
         Transaction transaction = new Transaction();
         // Assuming you have a "fromAddress" in PaymentRequest
         transaction.setFromAddress(paymentRequest.getFromAddress());
@@ -28,7 +29,7 @@ public class TransactionService {
         // You'll need to get the transaction hash from the API or set it later
         transaction.setTransactionHash("");
         transaction.setTimestamp(LocalDateTime.now());
-
+        transaction.setInvestmentPackage(investmentPackage);
         transactionRepository.save(transaction);
     }
 

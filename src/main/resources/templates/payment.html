@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Payment</title>
+    <script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
+</head>
+<body>
+<h1>Complete Your Payment</h1>
+<p>Please send <span id="amount" th:text="${amount}"></span> to the following wallet address:</p>
+<p id="walletAddress" th:text="${walletAddress}"></p>
+<div id="qrcode"></div>
+<p>You have <span id="timer" th:text="${timer}"></span> minutes to complete this transaction.</p>
+<script>
+    // Generate QR Code
+    new QRCode(document.getElementById("qrcode"), document.getElementById("walletAddress").innerText);
+
+    // Countdown Timer
+    var timeRemaining = parseInt(document.getElementById("timer").innerText);
+    var timer = setInterval(function() {
+        timeRemaining--;
+        var minutes = Math.floor(timeRemaining / 60);
+        var seconds = timeRemaining % 60;
+        document.getElementById("timer").innerText = minutes + " minutes " + seconds + " seconds";
+        if (timeRemaining <= 0) {
+            clearInterval(timer);
+            window.location.href = "/timeout"; // Redirect to timeout page
+        }
+    }, 1000); // Update every second
+
+    // Check Wallet Status (you will need to replace this with your own code)
+    var checkWalletStatus = setInterval(function() {
+        // Get wallet address
+        var walletAddress = document.getElementById("walletAddress").innerText;
+
+        // Make API call to check wallet status
+        fetch('http://localhost:3000/api/tron/getTokenBalance/' + walletAddress)
+            .then(response => response.json())
+            .then(data => {
+                var balance = data.balance;
+
+                // Check if balance is sufficient
+                if (parseFloat(balance) >= parseFloat(amount)) {
+                    // If payment is received, clear intervals and redirect to confirmation page
+                    clearInterval(timer);
+                    clearInterval(checkWalletStatus);
+                    window.location.href = "/shop/payment-confirmed";
+                }
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+    }, 50000); // Check every 5 seconds
+</script>
+</body>
+</html>

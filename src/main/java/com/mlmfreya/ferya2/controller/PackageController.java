@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Controller
-@RequestMapping("/user")
+@RequestMapping("/admin/package")
 public class PackageController {
 
     @Autowired
@@ -25,16 +25,16 @@ public class PackageController {
                 .orElseThrow(() -> new ResourceNotFoundException("InvestmentPackage", "id", id));
 
         investmentPackageService.deletePackage(investmentPackage.getId());
-        return "redirect:/admin/packages/list";
+        return "redirect:/admin/package/list";
     }
 
     @PostMapping("/update")
     public String updatePackage(@ModelAttribute InvestmentPackage investmentPackage, BindingResult result) {
         if (result.hasErrors()) {
-            return "update-package";
+            return "admin/update-package";
         }
         investmentPackageService.savePackage(investmentPackage);
-        return "redirect:/admin/packages/list";
+        return "redirect:/admin/package/list";
     }
 
     @GetMapping("/edit/{id}")
@@ -43,30 +43,30 @@ public class PackageController {
                 .orElseThrow(() -> new ResourceNotFoundException("InvestmentPackage", "id", id));
 
         model.addAttribute("package", investmentPackage);
-        return "update-package";
+        return "admin/update-package";
     }
 
     @GetMapping("/add")
     public String showAddPackageForm(Model model) {
         model.addAttribute("package", new InvestmentPackage());
-        return "add-package";
+        return "admin/add-package";
     }
 
 
     @PostMapping("/add")
     public String addPackage(@ModelAttribute InvestmentPackage investmentPackage, BindingResult result) {
         if (result.hasErrors()) {
-            return "add-package";
+            return "admin/add-package";
         }
         investmentPackageService.savePackage(investmentPackage);
-        return "redirect:/admin/packages/list";
+        return "redirect:/admin/package/list";
     }
 
     @GetMapping("/list")
     public String listPackages(Model model) {
         List<InvestmentPackage> packages = investmentPackageService.getAllPackages();
         model.addAttribute("packages", packages);
-        return "packages";
+        return "admin/packages";
     }
 
 }

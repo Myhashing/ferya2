@@ -20,9 +20,9 @@ public class BlockchainController {
         this.accountService = accountService;
     }
 
-    @GetMapping("/create-account")
-    public ResponseEntity<AccountDto> createAccount() {
-        AccountDto accountDto = accountService.createAccount();
+/*    @GetMapping("/create-account")
+    public ResponseEntity<AccountDto> createAccount() throws Exception {
+        AccountDto accountDto = accountService.generateKey();
         return ResponseEntity.ok(accountDto);
-    }
+    }*/
 }
