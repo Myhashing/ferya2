@@ -136,6 +136,10 @@ public class OrderController {
         paymentRequest.setAmount(cart.getInvestmentAmount());
         paymentRequest.setFromAddress(userRegistrationDto.getWalletAddress());
         paymentRequest.setUserEmail(userRegistrationDto.getEmail());
+        paymentRequest.setMobileNumber(userRegistrationDto.getMobileNumber());
+        paymentRequest.setPassword(userRegistrationDto.getPassword());
+        paymentRequest.setName(userRegistrationDto.getName());
+        paymentRequest.setInvestmentPackage(investmentPackage);
         transactionService.createTransaction(paymentRequest,investmentPackage);
 
         // add necessary information to the model

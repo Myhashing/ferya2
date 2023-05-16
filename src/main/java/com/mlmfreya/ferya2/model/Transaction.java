@@ -37,5 +37,10 @@ public class Transaction {
     @JoinColumn(name = "investment_package_id", nullable = false)
     private InvestmentPackage investmentPackage;
 
+    private  Status status;
+
+    public enum Status{
+        Pending_payment,Payment_Approved
+    }
     // setters and getters here
 }

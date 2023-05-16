@@ -32,11 +32,15 @@ public class UserService {
     @Autowired
     private JavaMailSender javaMailSender;
 
+
     public User registerUser(UserRegistrationDto userRegistrationDto) {
         ModelMapper modelMapper = new ModelMapper();
 
         User user = modelMapper.map(userRegistrationDto, User.class);
+        return registerUser(user);
 
+    }
+    public User registerUser(User user){
         user.setRole(User.Role.USER);
 
         user.setPassword(passwordEncoder.encode(user.getPassword()));
