@@ -4,10 +4,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mlmfreya.ferya2.dto.UserRegistrationDto;
 import com.mlmfreya.ferya2.dto.WalletResponse;
-import com.mlmfreya.ferya2.model.InvestmentPackage;
-import com.mlmfreya.ferya2.model.PaymentRequest;
-import com.mlmfreya.ferya2.model.Transaction;
-import com.mlmfreya.ferya2.model.User;
+import com.mlmfreya.ferya2.model.*;
 import com.mlmfreya.ferya2.repository.TransactionRepository;
 import com.mlmfreya.ferya2.service.*;
 import jakarta.servlet.http.HttpSession;
@@ -44,6 +41,11 @@ public class OrderController {
     @Autowired
     private TransactionRepository transactionRepository;
 
+    @Autowired
+    private WalletService walletService;
+
+    @Autowired
+    private PaymentWatcherService paymentWatcherService;
     @GetMapping("/list")
     public String listPackages(Model model) {
         List<InvestmentPackage> packages = packageService.getAllPackages();
@@ -114,6 +116,13 @@ public class OrderController {
             String apiResponse = tronWebService.makeApiRequest(createWalletApiUrl,"POST");
             ObjectMapper mapper = new ObjectMapper();
             WalletResponse response = mapper.readValue(apiResponse, WalletResponse.class);
+            Wallet wallet = new Wallet();
+            wallet.setHex(response.getData().getAddress().getHex());
+            wallet.setBase58(response.getData().getAddress().getBase58());
+            wallet.setPrivateKey(response.getData().getPrivateKey());
+            wallet.setPublicKey(response.getData().getPublicKey());
+            wallet.setEmail(userRegistrationDto.getEmail());
+            walletService.saveWallet(wallet);
             paymentWalletAddress = response.getData().getAddress().getBase58();
         } catch (IOException e) {
             // handle exception when calling the API
@@ -126,12 +135,14 @@ public class OrderController {
         paymentRequest.setWalletAddress(paymentWalletAddress);
         paymentRequest.setAmount(cart.getInvestmentAmount());
         paymentRequest.setFromAddress(userRegistrationDto.getWalletAddress());
-
+        paymentRequest.setUserEmail(userRegistrationDto.getEmail());
         transactionService.createTransaction(paymentRequest,investmentPackage);
 
         // add necessary information to the model
         model.addAttribute("walletAddress", paymentWalletAddress);
         model.addAttribute("timer", 30 * 60); // 30 minutes
+        model.addAttribute("amount",paymentRequest.getAmount());
+        paymentWatcherService.watchPayment(paymentWalletAddress, cart.getInvestmentAmount(), userRegistrationDto.getEmail());
 
         // clear the cart
         cart.clear();
@@ -154,7 +165,7 @@ public class OrderController {
 
         // check wallet balance
         String walletAddress = cart.getWalletAddress();
-        BigDecimal balance = checkWalletBalance(walletAddress); // you'll need to implement checkWalletBalance method
+        BigDecimal balance = tronWebService.checkWalletBalance(walletAddress); // you'll need to implement checkWalletBalance method
         BigDecimal requiredAmount = cart.getInvestmentAmount();
 
         // compare balance with the required amount
@@ -184,21 +195,9 @@ public class OrderController {
         // redirect to a success page
         return "redirect:/success";
     }
-    private BigDecimal checkWalletBalance(String walletAddress) {
-        String apiUrl = "http://localhost:3000/api/tron/getTokenBalance/" + walletAddress;
-        String apiResponse;
-        try {
-            apiResponse = tronWebService.makeApiRequest(apiUrl,"GET");
-            ObjectMapper mapper = new ObjectMapper();
-            JsonNode response = mapper.readTree(apiResponse);
-            String balanceString = response.get("data").asText();
-            return new BigDecimal(balanceString);
-        } catch (IOException e) {
-            // handle exception when calling the API
-            e.printStackTrace();
-            throw new RuntimeException("Failed to check wallet balance");
-        }
-    }
+
+
+
 
 
 

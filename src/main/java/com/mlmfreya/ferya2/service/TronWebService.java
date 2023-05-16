@@ -1,5 +1,7 @@
 package com.mlmfreya.ferya2.service;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -11,6 +13,7 @@ import org.apache.http.util.EntityUtils;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 
 @Service
 public class TronWebService {
@@ -33,6 +36,26 @@ public class TronWebService {
         HttpEntity responseEntity = response.getEntity();
         String responseString = EntityUtils.toString(responseEntity, "UTF-8");
         return responseString;
+    }
+
+    public BigDecimal checkWalletBalance(String walletAddress) {
+        String apiUrl = "http://localhost:3000/api/tron/getBalance/" + walletAddress;
+        String apiResponse;
+        try {
+            apiResponse = makeApiRequest(apiUrl,"GET");
+            ObjectMapper mapper = new ObjectMapper();
+            JsonNode response = mapper.readTree(apiResponse);
+            JsonNode dataNode = response.get("data");
+            if (dataNode == null || dataNode.isNull()) {
+                throw new RuntimeException("No data field in the response");
+            }
+            double balance = dataNode.asDouble();
+            return BigDecimal.valueOf(balance);
+        } catch (IOException e) {
+            // handle exception when calling the API
+            e.printStackTrace();
+            throw new RuntimeException("Failed to check wallet balance");
+        }
     }
 
 

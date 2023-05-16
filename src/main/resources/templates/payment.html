@@ -33,13 +33,20 @@
         var walletAddress = document.getElementById("walletAddress").innerText;
 
         // Make API call to check wallet status
-        fetch('http://localhost:3000/api/tron/getTokenBalance/' + walletAddress)
+        fetch('http://localhost:3000/api/tron/getBalance/' + walletAddress)
             .then(response => response.json())
             .then(data => {
-                var balance = data.balance;
+                var balance = data.data;
+
+                console.log('Balance:', balance); // Added for debugging
+                var amountElement = document.getElementById("amount");
+                var requiredAmount = Number(amountElement.textContent);
+                console.log('Required amount:', requiredAmount);
+
 
                 // Check if balance is sufficient
-                if (parseFloat(balance) >= parseFloat(amount)) {
+                if (parseFloat(balance/1000000) >= parseFloat(requiredAmount)) {
+                    console.log('Balance is sufficient. Redirecting...'); // Added for debugging
                     // If payment is received, clear intervals and redirect to confirmation page
                     clearInterval(timer);
                     clearInterval(checkWalletStatus);
@@ -50,6 +57,7 @@
                 console.error('Error:', error);
             });
     }, 50000); // Check every 5 seconds
+
 </script>
 </body>
 </html>

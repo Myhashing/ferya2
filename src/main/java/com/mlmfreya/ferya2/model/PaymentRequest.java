@@ -23,6 +23,10 @@ public class PaymentRequest {
 
     @Column
     private String fromAddress;
+
+    @Column
+    private String userEmail;
+
     @Column
     private LocalDateTime created; // When the payment request was created
 
