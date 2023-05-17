@@ -36,9 +36,13 @@ public class UserService {
         ModelMapper modelMapper = new ModelMapper();
 
         User user = modelMapper.map(userRegistrationDto, User.class);
+        return registerUser(user);
 
+
+    }
+
+    public User registerUser(User user) {
         user.setRole(User.Role.USER);
-
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         return userRepository.save(user);
     }

@@ -1,6 +1,9 @@
 package com.mlmfreya.ferya2.service;
 import com.mlmfreya.ferya2.model.PaymentRequest;
+import com.mlmfreya.ferya2.model.Transaction;
 import com.mlmfreya.ferya2.model.User;
+import com.mlmfreya.ferya2.repository.PaymentRequestRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
 
@@ -12,14 +15,21 @@ public class PaymentWatcherService {
     private final TransactionService transactionService;
     private final EmailService emailService; // You'll need a service for sending emails
 
+    @Autowired
+    private TronWebService tronWebService;
+
+    private final PaymentRequestRepository paymentRequestRepository;
+
     public PaymentWatcherService(UserService userService,
                                  WalletService walletService,
                                  TransactionService transactionService,
-                                 EmailService emailService) {
+                                 EmailService emailService,
+                                 PaymentRequestRepository paymentRequestRepository) {
         this.userService = userService;
         this.walletService = walletService;
         this.transactionService = transactionService;
         this.emailService = emailService;
+        this.paymentRequestRepository = paymentRequestRepository;
     }
 
     public void watchPayment(String walletAddress, BigDecimal amount, String userEmail) {
@@ -27,9 +37,9 @@ public class PaymentWatcherService {
         new Thread(() -> {
             boolean paymentReceived = false;
             while (!paymentReceived) {
-                BigDecimal balance = walletService.getBalance(walletAddress);
+                BigDecimal balance = tronWebService.checkWalletBalance(walletAddress);
                 if (balance.compareTo(amount) >= 0) {
-                    processPayment(userEmail, amount);
+                    processPayment(walletAddress, amount);
                     paymentReceived = true;
                 }
                 try {
@@ -41,15 +51,20 @@ public class PaymentWatcherService {
         }).start();
     }
 
-    private void processPayment(String userEmail, BigDecimal amount) {
-        PaymentRequest paymentRequest = P
+    private void processPayment(String walletAdress, BigDecimal amount) {
+        PaymentRequest paymentRequest = paymentRequestRepository.findPaymentRequestByWalletAddress(walletAdress);
+        User user = new User();
+        user.setPassword(paymentRequest.getPassword());
+        user.setEmail(paymentRequest.getEmail());
+        user.setFullName(paymentRequest.getName());
+        user.setTronWalletAddress(paymentRequest.getWalletAddress());
         // Register the user
-        User user = userService.registerUser(userEmail);
+        User userNew = userService.registerUser(user);
         // Add the purchased package to the user's account
-        userService.addPackageToUser(user, amount);
+        userService.addPackageToUser(userNew, paymentRequest.getInvestmentPackage() ,amount);
         // Send a welcome email to the user
         emailService.sendWelcomeEmail(user);
         // Update the transaction status
-        transactionService.updateTransactionStatus(userEmail, "Payment received");
+        transactionService.updateTransactionStatus(paymentRequest.getWalletAddress(), Transaction.Status.complete);
     }
 }

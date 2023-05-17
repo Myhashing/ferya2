@@ -1,9 +1,15 @@
 package com.mlmfreya.ferya2.model;
 
 
+import com.mlmfreya.ferya2.dto.UserRegistrationDto;
 import jakarta.persistence.*;
 import lombok.Data;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
@@ -24,11 +30,24 @@ public class PaymentRequest {
     @Column
     private String fromAddress;
 
-    @Column
-    private String userEmail;
 
-    @Column
-    private LocalDateTime created; // When the payment request was created
+    private String name;
+    @NotEmpty
+    @Email
+    private String email;
+    private String mobileNumber;
+    @NotEmpty
+    @Size(min = 6, max = 15)
+    private String password;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "investment_package_id", referencedColumnName = "id")
+    private InvestmentPackage investmentPackage;
+
+    @CreationTimestamp
+    private LocalDateTime createdAt;
+
+    @UpdateTimestamp
+    private LocalDateTime updatedAt;
     // setters and getters here
 }

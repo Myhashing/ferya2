@@ -122,6 +122,7 @@ public class OrderController {
             wallet.setPrivateKey(response.getData().getPrivateKey());
             wallet.setPublicKey(response.getData().getPublicKey());
             wallet.setEmail(userRegistrationDto.getEmail());
+
             walletService.saveWallet(wallet);
             paymentWalletAddress = response.getData().getAddress().getBase58();
         } catch (IOException e) {
@@ -135,7 +136,11 @@ public class OrderController {
         paymentRequest.setWalletAddress(paymentWalletAddress);
         paymentRequest.setAmount(cart.getInvestmentAmount());
         paymentRequest.setFromAddress(userRegistrationDto.getWalletAddress());
-        paymentRequest.setUserEmail(userRegistrationDto.getEmail());
+        paymentRequest.setEmail(userRegistrationDto.getEmail());
+        paymentRequest.setName(userRegistrationDto.getName());
+        paymentRequest.setMobileNumber(userRegistrationDto.getMobileNumber());
+        paymentRequest.setPassword(userRegistrationDto.getPassword());
+        paymentRequest.setInvestmentPackage(investmentPackage);
         transactionService.createTransaction(paymentRequest,investmentPackage);
 
         // add necessary information to the model

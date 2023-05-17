@@ -13,8 +13,8 @@ public class PaymentStatusController {
         this.transactionService = transactionService;
     }
 
-    @GetMapping("/payment-status/{userEmail}")
-    public String getPaymentStatus(@PathVariable String userEmail) {
-        return transactionService.getTransactionStatus(userEmail);
+    @GetMapping("/payment-status/{walletAddress}")
+    public String getPaymentStatus(@PathVariable String walletAddress) {
+        return transactionService.getTransactionStatus(walletAddress).toString();
     }
 }

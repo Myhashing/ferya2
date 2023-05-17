@@ -11,8 +11,7 @@ public class WalletService {
 
     private final WalletRepository walletRepository;
 
-    @Autowired
-    private BlockchainService blockchainService;
+
     @Autowired
     public WalletService(WalletRepository walletRepository) {
         this.walletRepository = walletRepository;
@@ -22,10 +21,7 @@ public class WalletService {
         return walletRepository.save(wallet);
     }
 
-    public BigDecimal getBalance(String walletAddress) {
-        // Get balance from blockchain
-        BigDecimal balance = blockchainService.getBalance(walletAddress);
 
-        return balance;
-    }
+
+
 }

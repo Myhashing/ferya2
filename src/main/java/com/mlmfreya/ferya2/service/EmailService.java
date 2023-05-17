@@ -19,4 +19,13 @@ public class EmailService {
                 + siteURL + "/verify?token=" + user.getEmailVerificationToken());
         mailSender.send(message);
     }
+
+
+    public void sendWelcomeEmail(User user) {
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setTo(user.getEmail());
+        message.setSubject("Welcome to our service!");
+        message.setText("To verify your email address, please click the link below:\n");
+        mailSender.send(message);
+    }
 }
