@@ -3,8 +3,10 @@ package com.mlmfreya.ferya2.service;
 import com.mlmfreya.ferya2.model.InvestmentPackage;
 import com.mlmfreya.ferya2.model.PaymentRequest;
 import com.mlmfreya.ferya2.model.Transaction;
+import com.mlmfreya.ferya2.repository.InvestmentPackageRepository;
 import com.mlmfreya.ferya2.repository.PaymentRequestRepository;
 import com.mlmfreya.ferya2.repository.TransactionRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +19,8 @@ public class TransactionService {
     private final TransactionRepository transactionRepository;
     private final PaymentRequestRepository paymentRequestRepository;
 
+    @Autowired
+    private InvestmentPackageRepository investmentPackageRepository;
     @Autowired
     public TransactionService(TransactionRepository transactionRepository, PaymentRequestRepository paymentRequestRepository) {
         this.transactionRepository = transactionRepository;
@@ -35,6 +39,11 @@ public class TransactionService {
         transaction.setInvestmentPackage(investmentPackage);
         transaction.setStatus(Transaction.Status.pending);
         transactionRepository.save(transaction);
+
+        // Ensure the InvestmentPackage entity is managed before saving the PaymentRequest
+        InvestmentPackage managedInvestmentPackage = investmentPackageRepository.findById(investmentPackage.getId())
+                .orElseThrow(() -> new EntityNotFoundException("InvestmentPackage not found"));
+        paymentRequest.setInvestmentPackage(managedInvestmentPackage);
         createPaymentRequest(paymentRequest);
     }
 
