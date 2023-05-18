@@ -32,6 +32,9 @@ public class UserService {
     @Autowired
     private JavaMailSender javaMailSender;
 
+    @Autowired
+    private CommissionService commissionService;
+
     public User registerUser(UserRegistrationDto userRegistrationDto) {
         ModelMapper modelMapper = new ModelMapper();
 
@@ -94,6 +97,9 @@ public class UserService {
         user.getInvestmentPackages().add(investmentPackage);
         user.getInvestedAmounts().add(investedAmount);
         userRepository.save(user);
+
+        // Calculate and distribute commissions after a new package is added to the user
+        commissionService.calculateAndDistributeCommissions(user, investedAmount);
     }
 
     public boolean isEmailUnique(String email) {

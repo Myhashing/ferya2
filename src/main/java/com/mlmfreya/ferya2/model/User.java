@@ -1,11 +1,9 @@
 package com.mlmfreya.ferya2.model;
 
-
 import jakarta.persistence.*;
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
-
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -19,7 +17,6 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
 
     @Column(unique = true)
     private String email;
@@ -43,7 +40,6 @@ public class User {
         USER, ADMIN
     }
 
-
     @Column(name = "reset_password_token")
     private String resetPasswordToken;
 
@@ -65,5 +61,24 @@ public class User {
     @ElementCollection
     private List<BigDecimal> investedAmounts = new ArrayList<>();
 
-}
+    @ManyToOne
+    @JoinColumn(name = "parent_id")
+    private User parent;
 
+    @OneToMany(mappedBy = "parent", cascade = CascadeType.ALL)
+    private List<User> referrals = new ArrayList<>();
+
+    @Column
+    private BigDecimal totalReferralCommission = BigDecimal.ZERO;
+
+    @Column
+    private BigDecimal totalNetworkCommission = BigDecimal.ZERO;
+
+    @Column
+    private int level;
+    // In the User model
+    private Long parentId;
+    private Long leftChildId;
+    private Long rightChildId;
+
+}
