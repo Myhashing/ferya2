@@ -3,6 +3,7 @@ package com.mlmfreya.ferya2.controller;
 
 import com.mlmfreya.ferya2.dto.UserRegistrationDto;
 import com.mlmfreya.ferya2.model.User;
+import com.mlmfreya.ferya2.repository.UserRepository;
 import com.mlmfreya.ferya2.service.UserDetailsServiceImpl;
 import com.mlmfreya.ferya2.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -23,12 +24,18 @@ public class UserController {
     private final UserService userService;
     private final UserDetailsServiceImpl userDetailsService;
     private final PasswordEncoder passwordEncoder;
+    private final UserRepository userRepository;
+
 
     @Autowired
-    public UserController(UserService userService, UserDetailsServiceImpl userDetailsService, PasswordEncoder passwordEncoder) {
+    public UserController(UserService userService,
+                          UserDetailsServiceImpl userDetailsService,
+                          PasswordEncoder passwordEncoder,
+                          UserRepository userRepository) {
         this.userService = userService;
         this.userDetailsService = userDetailsService;
         this.passwordEncoder = passwordEncoder;
+        this.userRepository = userRepository;
     }
 
     @GetMapping("/users/{email}")
@@ -93,6 +100,12 @@ public class UserController {
         } else {
             return "redirect:/login?error";  // Redirect back to login page if authentication fails
         }
+    }
+
+    @GetMapping("/public/checkEmailUnique")
+    @ResponseBody
+    public boolean checkEmailUnique(@RequestParam String email) {
+        return userService.isEmailUnique(email);
     }
 
 

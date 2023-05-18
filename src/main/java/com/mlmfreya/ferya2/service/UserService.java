@@ -44,6 +44,10 @@ public class UserService {
     public User registerUser(User user) {
         user.setRole(User.Role.USER);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
+        if (userRepository.findByEmail(user.getEmail()).isPresent()) {
+            throw new IllegalArgumentException("Email is already in use");
+        }
+        // If not, save the user
         return userRepository.save(user);
     }
 
@@ -90,6 +94,10 @@ public class UserService {
         user.getInvestmentPackages().add(investmentPackage);
         user.getInvestedAmounts().add(investedAmount);
         userRepository.save(user);
+    }
+
+    public boolean isEmailUnique(String email) {
+        return userRepository.findByEmail(email) == null;
     }
 
 

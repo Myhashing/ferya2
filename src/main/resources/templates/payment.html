@@ -10,6 +10,7 @@
 <p id="walletAddress" th:text="${walletAddress}"></p>
 <div id="qrcode"></div>
 <p>You have <span id="timer" th:text="${timer}"></span> minutes to complete this transaction.</p>
+<a href="/shop/backToShop">Back to Shop List</a> <!-- Added line -->
 <script>
     // Generate QR Code
     new QRCode(document.getElementById("qrcode"), document.getElementById("walletAddress").innerText);
@@ -43,7 +44,6 @@
                 var requiredAmount = Number(amountElement.textContent);
                 console.log('Required amount:', requiredAmount);
 
-
                 // Check if balance is sufficient
                 if (parseFloat(balance/1000000) >= parseFloat(requiredAmount)) {
                     console.log('Balance is sufficient. Redirecting...'); // Added for debugging
@@ -57,7 +57,6 @@
                 console.error('Error:', error);
             });
     }, 50000); // Check every 5 seconds
-
 </script>
 </body>
 </html>

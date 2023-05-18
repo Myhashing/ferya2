@@ -13,10 +13,10 @@ spring:
       port: 8090
 
   mail:
-    host: smtp.gmail.com
+    host: mail.amanatpay.com
     port: 587
-    username: your_email@gmail.com
-    password: your_email_password
+    username: admin@amanatpay.com
+    password: 2300479435Reza00!
 
 
 encryption:

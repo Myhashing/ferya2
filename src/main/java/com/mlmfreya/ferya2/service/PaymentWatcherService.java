@@ -32,7 +32,7 @@ public class PaymentWatcherService {
         this.paymentRequestRepository = paymentRequestRepository;
     }
 
-    public void watchPayment(String walletAddress, BigDecimal amount, String userEmail) {
+    public void watchPayment(String walletAddress, BigDecimal amount) {
         // Start a new thread to watch for incoming payments
         new Thread(() -> {
             boolean paymentReceived = false;

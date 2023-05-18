@@ -147,51 +147,61 @@ public class OrderController {
         model.addAttribute("walletAddress", paymentWalletAddress);
         model.addAttribute("timer", 30 * 60); // 30 minutes
         model.addAttribute("amount",paymentRequest.getAmount());
-        paymentWatcherService.watchPayment(paymentWalletAddress, cart.getInvestmentAmount(), userRegistrationDto.getEmail());
+        paymentWatcherService.watchPayment(paymentWalletAddress, cart.getInvestmentAmount());
 
         // clear the cart
         cart.clear();
 
+        // Save necessary data to session
+        session.setAttribute("walletAddress", paymentWalletAddress);
+        session.setAttribute("timer", 30 * 60); // 30 minutes
+        session.setAttribute("amount", paymentRequest.getAmount());
         // redirect to the payment page
+        return "redirect:/shop/payment";
+    }
+
+    @GetMapping("/payment")
+    public String showPaymentPage(HttpSession session, Model model) {
+        String walletAddress = (String) session.getAttribute("walletAddress");
+        Integer timer = (Integer) session.getAttribute("timer");
+        BigDecimal amount = (BigDecimal) session.getAttribute("amount");
+
+        if (walletAddress == null || timer == null || amount == null) {
+            // If any of the required data is missing, redirect back to shop
+            return "redirect:/shop/list";
+        }
+
+        model.addAttribute("walletAddress", walletAddress);
+        model.addAttribute("timer", timer);
+        model.addAttribute("amount", amount);
+
+        // If all data is present, display the payment page
         return "payment";
+    }
+
+    @GetMapping("/backToShop")
+    public String backToShop(HttpSession session) {
+        // Reset the session
+        session.invalidate();
+
+        // Redirect back to shop
+        return "redirect:/shop/list";
     }
 
 
     @GetMapping("/payment-confirmed")
     public String paymentConfirmed(HttpSession session) {
 
-        // retrieve the user from session
-        User user = (User) session.getAttribute("user");
-        // retrieve the cart from session
-        ShoppingCart cart = (ShoppingCart) session.getAttribute("cart");
-
         // retrieve the user registration data from session
         UserRegistrationDto userRegistrationDto = (UserRegistrationDto) session.getAttribute("userRegistration");
 
-        // check wallet balance
-        String walletAddress = cart.getWalletAddress();
-        BigDecimal balance = tronWebService.checkWalletBalance(walletAddress); // you'll need to implement checkWalletBalance method
-        BigDecimal requiredAmount = cart.getInvestmentAmount();
+        // retrieve the cart from session
+        ShoppingCart cart = (ShoppingCart) session.getAttribute("cart");
 
-        // compare balance with the required amount
-        if(balance.compareTo(requiredAmount) < 0) {
-            // if balance is not enough, redirect to a page informing the user about it
-            return "redirect:/payment-failed";
-        }
-
-        // create the user
-        User userNew = userService.registerUser(userRegistrationDto);
-
-        // add the package to the user's purchases
-        InvestmentPackage investmentPackage = cart.getPackage();
-        userService.addPackageToUser(userNew, investmentPackage, requiredAmount);
-
-        // save this transaction in the purchase history
-        Transaction transaction = new Transaction();
-        transaction.setUser(userNew);
-        transaction.setInvestmentPackage(investmentPackage);
-        transaction.setAmount(requiredAmount);
-        transactionRepository.save(transaction);
+       /* // initiate the watcher for the wallet balance
+        paymentWatcherService.watchPayment(cart.getWalletAddress(),
+                cart.getInvestmentAmount(),
+                userRegistrationDto.getEmail());*/
 
         // remove the cart and user registration data from session
         session.removeAttribute("cart");
@@ -200,6 +210,8 @@ public class OrderController {
         // redirect to a success page
         return "redirect:/success";
     }
+
+
 
 
 
