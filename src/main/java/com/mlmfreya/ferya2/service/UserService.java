@@ -2,8 +2,10 @@ package com.mlmfreya.ferya2.service;
 
 
 import com.mlmfreya.ferya2.dto.UserRegistrationDto;
+import com.mlmfreya.ferya2.model.Investment;
 import com.mlmfreya.ferya2.model.InvestmentPackage;
 import com.mlmfreya.ferya2.model.User;
+import com.mlmfreya.ferya2.repository.InvestmentRepository;
 import com.mlmfreya.ferya2.repository.UserRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +16,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.Optional;
+import java.util.Random;
 import java.util.UUID;
 
 @Service
@@ -34,25 +38,77 @@ public class UserService {
 
     @Autowired
     private CommissionService commissionService;
+    @Autowired
+    private InvestmentRepository investmentRepository;
 
-    public User registerUser(UserRegistrationDto userRegistrationDto) {
+    public User registerUser(UserRegistrationDto userRegistrationDto, User parent) {
         ModelMapper modelMapper = new ModelMapper();
 
         User user = modelMapper.map(userRegistrationDto, User.class);
-        return registerUser(user);
+        String position;
+        if (parent.getLeftChild() == null) {
+            position = "LEFT";
+        } else if (parent.getRightChild() == null) {
+            position = "RIGHT";
+        } else {
+            throw new IllegalArgumentException("Parent user already has two children");
+        }
+        return registerUser(user,parent,position);
 
 
     }
-
     public User registerUser(User user) {
         user.setRole(User.Role.USER);
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+
+        if (userRepository.findByEmail(user.getEmail()).isPresent()) {
+            throw new IllegalArgumentException("Email is already in use");
+        }
+
+        // If not, save the user
+        return userRepository.save(user);
+    }
+
+
+    public User registerUser(User user, User parent, String position) {
+        user.setRole(User.Role.USER);
+        user.setParent(parent);
+
+        // Save the user before setting as a child
+        User savedUser = userRepository.save(user);
+
+        if (position.equals("LEFT")) {
+            parent.setLeftChild(savedUser);
+        } else if (position.equals("RIGHT")) {
+            parent.setRightChild(savedUser);
+        }
+
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         if (userRepository.findByEmail(user.getEmail()).isPresent()) {
             throw new IllegalArgumentException("Email is already in use");
         }
+        String referralCode  ;
+        do {
+            referralCode = String.format("%06d", new Random().nextInt(999999));
+        } while (referralCodeExists(referralCode));
+        user.setReferralCode(referralCode);
+
         // If not, save the user
-        return userRepository.save(user);
+        userRepository.save(parent);
+        return savedUser;
     }
+
+
+    public boolean referralCodeExists(String referralCode){
+       return userRepository.existsByReferralCode(referralCode);
+
+    }
+
+    public User getUserByReferralCode(String referralCode) {
+        return userRepository.findByReferralCode(referralCode);
+    }
+
+
 
 
     public Optional<User> getUserByEmail(String email) {
@@ -94,17 +150,33 @@ public class UserService {
     }
 
     public void addPackageToUser(User user, InvestmentPackage investmentPackage, BigDecimal investedAmount) {
-        user.getInvestmentPackages().add(investmentPackage);
-        user.getInvestedAmounts().add(investedAmount);
+        Investment investment = new Investment();
+        investment.setUser(user);
+        investment.setInvestmentPackage(investmentPackage);
+        investment.setInvestedAmount(investedAmount);
+        investment.setInvestmentDate(LocalDateTime.now());
+        investment.setNextInterestPaymentDate(LocalDateTime.now().plusDays(30));
+        investmentRepository.save(investment);
+
+        user.getInvestments().add(investment);
         userRepository.save(user);
 
         // Calculate and distribute commissions after a new package is added to the user
         commissionService.calculateAndDistributeCommissions(user, investedAmount);
     }
 
+
     public boolean isEmailUnique(String email) {
-        return userRepository.findByEmail(email) == null;
+        Optional<User> user = userRepository.findByEmail(email);
+        if(user == null || user.isEmpty()) {
+            System.out.println("Email " + email + " is unique.");
+            return true;
+        } else {
+            System.out.println("Email " + email + " already exists.");
+            return false;
+        }
     }
+
 
 
 }

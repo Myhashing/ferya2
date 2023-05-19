@@ -22,3 +22,6 @@ spring:
 encryption:
   key: d5s4a6d4a65d4sa6a554f6as
   salt: 54dfasfd4as5df4as64da6546a4d6
+logging:
+  level:
+    root: DEBUG

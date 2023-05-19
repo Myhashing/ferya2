@@ -11,6 +11,10 @@
     <input id="email" type="email" name="email" placeholder="Email" required />
     <input type="text" name="mobileNumber" placeholder="Mobile Number" required />
     <input type="text" name="walletAddress" placeholder="Wallet Address" required />
+    <!-- Add form field for referral code -->
+    <input id="parentReferralCode" type="text" name="parentReferralCode" placeholder="Referral Code (optional)" />
+    <div th:if="${errorMessage != null}" class="error-message" th:text="${errorMessage}"></div>
+
     <input type="password" name="password" placeholder="Password" required />
     <input type="password" name="confirmPassword" placeholder="Confirm Password" required />
     <!-- user/form.html -->
@@ -20,19 +24,48 @@
 <script>
     document.getElementById('registrationForm').addEventListener('submit', function(event) {
         event.preventDefault(); // prevent form from submitting
+
         const email = document.getElementById('email').value;
-        fetch('/public/checkEmailUnique?email=' + email)
-            .then(response => response.json())
-            .then(isUnique => {
-                if (isUnique) {
-                    // Email is unique, submit the form
-                    document.getElementById('registrationForm').submit();
-                } else {
-                    // Email is not unique, show an error message
-                    alert('Email is already in use');
+        const parentReferralCode = document.getElementById('parentReferralCode').value;
+
+        checkEmailUnique(email)
+            .then(isEmailUnique => {
+                if (!isEmailUnique) {
+                    throw new Error('Email is already in use.');
                 }
+
+                // If there's no parent referral code, resolve immediately with true
+                if (!parentReferralCode) {
+                    return Promise.resolve(true);
+                }
+
+                return checkReferralCodeExists(parentReferralCode);
+            })
+            .then(isReferralValid => {
+                if (!isReferralValid) {
+                    throw new Error('Referral code is invalid.');
+                }
+
+                // All checks passed, submit the form
+                document.getElementById('registrationForm').submit();
+            })
+            .catch(error => {
+                // Show error message
+                alert('Check your inputs: ' + error.message);
             });
     });
+
+    function checkEmailUnique(email) {
+        return fetch('/public/checkEmailUnique?email=' + email)
+            .then(response => response.json());
+    }
+
+    function checkReferralCodeExists(referralCode) {
+        return fetch('/public/referralCodeExists?referralCode=' + referralCode)
+            .then(response => response.json());
+    }
+
+
 
 </script>
 </body>

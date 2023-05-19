@@ -9,7 +9,6 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-
 @Entity
 @Data
 @Table(name = "app_user")
@@ -36,49 +35,77 @@ public class User {
     @UpdateTimestamp
     private LocalDateTime updatedAt;
 
+    @Column(unique = true)
+    private String referralCode;
+
     public enum Role {
         USER, ADMIN
     }
 
-    @Column(name = "reset_password_token")
     private String resetPasswordToken;
-
-    public void setResetPasswordToken(String resetPasswordToken) {
-        this.resetPasswordToken = resetPasswordToken;
-    }
-
     private String emailVerificationToken;
     private boolean isEmailVerified = false;
 
-    @ManyToMany
-    @JoinTable(
-            name = "user_packages",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "package_id")
-    )
-    private List<InvestmentPackage> investmentPackages = new ArrayList<>();
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<Investment> investments = new ArrayList<>();
 
-    @ElementCollection
-    private List<BigDecimal> investedAmounts = new ArrayList<>();
 
-    @ManyToOne
+
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "parent_id")
     private User parent;
 
     @OneToMany(mappedBy = "parent", cascade = CascadeType.ALL)
     private List<User> referrals = new ArrayList<>();
 
-    @Column
     private BigDecimal totalReferralCommission = BigDecimal.ZERO;
-
-    @Column
     private BigDecimal totalNetworkCommission = BigDecimal.ZERO;
 
-    @Column
     private int level;
-    // In the User model
-    private Long parentId;
-    private Long leftChildId;
-    private Long rightChildId;
+
+    @OneToOne(fetch = FetchType.EAGER)
+    private User leftChild;
+
+    @OneToOne(fetch = FetchType.EAGER)
+    private User rightChild;
+
+    public boolean hasBothChildren() {
+        return leftChild != null && rightChild != null;
+    }
+
+    @OneToMany(mappedBy = "beneficiary", cascade = CascadeType.ALL)
+    private List<Commission> commissions = new ArrayList<>();
+
+    public boolean hasInvestment() {
+        return !this.investments.isEmpty();
+    }
+
+
+    private BigDecimal balance;
+
+    public BigDecimal getTotalCommission() {
+        return commissions.stream()
+                .map(Commission::getAmount)
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
+    }
+
+    public BigDecimal getInvestedAmount() {
+        if(this.investments.isEmpty()) {
+            throw new RuntimeException("No investments found for this user.");
+        } else {
+            return this.investments.get(0).getInvestedAmount();
+        }
+    }
+
+    public BigDecimal getTotalInvestedAmount() {
+        if(this.investments.isEmpty()) {
+            throw new RuntimeException("No investments found for this user.");
+        } else {
+            return this.investments.stream()
+                    .map(Investment::getInvestedAmount)
+                    .reduce(BigDecimal.ZERO, BigDecimal::add);
+        }
+    }
+
 
 }

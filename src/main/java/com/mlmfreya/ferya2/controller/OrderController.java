@@ -48,11 +48,12 @@ public class OrderController {
     private PaymentWatcherService paymentWatcherService;
     @GetMapping("/list")
     public String listPackages(Model model) {
-        List<InvestmentPackage> packages = packageService.getAllPackages();
-        model.addAttribute("packages", packages);
         if(this.cart != null) {
             this.cart.clear();
         }
+        List<InvestmentPackage> packages = packageService.getAllPackages();
+        model.addAttribute("packages", packages);
+
         return "user/packages";
     }
     @PostMapping("/add-to-cart")
@@ -60,7 +61,7 @@ public class OrderController {
                             @RequestParam("investmentAmount") BigDecimal investmentAmount,
                             Model model, HttpSession session) {
         InvestmentPackage investmentPackage = packageService.getPackage(packageId);
-        if(this.cart != null) {
+        if(this.cart == null) {
             this.cart.clear();
         }
 
@@ -105,6 +106,24 @@ public class OrderController {
         if (cart == null) {
             return "redirect:/shop/list"; // Or wherever you want to redirect if there is no cart
         }
+        // Get the parent referral code from the registration form
+        String parentReferralCode = userRegistrationDto.getParentReferralCode();
+        User parent = null;
+
+        if(parentReferralCode != null && !parentReferralCode.isEmpty()) {
+            parent = userService.getUserByReferralCode(parentReferralCode);
+            if (parent == null) {
+                model.addAttribute("errorMessage", "Parent referral code does not exist.");
+                return "user/form";
+            } else if(parent.getLeftChild() != null && parent.getRightChild() != null) {
+                model.addAttribute("errorMessage", "Parent already has two children. No room for more.");
+                return "user/form";
+            } else {
+                session.setAttribute("parentUser", parent);
+            }
+        }
+
+
         // save user registration data in session
         session.setAttribute("userRegistration", userRegistrationDto);
         // create transaction
@@ -141,6 +160,11 @@ public class OrderController {
         paymentRequest.setMobileNumber(userRegistrationDto.getMobileNumber());
         paymentRequest.setPassword(userRegistrationDto.getPassword());
         paymentRequest.setInvestmentPackage(investmentPackage);
+
+        // Set parentId if parent is not null
+        if (parent != null) {
+            paymentRequest.setParentId(parent.getId());
+        }
         transactionService.createTransaction(paymentRequest,investmentPackage);
 
         // add necessary information to the model
@@ -197,11 +221,6 @@ public class OrderController {
 
         // retrieve the cart from session
         ShoppingCart cart = (ShoppingCart) session.getAttribute("cart");
-
-       /* // initiate the watcher for the wallet balance
-        paymentWatcherService.watchPayment(cart.getWalletAddress(),
-                cart.getInvestmentAmount(),
-                userRegistrationDto.getEmail());*/
 
         // remove the cart and user registration data from session
         session.removeAttribute("cart");

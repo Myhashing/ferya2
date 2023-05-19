@@ -29,6 +29,7 @@ public class PaymentRequest {
     @Column
     private String fromAddress;
 
+    private Long parentId;
 
     private String name;
     @NotEmpty

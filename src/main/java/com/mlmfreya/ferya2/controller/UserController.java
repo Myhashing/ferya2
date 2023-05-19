@@ -54,9 +54,8 @@ public class UserController {
     @PostMapping("/register")
     public String registerUser(@ModelAttribute User user) {
         user.setRole(User.Role.ADMIN);
-        ModelMapper modelMapper = new ModelMapper();
-        UserRegistrationDto userDto = modelMapper.map(user, UserRegistrationDto.class);
-        userService.registerUser(userDto);
+
+        userService.registerUser(user);
         return "redirect:/login";
     }
 
@@ -109,6 +108,18 @@ public class UserController {
     }
 
 
+
+    @GetMapping("/public/referralCodeExists")
+    @ResponseBody
+    public boolean referralCodeExists(@RequestParam String referralCode) {
+        User parent = userService.getUserByReferralCode(referralCode);
+        if (parent != null) {
+            // Check if either left or right child is empty
+            return (parent.getLeftChild() == null || parent.getRightChild() == null);
+        } else {
+            return false;
+        }
+    }
 
 
 
