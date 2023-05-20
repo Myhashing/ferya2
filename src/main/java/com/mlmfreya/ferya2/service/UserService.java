@@ -60,10 +60,6 @@ public class UserService {
         return payoutRepository.findByUser(user);
     }
 
-    public UserProfile getUserProfile(User user) {
-        return userProfileRepository.findByUser(user);
-    }
-
 
 
     public void requestWithdraw(User user, double amount, String account) {
@@ -72,9 +68,9 @@ public class UserService {
         // And save the request there for later processing
     }
 
-    public void updateUserProfile(String email, String name, /* other fields */) {
+    public void updateUserProfile(String email, String name) {
         User user = userRepository.findByEmail(email).orElseThrow(() -> new UsernameNotFoundException("User not found"));
-        user.setName(name);
+        user.setFullName(name);
         // Update other fields...
         userRepository.save(user);
     }
