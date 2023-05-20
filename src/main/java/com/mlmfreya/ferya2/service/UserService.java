@@ -74,13 +74,10 @@ public class UserService {
         user.setRole(User.Role.USER);
         user.setParent(parent);
 
-        // Save the user before setting as a child
-        User savedUser = userRepository.save(user);
-
         if (position.equals("LEFT")) {
-            parent.setLeftChild(savedUser);
+            parent.setLeftChild(user);
         } else if (position.equals("RIGHT")) {
-            parent.setRightChild(savedUser);
+            parent.setRightChild(user);
         }
 
         user.setPassword(passwordEncoder.encode(user.getPassword()));
@@ -93,9 +90,11 @@ public class UserService {
         } while (referralCodeExists(referralCode));
         user.setReferralCode(referralCode);
 
+
+        User newUser = userRepository.save(user);
         // If not, save the user
         userRepository.save(parent);
-        return savedUser;
+        return newUser;
     }
 
 

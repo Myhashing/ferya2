@@ -46,7 +46,7 @@ public class User {
     private String emailVerificationToken;
     private boolean isEmailVerified = false;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     private List<Investment> investments = new ArrayList<>();
 
 
@@ -55,7 +55,7 @@ public class User {
     @JoinColumn(name = "parent_id")
     private User parent;
 
-    @OneToMany(mappedBy = "parent", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "parent", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<User> referrals = new ArrayList<>();
 
     private BigDecimal totalReferralCommission = BigDecimal.ZERO;
@@ -73,7 +73,7 @@ public class User {
         return leftChild != null && rightChild != null;
     }
 
-    @OneToMany(mappedBy = "beneficiary", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "beneficiary", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Commission> commissions = new ArrayList<>();
 
     public boolean hasInvestment() {
@@ -106,6 +106,30 @@ public class User {
                     .reduce(BigDecimal.ZERO, BigDecimal::add);
         }
     }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", email='" + email + '\'' +
+                ", fullName='" + fullName + '\'' +
+                ", password='" + password + '\'' +
+                ", role=" + role +
+                ", tronWalletAddress='" + tronWalletAddress + '\'' +
+                ", createdAt=" + createdAt +
+                ", updatedAt=" + updatedAt +
+                ", referralCode='" + referralCode + '\'' +
+                ", resetPasswordToken='" + resetPasswordToken + '\'' +
+                ", emailVerificationToken='" + emailVerificationToken + '\'' +
+                ", isEmailVerified=" + isEmailVerified +
+                ", totalReferralCommission=" + totalReferralCommission +
+                ", totalNetworkCommission=" + totalNetworkCommission +
+                ", level=" + level +
+                ", balance=" + balance +
+                '}';
+    }
+
+
 
 
 }
