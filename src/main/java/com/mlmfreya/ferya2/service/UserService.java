@@ -2,10 +2,10 @@ package com.mlmfreya.ferya2.service;
 
 
 import com.mlmfreya.ferya2.dto.UserRegistrationDto;
-import com.mlmfreya.ferya2.model.Investment;
-import com.mlmfreya.ferya2.model.InvestmentPackage;
-import com.mlmfreya.ferya2.model.User;
+import com.mlmfreya.ferya2.model.*;
+import com.mlmfreya.ferya2.repository.CommissionRepository;
 import com.mlmfreya.ferya2.repository.InvestmentRepository;
+import com.mlmfreya.ferya2.repository.PayoutRepository;
 import com.mlmfreya.ferya2.repository.UserRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 import java.util.Random;
 import java.util.UUID;
@@ -41,6 +42,42 @@ public class UserService {
     @Autowired
     private InvestmentRepository investmentRepository;
 
+
+    @Autowired
+    private CommissionRepository commissionRepository;
+    @Autowired
+    private PayoutRepository payoutRepository;
+
+    public List<Investment> getUserInvestments(User user) {
+        return investmentRepository.findByUser(user);
+    }
+
+    public List<Commission> getUserCommissions(User user) {
+        return commissionRepository.findByUser(user);
+    }
+
+    public List<Payout> getPayoutHistory(User user) {
+        return payoutRepository.findByUser(user);
+    }
+
+    public UserProfile getUserProfile(User user) {
+        return userProfileRepository.findByUser(user);
+    }
+
+
+
+    public void requestWithdraw(User user, double amount, String account) {
+        // Implement your withdrawal logic here
+        // You might want to create a new Withdrawal model and repository
+        // And save the request there for later processing
+    }
+
+    public void updateUserProfile(String email, String name, /* other fields */) {
+        User user = userRepository.findByEmail(email).orElseThrow(() -> new UsernameNotFoundException("User not found"));
+        user.setName(name);
+        // Update other fields...
+        userRepository.save(user);
+    }
     public User registerUser(UserRegistrationDto userRegistrationDto, User parent) {
         ModelMapper modelMapper = new ModelMapper();
 

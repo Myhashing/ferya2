@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>User Dashboard</title>
+</head>
+<body>
+<h1>User Dashboard</h1>
+
+<h2>Your Investments</h2>
+<table>
+    <tr>
+        <th>Investment Name</th>
+        <th>Invested Amount</th>
+        <!-- Add other columns as necessary -->
+    </tr>
+    <tr th:each="investment : ${investments}">
+        <td th:text="${investment.name}"></td>
+        <td th:text="${investment.amount}"></td>
+        <!-- Add other columns as necessary -->
+    </tr>
+</table>
+
+<!-- Repeat this pattern for commissions, payout history, etc. -->
+
+<h2>Withdraw Income</h2>
+<form th:action="@{/withdraw}" method="post">
+    <label for="amount">Amount:</label>
+    <input type="number" id="amount" name="amount" required>
+
+    <label for="account">Destination Account:</label>
+    <input type="text" id="account" name="account" required>
+
+    <input type="submit" value="Submit">
+</form>
+
+<!-- Repeat this pattern for the profile settings form, etc. -->
+</body>
+</html>
