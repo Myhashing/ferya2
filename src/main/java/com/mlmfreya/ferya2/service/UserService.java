@@ -53,7 +53,7 @@ public class UserService {
     }
 
     public List<Commission> getUserCommissions(User user) {
-        return commissionRepository.findByUser(user);
+        return commissionRepository.findByInvestor(user);
     }
 
     public List<Payout> getPayoutHistory(User user) {
@@ -86,6 +86,7 @@ public class UserService {
         } else {
             throw new IllegalArgumentException("Parent user already has two children");
         }
+
         return registerUser(user,parent,position);
 
 

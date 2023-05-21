@@ -7,5 +7,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface CommissionRepository extends JpaRepository<Commission, Long> {
-    List<Commission> findByUser(User user);
+    List<Commission> findByInvestor(User investor);
+    List<Commission> findByBeneficiary(User beneficiary);
 }

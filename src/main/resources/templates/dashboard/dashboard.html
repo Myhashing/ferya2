@@ -1,21 +1,46 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
+    <!-- CSS only -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <title>User Dashboard</title>
 </head>
 <body>
-<h1>User Dashboard</h1>
+<div class="container-fluid">
+    <div class="row">
+        <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+            <div class="sidebar-sticky">
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link active" th:href="@{/dashboard}">
+                            Dashboard
+                        </a>
+                    </li>
+                    <!-- Add more navigation links here -->
+                </ul>
+            </div>
+        </nav>
+
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+            <h1>User Dashboard</h1>
+
 
 <h2>Your Investments</h2>
 <table>
     <tr>
         <th>Investment Name</th>
         <th>Invested Amount</th>
+        <th>Income</th>
+        <th>Interest</th>
+        <th>Commission</th>
+        <th>next interest payout</th>
         <!-- Add other columns as necessary -->
     </tr>
     <tr th:each="investment : ${investments}">
-        <td th:text="${investment.name}"></td>
-        <td th:text="${investment.amount}"></td>
+        <td th:text="${investment.investmentPackage.name}"></td>
+        <td th:text="${investment.investedAmount}"></td>
+        <td th:text="${investment.investmentPackage.returnOnInvestment}"></td>
+        <td th:text="${investment.nextInterestPaymentDate}"></td>
         <!-- Add other columns as necessary -->
     </tr>
 </table>
@@ -32,7 +57,12 @@
 
     <input type="submit" value="Submit">
 </form>
+        </main>
+    </div>
+</div>
 
-<!-- Repeat this pattern for the profile settings form, etc. -->
+<!-- JS, Popper.js, and jQuery -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

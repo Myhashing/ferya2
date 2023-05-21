@@ -29,7 +29,7 @@ public class DashboardController {
         model.addAttribute("commissions", userService.getUserCommissions(user));
         model.addAttribute("payouts", userService.getPayoutHistory(user));
         model.addAttribute("user", user); // User entity is added to the model
-        return "dashboard";
+        return "dashboard/dashboard";
     }
 
 
