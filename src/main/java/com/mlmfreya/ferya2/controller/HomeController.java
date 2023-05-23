@@ -11,14 +11,20 @@ public class HomeController {
         return "home";
     }
 
-    @GetMapping("/about")
+
+    @GetMapping("/public/about")
     public String showAboutPage() {
         return "about";
     }
 
-    @GetMapping("/packages")
-    public String showProductPage() {
-        return "product";
+    @GetMapping("/public/newsletter")
+    public String showNewsletter() {
+        return "newsletter";
+    }
+
+    @GetMapping("/public/signin")
+    public String showSignin() {
+        return "signin";
     }
 
 }
