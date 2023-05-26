@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -252,96 +253,7 @@
         }
     </style>
     <title>Log in | Hiro Platform</title>
-    <script type="text/javascript" data-name="TokenSigning" data-by="Web-eID extension">(function pageScript() {
-        let hasDeprecationWarningDisplayed = false;
-        const eidPromises = {};
-        window.addEventListener("message", function (event) {
-            if (event.source !== window)
-                return;
-            if (event.data.src && (event.data.src === "background.js")) {
-                console.log("Page received: ");
-                console.log(event.data);
-                if (event.data.nonce) {
-                    const p = eidPromises[event.data.nonce];
-                    if (event.data.result === "ok") {
-                        if (event.data.signature !== undefined) {
-                            p.resolve({hex: event.data.signature});
-                        } else if (event.data.version !== undefined) {
-                            p.resolve(event.data.extension + "/" + event.data.version);
-                        } else if (event.data.cert !== undefined) {
-                            p.resolve({hex: event.data.cert});
-                        } else {
-                            console.log("No idea how to handle message");
-                            console.log(event.data);
-                        }
-                    } else {
-                        p.reject(new Error(event.data.result));
-                    }
-                    delete eidPromises[event.data.nonce];
-                } else {
-                    console.log("No nonce in event msg");
-                }
-            }
-        }, false);
 
-        function nonce() {
-            let val = "";
-            const hex = "abcdefghijklmnopqrstuvwxyz0123456789";
-            for (let i = 0; i < 16; i++)
-                val += hex.charAt(Math.floor(Math.random() * hex.length));
-            return val;
-        }
-
-        function messagePromise(msg) {
-            if (!hasDeprecationWarningDisplayed) {
-                console.warn("TokenSigning API is deprecated. Please consider switching to the new Web-eID library.");
-                hasDeprecationWarningDisplayed = true;
-            }
-            return new Promise(function (resolve, reject) {
-                window.postMessage(msg, "*");
-                eidPromises[msg.nonce] = {resolve, reject};
-            });
-        }
-
-        window.TokenSigning = class TokenSigning {
-            getCertificate(options) {
-                const msg = {
-                    src: "page.js",
-                    nonce: nonce(),
-                    type: "CERT",
-                    lang: options.lang,
-                    filter: options.filter,
-                };
-                console.log("getCertificate()");
-                return messagePromise(msg);
-            }
-
-            sign(cert, hash, options) {
-                const msg = {
-                    src: "page.js",
-                    nonce: nonce(),
-                    type: "SIGN",
-                    cert: cert.hex,
-                    hash: hash.hex,
-                    hashtype: hash.type,
-                    lang: options.lang,
-                    info: options.info,
-                };
-                console.log("sign()");
-                return messagePromise(msg);
-            }
-
-            getVersion() {
-                const msg = {
-                    src: "page.js",
-                    nonce: nonce(),
-                    type: "VERSION",
-                };
-                console.log("getVersion()");
-                return messagePromise(msg);
-            }
-        };
-    })();</script>
 </head>
 <body class="_widget-auto-layout" data-new-gr-c-s-check-loaded="8.906.0" data-gr-ext-installed="">
 <main class="_widget login">
@@ -373,8 +285,7 @@
 
 
                     <form th:action="@{/login}" method="post" class="c734e0caa c6e16f6ca" data-form-primary="true">
-                        <input type="hidden" name="state"
-                               value="hKFo2SBDTmxXaTg1OTl2SldyNGdTaHl3eVY0QV9NQjhKcGRFS6Fur3VuaXZlcnNhbC1sb2dpbqN0aWTZIEZtTmsxLWUwYzRIMnUtYmxiMzRUbjMyWU9kTWx5UnBno2NpZNkgVnVSQzlmS1Z6RWtrV0JrODVERnlPM3R1Yk5ieHdTYXI">
+
 
                         <div class="c8c17eeb0 c451c762a">
                             <div class="cc35ab7a6">
@@ -473,9 +384,7 @@
                     </div>
 
 
-                    <div class="c08a801d2 c08c4c081">
-                        <span>Or</span>
-                    </div>
+
 
 
                 </div>
@@ -485,227 +394,6 @@
 
     </section>
 </main>
-<!--<script id="client-scripts" type="text/javascript">
-    !function () {
-        var t, e, v, h, n, r = {
-            exports: function (n, a) {
-                var r = {};
-
-                function i(t, e, n, r) {
-                    return t.addEventListener(e, n, r)
-                }
-
-                function o(t) {
-                    return "string" == typeof t
-                }
-
-                function c(t, e) {
-                    return t.getAttribute(e)
-                }
-
-                function s(t, e, n) {
-                    return t.setAttribute(e, n)
-                }
-
-                return {
-                    addClass: function (t, e) {
-                        if (t.classList) return t.classList.add(e);
-                        var n = t.className.split(" ");
-                        -1 === n.indexOf(e) && (n.push(e), t.className = n.join(" "))
-                    }, toggleClass: function (t, e) {
-                        if (t.classList) return t.classList.toggle(e);
-                        var n = t.className.split(" "), r = n.indexOf(e);
-                        -1 !== r ? n.splice(r, 1) : n.push(e), t.className = n.join(" ")
-                    }, addClickListener: function (t, e) {
-                        return i(t, "click", e)
-                    }, addEventListener: i, getAttribute: c, getElementById: function (t) {
-                        return a.getElementById(t)
-                    }, getParent: function (t) {
-                        return t.parentNode
-                    }, isString: o, loadScript: function (t) {
-                        var e = a.createElement("script");
-                        e.src = t, e.async = !0, a.body.appendChild(e)
-                    }, poll: function (t) {
-                        var i = t.interval || 2e3, e = t.url || n.location.href, o = t.condition || function () {
-                            return !0
-                        }, c = t.onSuccess || function () {
-                        }, s = t.onError || function () {
-                        };
-                        return setTimeout(function r() {
-                            var a = new XMLHttpRequest;
-                            return a.open("GET", e), a.setRequestHeader("Accept", "application/json"), a.onload = function () {
-                                if (200 === a.status) {
-                                    var t = "application/json" === a.getResponseHeader("Content-Type").split(";")[0] ? JSON.parse(a.responseText) : a.responseText;
-                                    return o(t) ? c() : setTimeout(r, i)
-                                }
-                                if (429 !== a.status) return s({status: a.status, responseText: a.responseText});
-                                var e = 1e3 * Number.parseInt(a.getResponseHeader("X-RateLimit-Reset")),
-                                    n = e - (new Date).getTime();
-                                return setTimeout(r, i < n ? n : i)
-                            }, a.send()
-                        }, i)
-                    }, querySelector: function (t, e) {
-                        return o(t) ? a.querySelector(t) : t.querySelector(e)
-                    }, querySelectorAll: function (t, e) {
-                        var n = o(t) ? a.querySelectorAll(t) : t.querySelectorAll(e);
-                        return Array.prototype.slice.call(n)
-                    }, removeClass: function (t, e) {
-                        if (t.classList) return t.classList.remove(e);
-                        var n = t.className.split(" "), r = n.indexOf(e);
-                        -1 !== r && (n.splice(r, 1), t.className = n.join(" "))
-                    }, setAttribute: s, removeAttribute: function (t, e) {
-                        return t.removeAttribute(e)
-                    }, swapAttributes: function (t, e, n) {
-                        var r = c(t, e), a = c(t, n);
-                        s(t, n, r), s(t, e, a)
-                    }, setGlobalFlag: function (t, e) {
-                        r[t] = !!e
-                    }, getGlobalFlag: function (t) {
-                        return !!r[t]
-                    }, preventFormSubmit: function (t) {
-                        t.stopPropagation(), t.preventDefault()
-                    }, matchMedia: function (t) {
-                        return "function" != typeof n.matchMedia && n.matchMedia(t).matches
-                    }, dispatchEvent: function (t, e, n) {
-                        var r;
-                        "function" != typeof Event ? (r = a.createEvent("Event")).initCustomEvent(e, n, !1) : r = new Event(e, {bubbles: n}), t.dispatchEvent(r)
-                    }, setTimeout: setTimeout, timeoutPromise: function (t, a) {
-                        return new Promise(function (e, n) {
-                            var r = setTimeout(function () {
-                                n(new Error("timeoutPromise: promise timed out"))
-                            }, t);
-                            a.then(function (t) {
-                                clearTimeout(r), e(t)
-                            }, function (t) {
-                                clearTimeout(r), n(t)
-                            })
-                        })
-                    }
-                }
-            }
-        }.exports(window, document);
-        ((t = {}).exports = function (r, t, o, c, s, u, l) {
-            t("div.ce314e0e0.password").forEach(function (t) {
-                var a, i, e = r(t, "input"), n = r(t, '[data-action="toggle"]');
-                o(t, (a = e, i = n, function (t) {
-                    if (t.target.classList.contains("ulp-button-icon")) {
-                        if (a.type = "password" === a.type ? "text" : "password", i) {
-                            var e = i.querySelector(".show-password-tooltip"),
-                                n = i.querySelector(".hide-password-tooltip");
-                            e && u(e, "hide"), n && u(n, "hide")
-                        }
-                        var r = l(a);
-                        "text" === a.type ? c(r, "show") : s(r, "show")
-                    }
-                }))
-            })
-        }, t.exports)(r.querySelector, r.querySelectorAll, r.addClickListener, r.addClass, r.removeClass, r.toggleClass, r.getParent), {
-            exports: function (t, r, a, e) {
-                var n = t(".c6b4553ee"), i = t("#alert-trigger"), o = t(".c4c0678ce"), c = t(".c2d7d70de"), s = !1;
-                i && c && n && e(n, function (t) {
-                    var e = t.target === i, n = c.contains(t.target);
-                    return e && !s ? (r(o, "show"), void (s = !0)) : e && s || s && !n ? (a(o, "show"), void (s = !1)) : void 0
-                })
-            }
-        }.exports(r.querySelector, r.addClass, r.removeClass, r.addClickListener), (v = "recaptcha_v2", h = "recaptcha_enterprise", (e = {}).exports = function (t, a, i, o, c, r) {
-            var s, u = a("div[data-recaptcha-sitekey]"), e = a("div[data-recaptcha-sitekey] input"),
-                l = a("#ulp-recaptcha");
-
-            function d() {
-                return u.getAttribute("data-recaptcha-provider")
-            }
-
-            function p(t) {
-                return e.value = t
-            }
-
-            function f(t, e) {
-                if (t && t.getBoundingClientRect) {
-                    if (!r("(max-width: 480px)")) return l.style.transform = "", void (l.style.height = "");
-                    (void 0 === e || isNaN(e)) && (e = 1.4);
-                    var n = 72 * e;
-                    l.style.transform = "scale(" + e + ")", l.style.height = n + "px", l.style.width = "10px", u.clientWidth + 8 < t.getBoundingClientRect().width && f(t, e - .01)
-                }
-            }
-
-            u && (s = "recaptchaCallback_" + Math.floor(1000001 * Math.random()), window[s] = function () {
-                var t, e, n, r;
-                delete window[s], t = function (t) {
-                    switch (t) {
-                        case v:
-                            return window.grecaptcha;
-                        case h:
-                            return window.grecaptcha.enterprise
-                    }
-                }(d()), e = t.render(l, {
-                    sitekey: u.getAttribute("data-recaptcha-sitekey"),
-                    "expired-callback": function () {
-                        p(""), i(u, "c499d8e65"), t.reset(e)
-                    },
-                    callback: function (t) {
-                        p(t), o(u, "c499d8e65")
-                    }
-                }), n = function (t) {
-                    f(t), c(window, "resize", function () {
-                        f(t)
-                    })
-                }, r = setInterval(function () {
-                    var t = a("#ulp-recaptcha iframe");
-                    if (t) return clearInterval(r), n(t)
-                }, 200)
-            }, t(function (t, e, n) {
-                switch (t) {
-                    case v:
-                        return "https://www.recaptcha.net/recaptcha/api.js?hl=" + e + "&onload=" + n;
-                    case h:
-                        return "https://www.recaptcha.net/recaptcha/enterprise.js?render=explicit&hl=" + e + "&onload=" + n
-                }
-            }(d(), u.getAttribute("data-recaptcha-lang"), s)))
-        }, e.exports)(r.loadScript, r.querySelector, r.addClass, r.removeClass, r.addEventListener, r.matchMedia), ((n = {}).exports = function (r, t, a, i, o, c, s, u, n, l) {
-            function d(t) {
-                var e = t.target, n = c(e);
-                e.value || l(e, "data-autofilled") ? i(n, "c5c7196d2") : o(n, "c5c7196d2")
-            }
-
-            function p(t) {
-                var e = t.target;
-                "onAutoFillStart" === t.animationName && (n(e, "data-autofilled", !0), u(t.target, "change", !0), a(e, "keyup", f, {once: !0}))
-            }
-
-            function f(t) {
-                var e = t.target;
-                n(e, "data-autofilled", "")
-            }
-
-            if (r("body._simple-labels")) return t(".c91597ca9.no-js").forEach(function (t) {
-                o(t, "no-js")
-            }), void t(".c91597ca9.js-required").forEach(function (t) {
-                i(t, "hide")
-            });
-            t(".ce314e0e0:not(.c3b79d566):not(disabled)").forEach(function (t) {
-                i(t, "caadce271");
-                var e, n = r(t, ".input");
-                n.value && i(t, "c5c7196d2"), a(t, "change", d), a(n, "blur", d), a(n, "animationstart", p), e = n, s(function () {
-                    e.value && u(e, "change", !0)
-                }, 100)
-            })
-        }, n.exports)(r.querySelector, r.querySelectorAll, r.addEventListener, r.addClass, r.removeClass, r.getParent, r.setTimeout, r.dispatchEvent, r.setAttribute, r.getAttribute), {
-            exports: function (t, e, n, r, a, i) {
-                function o(t) {
-                    var e = n("submitted");
-                    r("submitted", !0), e ? a(t) : "apple" === i(t.target, "data-provider") && setTimeout(function () {
-                        r("submitted", !1)
-                    }, 2e3)
-                }
-
-                var c = t("form");
-                c && c.forEach(function (t) {
-                    e(t, "submit", o)
-                })
-            }
-        }.exports(r.querySelectorAll, r.addEventListener, r.getGlobalFlag, r.setGlobalFlag, r.preventFormSubmit, r.getAttribute)
-    }();
-</script>-->
 <footer class="footer">
     By continuing, you agree to EDEB's <a href="/public/terms" target="_blank">Terms of Service</a> and <a
         href="public/privacy" target="_blank">Privacy Policy</a>.

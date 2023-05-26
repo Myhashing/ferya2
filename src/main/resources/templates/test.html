@@ -1,10 +1,10 @@
-<!DOCTYPE html>
 <html style="color-scheme: dark;" data-theme="dark" lang="en">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
-    <meta name="description" content="View your saved smart contract projects on the Hiro Platform.">
-    <meta name="next-head-count" content="3">
+    <title>Freya Platform</title>
+    <meta name="description" content="Write, test and deploy Bitcoin smart contracts, directly from your browser.">
+    <meta name="next-head-count" content="4">
     <script type="text/javascript" async=""
             src="https://cdn.segment.com/analytics.js/v1/MnnyAqYhnX6dAIfBi57o3tC1FpHCMKCm/analytics.min.js"></script>
 
@@ -15,57 +15,19 @@
     <meta property="og:type" content="application">
     <meta property="og:url" content="https://platform.hiro.so">
     <meta property="og:image" content="https://platform.hiro.so/images/og-image.png">
-    <script>!function () {
-        var analytics = window.analytics = window.analytics || [];
-        if (!analytics.initialize) if (analytics.invoked) window.console && console.error && console.error("Segment snippet included twice."); else {
-            analytics.invoked = !0;
-            analytics.methods = ["trackSubmit", "trackClick", "trackLink", "trackForm", "pageview", "identify", "reset", "group", "track", "ready", "alias", "debug", "page", "once", "off", "on", "addSourceMiddleware", "addIntegrationMiddleware", "setAnonymousId", "addDestinationMiddleware"];
-            analytics.factory = function (e) {
-                return function () {
-                    var t = Array.prototype.slice.call(arguments);
-                    t.unshift(e);
-                    analytics.push(t);
-                    return analytics
-                }
-            };
-            for (var e = 0; e < analytics.methods.length; e++) {
-                var key = analytics.methods[e];
-                analytics[key] = analytics.factory(key)
-            }
-            analytics.load = function (key, e) {
-                var t = document.createElement("script");
-                t.type = "text/javascript";
-                t.async = !0;
-                t.src = "https://cdn.segment.com/analytics.js/v1/" + key + "/analytics.min.js";
-                var n = document.getElementsByTagName("script")[0];
-                n.parentNode.insertBefore(t, n);
-                analytics._loadOptions = e
-            };
-            analytics._writeKey = "MnnyAqYhnX6dAIfBi57o3tC1FpHCMKCm";
-            analytics.SNIPPET_VERSION = "4.15.2";
-            analytics.load("MnnyAqYhnX6dAIfBi57o3tC1FpHCMKCm");
-            analytics.page();
-        }
-    }();</script>
-    <link rel="preload" th:href="@{/css/df812eb6ff707863.css}" as="style">
-    <link rel="stylesheet" th:href="@{/css/df812eb6ff707863.css}" data-n-g="">
 
+    <link rel="preload" href="/_next/static/css/df812eb6ff707863.css" as="style">
+    <link rel="stylesheet" href="/_next/static/css/df812eb6ff707863.css" data-n-g="">
     <noscript data-n-css=""></noscript>
-    <script th:src="@{/js/polyfills-c67a75d1b6f99dc8.js}"></script>
-    <script th:src="@{/js/webpack-1d4307a696fc31f7.js}"></script>
-    <script th:src="@{/js/framework-e23f030857e925d4.js}"></script>
-<!--    <script th:src="@{/js/main-db501c44d33c927f.js}"></script>-->
-    <script th:src="@{/js/_app-b4a44992cbb5f391.js}"></script>
-    <script th:src="@{/js/c9623768-f63bdb5d20ccfada.js}"></script>
-    <script th:src="@{/js/b631ce67-a0f68e686c77a78a.js}"></script>
-    <script th:src="@{/js/9500aea3-38a5e3387ba324bf.js}"></script>
-    <script th:src="@{/js/465-70ab6b5c892eb4cd.js}"></script>
-    <script th:src="@{/js/345-b2fbb1b38e30914b.js}"></script>
-    <script th:src="@{/js/68-130950c09af6d9cf.js}"></script>
-    <script th:src="@{/js/projects-b29fb2522932aecf.js}"></script>
-    <script th:src="@{/js/_buildManifest.js}"></script>
-    <script th:src="@{/js/_ssgManifest.js}"></script>
-
+    <script defer="" nomodule="" src="/_next/static/chunks/polyfills-c67a75d1b6f99dc8.js"></script>
+    <script src="/_next/static/chunks/webpack-1d4307a696fc31f7.js" defer=""></script>
+    <script src="/_next/static/chunks/framework-e23f030857e925d4.js" defer=""></script>
+    <script src="/_next/static/chunks/main-db501c44d33c927f.js" defer=""></script>
+    <script src="/_next/static/chunks/pages/_app-b4a44992cbb5f391.js" defer=""></script>
+    <script src="/_next/static/chunks/93628359-f2d22c0bb036aca4.js" defer=""></script>
+    <script src="/_next/static/chunks/pages/index-0ff0cded264cbd12.js" defer=""></script>
+    <script src="/_next/static/mAfnLZ7PIv1YsC9Q546op/_buildManifest.js" defer=""></script>
+    <script src="/_next/static/mAfnLZ7PIv1YsC9Q546op/_ssgManifest.js" defer=""></script>
     <style data-emotion="css-global" data-s="">:host, :root, [data-theme] {
         --chakra-ring-inset: var(--chakra-empty, /*!*/ /*!*/);
         --chakra-ring-offset-width: 0px;
@@ -766,91 +728,64 @@
     h1, h2, h3, h4, h5, h6 {
         color: var(--chakra-colors-gray-100);
     }</style>
-    <style data-emotion="css 15120v4" data-s="">.css-15120v4 {
+    <style data-emotion="css ullzpw" data-s="">.css-ullzpw {
         display: grid;
-        grid-template-areas:"header" "main" "footer";
-        grid-template-rows:48px 1fr 62px;
-        grid-template-columns:minmax(0, 1fr);
+        grid-template-areas:"main" "footer";
+        grid-gap: var(--chakra-space-3);
+        grid-template-rows:1fr 52px;
+        grid-template-columns:1fr;
         height: 100vh;
     }</style>
-    <style data-emotion="css lp1u99" data-s="">.css-lp1u99 {
-        grid-area: header;
+    <style data-emotion="css 1wuyczt" data-s="">.css-1wuyczt {
+        grid-area: main;
+        background: var(--chakra-colors-gray-900);
+        margin: auto;
+        -webkit-margin-start: 14px;
+        margin-inline-start: 14px;
+        -webkit-margin-end: 14px;
+        margin-inline-end: 14px;
+    }
+
+    @media screen and (min-width: 48em) {
+        .css-1wuyczt {
+            -webkit-margin-start: 24px;
+            margin-inline-start: 24px;
+            -webkit-margin-end: 24px;
+            margin-inline-end: 24px;
+        }
+    }
+
+    @media screen and (min-width: 62em) {
+        .css-1wuyczt {
+            -webkit-margin-start: 84px;
+            margin-inline-start: 84px;
+            -webkit-margin-end: 84px;
+            margin-inline-end: 84px;
+        }
+    }
+    </style>
+    <style data-emotion="css 1lzcix8" data-s="">.css-1lzcix8 {
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-align-items: center;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        align-items: center;
+        -webkit-box-pack: center;
+        -ms-flex-pack: center;
+        -webkit-justify-content: center;
+        justify-content: center;
+        position: fixed;
+        top: 0px;
+        left: 0px;
+        right: 0px;
+        height: 40px;
         background: var(--chakra-colors-gray-600);
-        z-index: 3;
-    }</style>
-    <style data-emotion="css 15ubgsl" data-s="">.css-15ubgsl {
-        display: -webkit-box;
-        display: -webkit-flex;
-        display: -ms-flexbox;
-        display: flex;
-        -webkit-align-items: center;
-        -webkit-box-align: center;
-        -ms-flex-align: center;
-        align-items: center;
-        -webkit-box-pack: justify;
-        -webkit-justify-content: space-between;
-        justify-content: space-between;
-        height: 48px;
-        -webkit-padding-start: var(--chakra-space-6);
-        padding-inline-start: var(--chakra-space-6);
-        -webkit-padding-end: var(--chakra-space-6);
-        padding-inline-end: var(--chakra-space-6);
-        min-width: 800px;
-    }</style>
-    <style data-emotion="css 193m7l6" data-s="">.css-193m7l6 {
-        display: -webkit-box;
-        display: -webkit-flex;
-        display: -ms-flexbox;
-        display: flex;
-        -webkit-align-items: center;
-        -webkit-box-align: center;
-        -ms-flex-align: center;
-        align-items: center;
-        gap: var(--chakra-space-3);
-    }</style>
-    <style data-emotion="css vvp0ap" data-s="">.css-vvp0ap {
-        transition-property: var(--chakra-transition-property-common);
-        transition-duration: var(--chakra-transition-duration-fast);
-        transition-timing-function: var(--chakra-transition-easing-ease-out);
-        cursor: pointer;
-        -webkit-text-decoration: underline;
-        text-decoration: underline;
-        outline: 2px solid transparent;
-        outline-offset: 2px;
-        color: var(--chakra-colors-gray-200);
-        text-decoration-thickness: 2px;
-        text-decoration-color: var(--chakra-colors-gray-600);
-        text-underline-offset: 5px;
-        display: -webkit-box;
-        display: -webkit-flex;
-        display: -ms-flexbox;
-        display: flex;
-        -webkit-align-items: center;
-        -webkit-box-align: center;
-        -ms-flex-align: center;
-        align-items: center;
-    }
-
-    .css-vvp0ap:hover, .css-vvp0ap[data-hover] {
-        -webkit-text-decoration: underline;
-        text-decoration: underline;
-        color: var(--chakra-colors-gray-100);
-        text-decoration-thickness: 2px;
-        text-decoration-color: var(--chakra-colors-orange-500);
-    }
-
-    .css-vvp0ap:focus-visible, .css-vvp0ap[data-focus-visible] {
-        box-shadow: var(--chakra-shadows-outline);
-    }
-
-    .css-vvp0ap:focus, .css-vvp0ap[data-focus] {
-        color: var(--chakra-colors-gray-200);
-        -webkit-text-decoration: none;
-        text-decoration: none;
-    }</style>
-    <style data-emotion="css 7fv5b3" data-s="">.css-7fv5b3 {
-        height: 14px;
-        min-width: 165px;
+        color: var(--chakra-colors-white);
+        font-family: var(--chakra-fonts-caption);
+        font-size: var(--chakra-fontSizes-md);
     }</style>
     <style data-emotion="css faln2z" data-s="">.css-faln2z {
         display: -webkit-box;
@@ -911,7 +846,209 @@
 
     .css-faln2z:hover[disabled], .css-faln2z[data-hover][disabled], .css-faln2z:hover[aria-disabled=true], .css-faln2z[data-hover][aria-disabled=true], .css-faln2z:hover[data-disabled], .css-faln2z[data-hover][data-disabled] {
         background: initial;
+    }
+    </style>
+    <style data-emotion="css i1hv63" data-s="">.css-i1hv63 {
+        width: var(--chakra-sizes-5);
+        height: var(--chakra-sizes-5);
+        display: inline-block;
+        line-height: 1em;
+        -webkit-flex-shrink: 0;
+        -ms-flex-negative: 0;
+        flex-shrink: 0;
+        color: currentColor;
     }</style>
+    <style data-emotion="css 10d0bpn" data-s="">.css-10d0bpn {
+        background: var(--chakra-colors-black);
+        border-radius: var(--chakra-radii-xl);
+        border: var(--chakra-borders-2px);
+        border-color: var(--chakra-colors-gray-700);
+        padding: var(--chakra-space-6);
+        padding-bottom: var(--chakra-space-20);
+        margin-top: var(--chakra-space-6);
+        margin-bottom: var(--chakra-space-6);
+        max-width: var(--chakra-sizes-6xl);
+        -webkit-margin-start: auto;
+        margin-inline-start: auto;
+        -webkit-margin-end: auto;
+        margin-inline-end: auto;
+    }</style>
+    <style data-emotion="css 1lekzkb" data-s="">.css-1lekzkb {
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-align-items: center;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        align-items: center;
+        -webkit-box-pack: justify;
+        -webkit-justify-content: space-between;
+        justify-content: space-between;
+    }</style>
+    <style data-emotion="css 1tl4nmz" data-s="">.css-1tl4nmz {
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-align-items: center;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        align-items: center;
+        -webkit-box-pack: center;
+        -ms-flex-pack: center;
+        -webkit-justify-content: center;
+        justify-content: center;
+        -webkit-flex-shrink: 0;
+        -ms-flex-negative: 0;
+        flex-shrink: 0;
+        background: var(--chakra-colors-gray-900);
+        border-radius: var(--chakra-radii-md);
+        border: var(--chakra-borders-2px);
+        border-color: var(--chakra-colors-gray-700);
+        letter-spacing: -.05em;
+        font-size: var(--chakra-fontSizes-xl);
+        font-weight: var(--chakra-fontWeights-bold);
+        width: 52px;
+        height: 52px;
+        color: var(--chakra-colors-white);
+    }</style>
+    <style data-emotion="css 1n6kba1" data-s="">
+        .css-1n6kba1 {
+            display: none;
+            -webkit-align-items: center;
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            align-items: center;
+            gap: var(--chakra-space-4);
+            border-radius: var(--chakra-radii-md);
+            border: var(--chakra-borders-2px);
+            border-color: var(--chakra-colors-gray-700);
+            -webkit-padding-start: var(--chakra-space-5);
+            padding-inline-start: var(--chakra-space-5);
+            -webkit-padding-end: var(--chakra-space-5);
+            padding-inline-end: var(--chakra-space-5);
+            height: 46px;
+        }
+
+        @media screen and (min-width: 30em) {
+            .css-1n6kba1 {
+                display: none;
+            }
+        }
+
+        @media screen and (min-width: 48em) {
+            .css-1n6kba1 {
+                display: -webkit-box;
+                display: -webkit-flex;
+                display: -ms-flexbox;
+                display: flex;
+            }
+        }
+
+        @media screen and (min-width: 62em) {
+            .css-1n6kba1 {
+                display: -webkit-box;
+                display: -webkit-flex;
+                display: -ms-flexbox;
+                display: flex;
+            }
+        }
+    </style>
+    <style data-emotion="css 193m7l6" data-s="">.css-193m7l6 {
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-align-items: center;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        align-items: center;
+        gap: var(--chakra-space-3);
+    }</style>
+    <style data-emotion="css ghbzni" data-s="">.css-ghbzni {
+        width: 1em;
+        height: 1em;
+        display: inline-block;
+        line-height: 1em;
+        -webkit-flex-shrink: 0;
+        -ms-flex-negative: 0;
+        flex-shrink: 0;
+        color: var(--chakra-colors-white);
+        vertical-align: middle;
+        fill: none;
+    }</style>
+    <style data-emotion="css 9826r4" data-s="">.css-9826r4 {
+        color: var(--chakra-colors-gray-400);
+    }</style>
+    <style data-emotion="css 1qzoem1" data-s="">.css-1qzoem1 {
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-flex-direction: column;
+        -ms-flex-direction: column;
+        flex-direction: column;
+        -webkit-align-items: center;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        align-items: center;
+        gap: var(--chakra-space-9);
+        padding-top: var(--chakra-space-12);
+    }</style>
+    <style data-emotion="css d1bddl" data-s="">.css-d1bddl {
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-flex-direction: column;
+        -ms-flex-direction: column;
+        flex-direction: column;
+        -webkit-align-items: center;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        align-items: center;
+        gap: var(--chakra-space-4);
+    }</style>
+    <style data-emotion="css 6l5xge" data-s="">.css-6l5xge {
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+        gap: var(--chakra-space-2);
+        color: var(--chakra-colors-gray-400);
+    }</style>
+    <style data-emotion="css 1i5io8f" data-s="">.css-1i5io8f {
+        opacity: 0.25;
+    }</style>
+    <style data-emotion="css 1tzeee1" data-s="">.css-1tzeee1 {
+        opacity: 0.5;
+    }</style>
+    <style data-emotion="css 1lrujbg" data-s="">.css-1lrujbg {
+        opacity: 0.75;
+    }</style>
+    <style data-emotion="css whh5e5" data-s="">.css-whh5e5 {
+        opacity: 1;
+    }</style>
+    <style data-emotion="css 16ekshq" data-s="">.css-16ekshq {
+        opacity: 1.25;
+    }</style>
+    <style data-emotion="css 1dcjh27" data-s="">.css-1dcjh27 {
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-align-items: end;
+        -webkit-box-align: end;
+        -ms-flex-align: end;
+        align-items: end;
+        gap: var(--chakra-space-4);
+    }</style>
+    <style data-emotion="css t6svvj" data-s="">.css-t6svvj {
+        height: 33px;
+        min-width: 165px;
+    }
+    </style>
     <style data-emotion="css 8hnw5o" data-s="">.css-8hnw5o {
         display: inline-block;
         white-space: nowrap;
@@ -927,151 +1064,112 @@
         color: rgba(179, 217, 255, 0.8);
         box-shadow: inset 0 0 0px 1px rgba(179, 217, 255, 0.8);
     }</style>
-    <style data-emotion="css 1vw4114" data-s="">.css-1vw4114 {
+    <style data-emotion="css ubx7sq" data-s="">
+        .css-ubx7sq {
+            display: grid;
+            grid-template-columns:1fr;
+            width: 50%;
+            border-radius: var(--chakra-radii-base);
+            border: var(--chakra-borders-1px);
+            border-style: dashed;
+            border-color: var(--chakra-colors-gray-500);
+        }
+
+        @media screen and (min-width: 48em) {
+            .css-ubx7sq {
+                grid-template-columns:repeat(3, 1fr);
+            }
+        }
+    </style>
+    <style data-emotion="css 1ra3e36" data-s="">
+        .css-1ra3e36 {
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-flex-direction: column;
+            -ms-flex-direction: column;
+            flex-direction: column;
+            gap: var(--chakra-space-2);
+            -webkit-padding-start: var(--chakra-space-6);
+            padding-inline-start: var(--chakra-space-6);
+            -webkit-padding-end: var(--chakra-space-6);
+            padding-inline-end: var(--chakra-space-6);
+            padding-top: var(--chakra-space-8);
+            padding-bottom: var(--chakra-space-8);
+            border-style: dashed;
+            border-color: var(--chakra-colors-gray-500);
+            border-right-width: 0;
+            border-bottom-width: 1px;
+        }
+
+        @media screen and (min-width: 48em) {
+            .css-1ra3e36 {
+                border-right-width: 1px;
+                border-bottom-width: 0;
+            }
+        }
+    </style>
+    <style data-emotion="css 1y9svmk" data-s="">.css-1y9svmk {
         display: -webkit-box;
         display: -webkit-flex;
         display: -ms-flexbox;
         display: flex;
-        -webkit-align-items: center;
-        -webkit-box-align: center;
-        -ms-flex-align: center;
-        align-items: center;
-        -webkit-box-pack: center;
-        -ms-flex-pack: center;
-        -webkit-justify-content: center;
-        justify-content: center;
-        -webkit-flex-direction: row;
-        -ms-flex-direction: row;
-        flex-direction: row;
-    }
-
-    .css-1vw4114 > *:not(style) ~ *:not(style) {
-        margin-top: 0px;
-        -webkit-margin-end: 0px;
-        margin-inline-end: 0px;
-        margin-bottom: 0px;
-        -webkit-margin-start: var(--chakra-space-2);
-        margin-inline-start: var(--chakra-space-2);
-    }
-
-    @media screen and (min-width: 30em) {
-        .css-1vw4114 > *:not(style) ~ *:not(style) {
-            -webkit-margin-start: var(--chakra-space-2);
-            margin-inline-start: var(--chakra-space-2);
-        }
-    }
-
-    @media screen and (min-width: 48em) {
-        .css-1vw4114 > *:not(style) ~ *:not(style) {
-            -webkit-margin-start: var(--chakra-space-4);
-            margin-inline-start: var(--chakra-space-4);
-        }
-    }
-
-    @media screen and (min-width: 62em) {
-        .css-1vw4114 > *:not(style) ~ *:not(style) {
-            -webkit-margin-start: var(--chakra-space-4);
-            margin-inline-start: var(--chakra-space-4);
-        }
+        gap: var(--chakra-space-2-5);
     }</style>
-    <style data-emotion="css wj6w9" data-s="">.css-wj6w9 {
-        display: -webkit-inline-box;
-        display: -webkit-inline-flex;
-        display: -ms-inline-flexbox;
-        display: inline-flex;
-        -webkit-appearance: none;
-        -moz-appearance: none;
-        -ms-appearance: none;
-        appearance: none;
-        -webkit-align-items: center;
-        -webkit-box-align: center;
-        -ms-flex-align: center;
-        align-items: center;
-        -webkit-box-pack: center;
-        -ms-flex-pack: center;
-        -webkit-justify-content: center;
-        justify-content: center;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        -ms-user-select: none;
-        user-select: none;
-        position: relative;
-        white-space: nowrap;
-        vertical-align: middle;
-        outline: 2px solid transparent;
-        outline-offset: 2px;
-        line-height: 1.2;
-        border-radius: var(--chakra-radii-md);
-        font-weight: 500;
-        transition-property: var(--chakra-transition-property-common);
-        transition-duration: var(--chakra-transition-duration-normal);
-        color: var(--chakra-colors-gray-100);
-        letter-spacing: -0.01em;
-        font-size: var(--chakra-fontSizes-sm);
-        -webkit-transition: all 150ms ease-out;
-        transition: all 150ms ease-out;
-        height: var(--chakra-sizes-8);
-        min-width: var(--chakra-sizes-8);
-        -webkit-padding-start: var(--chakra-space-3);
-        padding-inline-start: var(--chakra-space-3);
-        -webkit-padding-end: var(--chakra-space-3);
-        padding-inline-end: var(--chakra-space-3);
-        border: var(--chakra-borders-2px);
-        border-color: var(--chakra-colors-gray-500);
-    }
-
-    .css-wj6w9:focus-visible, .css-wj6w9[data-focus-visible] {
-        box-shadow: var(--chakra-shadows-outline);
-    }
-
-    .css-wj6w9[disabled], .css-wj6w9[aria-disabled=true], .css-wj6w9[data-disabled] {
-        opacity: 0.4;
-        cursor: not-allowed;
-        box-shadow: var(--chakra-shadows-none);
-        border-color: var(--chakra-colors-transparent);
-    }
-
-    .css-wj6w9:hover, .css-wj6w9[data-hover] {
-        background: var(--chakra-colors-gray-500);
-    }
-
-    .css-wj6w9:hover[disabled], .css-wj6w9[data-hover][disabled], .css-wj6w9:hover[aria-disabled=true], .css-wj6w9[data-hover][aria-disabled=true], .css-wj6w9:hover[data-disabled], .css-wj6w9[data-hover][data-disabled] {
-        background: initial;
-    }
-
-    .css-wj6w9:focus, .css-wj6w9[data-focus] {
-        background: var(--chakra-colors-gray-500);
-        box-shadow: var(--chakra-shadows-outlineGray600);
-    }
-
-    .css-wj6w9:active, .css-wj6w9[data-active] {
-        background: var(--chakra-colors-gray-500);
-        box-shadow: var(--chakra-shadows-outlineGray600);
-    }</style>
-    <style data-emotion="css 1k9efnl" data-s="">.css-1k9efnl {
-        display: -webkit-box;
-        display: -webkit-flex;
-        display: -ms-flexbox;
-        display: flex;
-        -webkit-align-items: center;
-        -webkit-box-align: center;
-        -ms-flex-align: center;
-        align-items: center;
-        gap: var(--chakra-space-2);
-    }</style>
-    <style data-emotion="css nyt2fo" data-s="">.css-nyt2fo {
-        width: 1em;
-        height: 1em;
+    <style data-emotion="css w7r4wo" data-s="">.css-w7r4wo {
+        width: 16px;
+        height: 16px;
         display: inline-block;
         line-height: 1em;
         -webkit-flex-shrink: 0;
         -ms-flex-negative: 0;
         flex-shrink: 0;
-        color: currentColor;
+        color: var(--chakra-colors-orange-500);
         vertical-align: middle;
         fill: none;
+        margin-top: var(--chakra-space-1);
     }</style>
-    <style data-emotion="css qftng8" data-s="">.css-qftng8 {
+    <style data-emotion="css 1rrcibf" data-s="">.css-1rrcibf {
+        font-family: var(--chakra-fonts-heading);
+        font-weight: var(--chakra-fontWeights-normal);
+        font-size: 18px;
+        letter-spacing: 0.02em;
+    }</style>
+    <style data-emotion="css 1wmrhmx" data-s="">.css-1wmrhmx {
+        margin-left: var(--chakra-space-6);
+    }
+    </style>
+    <style data-emotion="css 8kf950" data-s="">.css-8kf950 {
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-flex-direction: column;
+        -ms-flex-direction: column;
+        flex-direction: column;
+        gap: var(--chakra-space-2);
+        -webkit-padding-start: var(--chakra-space-6);
+        padding-inline-start: var(--chakra-space-6);
+        -webkit-padding-end: var(--chakra-space-6);
+        padding-inline-end: var(--chakra-space-6);
+        padding-top: var(--chakra-space-8);
+        padding-bottom: var(--chakra-space-8);
+        border-style: dashed;
+        border-color: var(--chakra-colors-gray-500);
+    }</style>
+    <style data-emotion="css erjggt" data-s="">.css-erjggt {
+        display: grid;
+        grid-template-columns:1fr;
+        width: 100%;
+    }
+
+    @media screen and (min-width: 48em) {
+        .css-erjggt {
+            grid-template-columns:repeat(3, 1fr);
+        }
+    }</style>
+    <style data-emotion="css 1838pn3" data-s="">.css-1838pn3 {
         display: -webkit-inline-box;
         display: -webkit-inline-flex;
         display: -ms-inline-flexbox;
@@ -1102,242 +1200,56 @@
         font-weight: 500;
         transition-property: var(--chakra-transition-property-common);
         transition-duration: var(--chakra-transition-duration-normal);
-        color: var(--chakra-colors-gray-100);
+        color: var(--chakra-colors-black);
         letter-spacing: -0.01em;
         font-size: var(--chakra-fontSizes-sm);
         -webkit-transition: all 150ms ease-out;
         transition: all 150ms ease-out;
         height: var(--chakra-sizes-10);
         min-width: var(--chakra-sizes-10);
-        -webkit-padding-start: var(--chakra-space-2-5);
-        padding-inline-start: var(--chakra-space-2-5);
-        -webkit-padding-end: var(--chakra-space-2-5);
-        padding-inline-end: var(--chakra-space-2-5);
-        background: none;
-        -webkit-text-decoration: underline;
-        text-decoration: underline;
-        text-decoration-thickness: 2px;
-        text-decoration-color: var(--chakra-colors-gray-400);
-        text-underline-offset: 5px;
-        margin-right: var(--chakra-space-2);
-        cursor: pointer;
+        -webkit-padding-start: var(--chakra-space-4);
+        padding-inline-start: var(--chakra-space-4);
+        -webkit-padding-end: var(--chakra-space-4);
+        padding-inline-end: var(--chakra-space-4);
+        background: var(--chakra-colors-orange-500);
+        border: var(--chakra-borders-none);
     }
 
-    .css-qftng8:focus-visible, .css-qftng8[data-focus-visible] {
+    .css-1838pn3:focus-visible, .css-1838pn3[data-focus-visible] {
         box-shadow: var(--chakra-shadows-outline);
     }
 
-    .css-qftng8[disabled], .css-qftng8[aria-disabled=true], .css-qftng8[data-disabled] {
+    .css-1838pn3[disabled], .css-1838pn3[aria-disabled=true], .css-1838pn3[data-disabled] {
         opacity: 0.4;
         cursor: not-allowed;
         box-shadow: var(--chakra-shadows-none);
+        background: var(--chakra-colors-gray-300);
+        color: var(--chakra-colors-gray-500);
+        pointer-events: none;
     }
 
-    .css-qftng8:hover, .css-qftng8[data-hover] {
-        color: var(--chakra-colors-gray-100);
-        text-decoration-color: var(--chakra-colors-gray-200);
+    .css-1838pn3:hover, .css-1838pn3[data-hover] {
+        background: var(--chakra-colors-orange-600);
     }
 
-    .css-qftng8:hover[disabled], .css-qftng8[data-hover][disabled], .css-qftng8:hover[aria-disabled=true], .css-qftng8[data-hover][aria-disabled=true], .css-qftng8:hover[data-disabled], .css-qftng8[data-hover][data-disabled] {
+    .css-1838pn3:hover[disabled], .css-1838pn3[data-hover][disabled], .css-1838pn3:hover[aria-disabled=true], .css-1838pn3[data-hover][aria-disabled=true], .css-1838pn3:hover[data-disabled], .css-1838pn3[data-hover][data-disabled] {
         background: initial;
     }
 
-    .css-qftng8:focus, .css-qftng8[data-focus] {
-        color: var(--chakra-colors-gray-100);
-        text-decoration-color: var(--chakra-colors-gray-200);
+    .css-1838pn3:active, .css-1838pn3[data-active] {
+        box-shadow: var(--chakra-shadows-outlineGray500);
     }
 
-    .css-qftng8:active, .css-qftng8[data-active] {
-        color: var(--chakra-colors-gray-100);
-        text-decoration-color: var(--chakra-colors-gray-200);
+    .css-1838pn3:focus, .css-1838pn3[data-focus] {
+        box-shadow: var(--chakra-shadows-outlineGray500);
     }</style>
-    <style data-emotion="css dugrtq" data-s="">.css-dugrtq {
-        display: -webkit-inline-box;
-        display: -webkit-inline-flex;
-        display: -ms-inline-flexbox;
-        display: inline-flex;
-        -webkit-appearance: none;
-        -moz-appearance: none;
-        -ms-appearance: none;
-        appearance: none;
-        -webkit-align-items: center;
-        -webkit-box-align: center;
-        -ms-flex-align: center;
-        align-items: center;
-        -webkit-box-pack: center;
-        -ms-flex-pack: center;
-        -webkit-justify-content: center;
-        justify-content: center;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        -ms-user-select: none;
-        user-select: none;
-        position: relative;
-        white-space: nowrap;
-        vertical-align: middle;
-        outline: 2px solid transparent;
-        outline-offset: 2px;
-        line-height: 1.2;
-        border-radius: var(--chakra-radii-md);
-        font-weight: 500;
-        transition-property: var(--chakra-transition-property-common);
-        transition-duration: var(--chakra-transition-duration-normal);
-        color: var(--chakra-colors-gray-100);
-        letter-spacing: -0.01em;
-        font-size: var(--chakra-fontSizes-sm);
-        -webkit-transition: all 150ms ease-out;
-        transition: all 150ms ease-out;
-        height: var(--chakra-sizes-10);
-        min-width: var(--chakra-sizes-10);
-        -webkit-padding-start: var(--chakra-space-2-5);
-        padding-inline-start: var(--chakra-space-2-5);
-        -webkit-padding-end: var(--chakra-space-2-5);
-        padding-inline-end: var(--chakra-space-2-5);
-        background: none;
-        -webkit-text-decoration: underline;
-        text-decoration: underline;
-        text-decoration-thickness: 2px;
-        text-decoration-color: var(--chakra-colors-gray-400);
-        text-underline-offset: 5px;
-        margin-right: var(--chakra-space-2);
-    }
-
-    .css-dugrtq:focus-visible, .css-dugrtq[data-focus-visible] {
-        box-shadow: var(--chakra-shadows-outline);
-    }
-
-    .css-dugrtq[disabled], .css-dugrtq[aria-disabled=true], .css-dugrtq[data-disabled] {
-        opacity: 0.4;
-        cursor: not-allowed;
-        box-shadow: var(--chakra-shadows-none);
-    }
-
-    .css-dugrtq:hover, .css-dugrtq[data-hover] {
-        color: var(--chakra-colors-gray-100);
-        text-decoration-color: var(--chakra-colors-gray-200);
-    }
-
-    .css-dugrtq:hover[disabled], .css-dugrtq[data-hover][disabled], .css-dugrtq:hover[aria-disabled=true], .css-dugrtq[data-hover][aria-disabled=true], .css-dugrtq:hover[data-disabled], .css-dugrtq[data-hover][data-disabled] {
-        background: initial;
-    }
-
-    .css-dugrtq:focus, .css-dugrtq[data-focus] {
-        color: var(--chakra-colors-gray-100);
-        text-decoration-color: var(--chakra-colors-gray-200);
-    }
-
-    .css-dugrtq:active, .css-dugrtq[data-active] {
-        color: var(--chakra-colors-gray-100);
-        text-decoration-color: var(--chakra-colors-gray-200);
-    }</style>
-    <style data-emotion="css 9df72b" data-s="">.css-9df72b {
-        display: -webkit-inline-box;
-        display: -webkit-inline-flex;
-        display: -ms-inline-flexbox;
-        display: inline-flex;
-        -webkit-appearance: none;
-        -moz-appearance: none;
-        -ms-appearance: none;
-        appearance: none;
-        -webkit-align-items: center;
-        -webkit-box-align: center;
-        -ms-flex-align: center;
-        align-items: center;
-        -webkit-box-pack: center;
-        -ms-flex-pack: center;
-        -webkit-justify-content: center;
-        justify-content: center;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        -ms-user-select: none;
-        user-select: none;
-        position: relative;
-        white-space: nowrap;
-        vertical-align: middle;
-        outline: 2px solid transparent;
-        outline-offset: 2px;
-        line-height: 1.2;
-        border-radius: var(--chakra-radii-md);
-        font-weight: 500;
-        transition-property: var(--chakra-transition-property-common);
-        transition-duration: var(--chakra-transition-duration-normal);
-        color: var(--chakra-colors-gray-100);
-        letter-spacing: -0.01em;
-        font-size: var(--chakra-fontSizes-sm);
-        -webkit-transition: all 150ms ease-out;
-        transition: all 150ms ease-out;
-        height: var(--chakra-sizes-10);
-        min-width: var(--chakra-sizes-10);
-        -webkit-padding-start: var(--chakra-space-2-5);
-        padding-inline-start: var(--chakra-space-2-5);
-        -webkit-padding-end: var(--chakra-space-2-5);
-        padding-inline-end: var(--chakra-space-2-5);
-        background: none;
-        -webkit-text-decoration: underline;
-        text-decoration: underline;
-        text-decoration-thickness: 2px;
-        text-decoration-color: var(--chakra-colors-gray-400);
-        text-underline-offset: 5px;
-    }
-
-    .css-9df72b:focus-visible, .css-9df72b[data-focus-visible] {
-        box-shadow: var(--chakra-shadows-outline);
-    }
-
-    .css-9df72b[disabled], .css-9df72b[aria-disabled=true], .css-9df72b[data-disabled] {
-        opacity: 0.4;
-        cursor: not-allowed;
-        box-shadow: var(--chakra-shadows-none);
-    }
-
-    .css-9df72b:hover, .css-9df72b[data-hover] {
-        color: var(--chakra-colors-gray-100);
-        text-decoration-color: var(--chakra-colors-gray-200);
-    }
-
-    .css-9df72b:hover[disabled], .css-9df72b[data-hover][disabled], .css-9df72b:hover[aria-disabled=true], .css-9df72b[data-hover][aria-disabled=true], .css-9df72b:hover[data-disabled], .css-9df72b[data-hover][data-disabled] {
-        background: initial;
-    }
-
-    .css-9df72b:focus, .css-9df72b[data-focus] {
-        color: var(--chakra-colors-gray-100);
-        text-decoration-color: var(--chakra-colors-gray-200);
-    }
-
-    .css-9df72b:active, .css-9df72b[data-active] {
-        color: var(--chakra-colors-gray-100);
-        text-decoration-color: var(--chakra-colors-gray-200);
-    }</style>
-    <style data-emotion="css 13cukhi" data-s="">.css-13cukhi {
-        grid-area: main;
+    <style data-emotion="css def0rm" data-s="">.css-def0rm {
+        grid-area: footer;
         -webkit-padding-start: var(--chakra-space-6);
         padding-inline-start: var(--chakra-space-6);
         -webkit-padding-end: var(--chakra-space-6);
         padding-inline-end: var(--chakra-space-6);
         background: var(--chakra-colors-gray-900);
-        overflow: auto;
-    }</style>
-    <style data-emotion="css azz4x6" data-s="">.css-azz4x6 {
-        margin: auto;
-        max-width: 1440px;
-        height: var(--chakra-sizes-full);
-    }</style>
-    <style data-emotion="css 1quxktj" data-s="">.css-1quxktj {
-        grid-area: footer;
-        -webkit-padding-start: var(--chakra-space-3);
-        padding-inline-start: var(--chakra-space-3);
-        -webkit-padding-end: var(--chakra-space-3);
-        padding-inline-end: var(--chakra-space-3);
-        background: var(--chakra-colors-gray-900);
-    }
-
-    @media screen and (min-width: 62em) {
-        .css-1quxktj {
-            -webkit-padding-start: var(--chakra-space-6);
-            padding-inline-start: var(--chakra-space-6);
-            -webkit-padding-end: var(--chakra-space-6);
-            padding-inline-end: var(--chakra-space-6);
-        }
     }</style>
     <style data-emotion="css 1mwv8ce" data-s="">.css-1mwv8ce {
         display: -webkit-box;
@@ -1453,6 +1365,18 @@
         -webkit-text-decoration: none;
         text-decoration: none;
     }</style>
+    <style data-emotion="css nyt2fo" data-s="">.css-nyt2fo {
+        width: 1em;
+        height: 1em;
+        display: inline-block;
+        line-height: 1em;
+        -webkit-flex-shrink: 0;
+        -ms-flex-negative: 0;
+        flex-shrink: 0;
+        color: currentColor;
+        vertical-align: middle;
+        fill: none;
+    }</style>
     <style data-emotion="css 1hun9ae" data-s="">.css-1hun9ae {
         display: -webkit-inline-box;
         display: -webkit-inline-flex;
@@ -1541,101 +1465,8 @@
         color: currentColor;
         margin-right: var(--chakra-space-3);
     }</style>
-    <style data-emotion="css" data-s=""></style>
-    <script th:src="@{/js/93628359-f2d22c0bb036aca4.js}"></script>
-    <script th:src="@{/js/index-0ff0cded264cbd12.js}"></script>
 
-    <script type="text/javascript" data-name="TokenSigning" data-by="Web-eID extension">(function pageScript() {
-        let hasDeprecationWarningDisplayed = false;
-        const eidPromises = {};
-        window.addEventListener("message", function (event) {
-            if (event.source !== window)
-                return;
-            if (event.data.src && (event.data.src === "background.js")) {
-                console.log("Page received: ");
-                console.log(event.data);
-                if (event.data.nonce) {
-                    const p = eidPromises[event.data.nonce];
-                    if (event.data.result === "ok") {
-                        if (event.data.signature !== undefined) {
-                            p.resolve({hex: event.data.signature});
-                        } else if (event.data.version !== undefined) {
-                            p.resolve(event.data.extension + "/" + event.data.version);
-                        } else if (event.data.cert !== undefined) {
-                            p.resolve({hex: event.data.cert});
-                        } else {
-                            console.log("No idea how to handle message");
-                            console.log(event.data);
-                        }
-                    } else {
-                        p.reject(new Error(event.data.result));
-                    }
-                    delete eidPromises[event.data.nonce];
-                } else {
-                    console.log("No nonce in event msg");
-                }
-            }
-        }, false);
-
-        function nonce() {
-            let val = "";
-            const hex = "abcdefghijklmnopqrstuvwxyz0123456789";
-            for (let i = 0; i < 16; i++)
-                val += hex.charAt(Math.floor(Math.random() * hex.length));
-            return val;
-        }
-
-        function messagePromise(msg) {
-            if (!hasDeprecationWarningDisplayed) {
-                console.warn("TokenSigning API is deprecated. Please consider switching to the new Web-eID library.");
-                hasDeprecationWarningDisplayed = true;
-            }
-            return new Promise(function (resolve, reject) {
-                window.postMessage(msg, "*");
-                eidPromises[msg.nonce] = {resolve, reject};
-            });
-        }
-
-        window.TokenSigning = class TokenSigning {
-            getCertificate(options) {
-                const msg = {
-                    src: "page.js",
-                    nonce: nonce(),
-                    type: "CERT",
-                    lang: options.lang,
-                    filter: options.filter,
-                };
-                console.log("getCertificate()");
-                return messagePromise(msg);
-            }
-
-            sign(cert, hash, options) {
-                const msg = {
-                    src: "page.js",
-                    nonce: nonce(),
-                    type: "SIGN",
-                    cert: cert.hex,
-                    hash: hash.hex,
-                    hashtype: hash.type,
-                    lang: options.lang,
-                    info: options.info,
-                };
-                console.log("sign()");
-                return messagePromise(msg);
-            }
-
-            getVersion() {
-                const msg = {
-                    src: "page.js",
-                    nonce: nonce(),
-                    type: "VERSION",
-                };
-                console.log("getVersion()");
-                return messagePromise(msg);
-            }
-        };
-    })();</script>
-    <title>Hiro Platform: Projects</title></head>
+</head>
 <body class="chakra-ui-dark" data-new-gr-c-s-check-loaded="8.906.0" data-gr-ext-installed="">
 <script id="chakra-script">!(function () {
     try {
@@ -1650,12 +1481,77 @@
     }
 })();</script>
 <div id="__next">
+    <div class="css-ullzpw">
+        <div class="css-1wuyczt">
+            <div class="css-10d0bpn">
+                <div class="css-1qzoem1">
 
+                    <div class="css-ubx7sq">
+
+                        <div class="css-1ra3e36">
+                            <div class="css-1y9svmk">
+                                <svg viewBox="0 0 18 14" focusable="false" class="chakra-icon css-w7r4wo">
+                                    <path d="M1 7.74138L5.75862 12.5L17.2586 1" stroke="currentColor" stroke-width="1.5"
+                                          stroke-linejoin="bevel"></path>
+                                </svg>
+                                <h3 class="chakra-heading css-1rrcibf">Trade</h3></div>
+                            <p class="chakra-text css-1wmrhmx">Everything you need to trade, Defi, and many more.</p>
+                        </div>
+                        <div class="css-8kf950">
+                            <div class="css-1y9svmk">
+                                <svg viewBox="0 0 18 14" focusable="false" class="chakra-icon css-w7r4wo">
+                                    <path d="M1 7.74138L5.75862 12.5L17.2586 1" stroke="currentColor" stroke-width="1.5"
+                                          stroke-linejoin="bevel"></path>
+                                </svg>
+                                <h3 class="chakra-heading css-1rrcibf">Api For developers</h3></div>
+                            <p class="chakra-text css-1wmrhmx">Create Dapp and Defi apps</p>
+                        </div>
+                    </div>
+                    <div class="css-erjggt">
+                        <div class="css-0"></div>
+                        <button type="button" class="chakra-button css-1838pn3" data-testid="sign-in-button"
+                                onclick="redirectToSignIn()">Sign in
+                        </button>
+                        <div class="css-0"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="css-def0rm">
+            <footer class="css-1mwv8ce">
+                <div class="css-1eyzhiy"></div>
+                <div class="css-ek1mcw"><a class="chakra-link css-baj0x2" href="#"
+                                           data-testid="twitter-link">
+                    <svg viewBox="0 0 19 16" focusable="false" class="chakra-icon css-nyt2fo" role="img"
+                         alt="Hiro on Twitter">
+                        <path d="M18.8519 2.19212C18.1447 2.5076 17.3956 2.71584 16.6285 2.81015C17.4361 2.31832 18.0408 1.54702 18.3309 0.638682C17.5824 1.08127 16.7529 1.40344 15.8698 1.58287C15.2872 0.951626 14.5152 0.532956 13.6737 0.391871C12.8322 0.250785 11.9682 0.395179 11.216 0.802631C10.4638 1.21008 9.8654 1.85779 9.51375 2.64518C9.16209 3.43256 9.07687 4.31556 9.27129 5.15706C6.05231 5.00315 3.20088 3.43615 1.29074 1.06931C0.943495 1.66725 0.762374 2.34924 0.766574 3.04301C0.766574 4.40665 1.4513 5.60523 2.48861 6.30938C1.87382 6.28955 1.27262 6.12113 0.735093 5.81815V5.866C0.734744 6.77222 1.04382 7.65065 1.60989 8.35227C2.17596 9.05388 2.96415 9.53546 3.84074 9.71531C3.27274 9.86952 2.67782 9.89268 2.09981 9.78309C2.34861 10.563 2.83149 11.2448 3.48108 11.7333C4.13066 12.2218 4.91454 12.4926 5.72333 12.508C4.35352 13.5973 2.66213 14.1885 0.920833 14.1866C0.613889 14.1866 0.307731 14.1683 0 14.1332C1.77533 15.285 3.83957 15.8964 5.94764 15.8948C13.0727 15.8948 16.9646 9.91706 16.9646 4.74238C16.9646 4.57492 16.9646 4.40745 16.9528 4.23999C17.713 3.68565 18.3688 2.99741 18.8889 2.20807L18.8519 2.19212Z"
+                              fill="currentColor"></path>
+                    </svg>
+                </a><a class="chakra-link css-baj0x2" href="#" data-testid="github-link">
+                    <svg viewBox="0 0 21 20" focusable="false" class="chakra-icon css-nyt2fo" role="img"
+                         alt="Hiro on GitHub">
+                        <path d="M10.6936 0C5.1686 0 0.693604 4.59118 0.693604 10.2539C0.693604 14.7853 3.5586 18.6279 7.5311 19.9823C8.0311 20.0788 8.21444 19.7618 8.21444 19.4892C8.21444 19.2457 8.2061 18.6006 8.20194 17.7461C5.42027 18.3647 4.8336 16.3703 4.8336 16.3703C4.3786 15.1869 3.7211 14.8707 3.7211 14.8707C2.81527 14.235 3.7911 14.2478 3.7911 14.2478C4.79527 14.3196 5.32277 15.3039 5.32277 15.3039C6.21444 16.8719 7.6636 16.4191 8.23527 16.1567C8.32527 15.4936 8.58277 15.0416 8.8686 14.7853C6.64777 14.5289 4.3136 13.6471 4.3136 9.71813C4.3136 8.59875 4.7011 7.68444 5.34277 6.96667C5.23027 6.70776 4.89277 5.66528 5.43027 4.2528C5.43027 4.2528 6.26777 3.97766 8.18027 5.30383C8.98027 5.07568 9.83027 4.96289 10.6803 4.95776C11.5303 4.96289 12.3803 5.07568 13.1803 5.30383C15.0803 3.97766 15.9178 4.2528 15.9178 4.2528C16.4553 5.66528 16.1178 6.70776 16.0178 6.96667C16.6553 7.68444 17.0428 8.59875 17.0428 9.71813C17.0428 13.6573 14.7053 14.5246 12.4803 14.7767C12.8303 15.0843 13.1553 15.7132 13.1553 16.6737C13.1553 18.046 13.1428 19.1483 13.1428 19.4816C13.1428 19.7507 13.3178 20.0711 13.8303 19.9686C17.8311 18.6236 20.6936 14.7784 20.6936 10.2539C20.6936 4.59118 16.2161 0 10.6936 0Z"
+                              fill="currentColor"></path>
+                    </svg>
+                </a>
+                    <p class="chakra-text css-0">© <!-- -->2023<!-- --> EDEB Ou</p></div>
+            </footer>
+        </div>
     </div>
+    <span id="__chakra_env" hidden=""></span>
+
+
+</div>
+<script>
+    function redirectToSignIn() {
+        window.location.href = "/public/signin";
+    }
+</script>
+
 
 <next-route-announcer><p aria-live="assertive" id="__next-route-announcer__" role="alert"
-                         style="border: 0px none; clip: rect(0px, 0px, 0px, 0px); height: 1px; margin: -1px; overflow: hidden; padding: 0px; position: absolute; top: 0px; width: 1px; white-space: nowrap; overflow-wrap: normal;">
-    Hiro Platform: Projects</p></next-route-announcer>
+                         style="border: 0px none; clip: rect(0px, 0px, 0px, 0px); height: 1px; margin: -1px; overflow: hidden; padding: 0px; position: absolute; top: 0px; width: 1px; white-space: nowrap; overflow-wrap: normal;"></p>
+</next-route-announcer>
 <div class="chakra-portal">
     <ul role="region" aria-live="polite" id="chakra-toast-manager-top"
         style="position: fixed; z-index: 5500; pointer-events: none; display: flex; flex-direction: column; margin: 0px auto; top: env(safe-area-inset-top, 0px); right: env(safe-area-inset-right, 0px); left: env(safe-area-inset-left, 0px);"></ul>
@@ -1670,11 +1566,5 @@
     <ul role="region" aria-live="polite" id="chakra-toast-manager-bottom-right"
         style="position: fixed; z-index: 5500; pointer-events: none; display: flex; flex-direction: column; bottom: env(safe-area-inset-bottom, 0px); right: env(safe-area-inset-right, 0px);"></ul>
 </div>
-<script th:src="@{/js/93628359-f2d22c0bb036aca4.js}"></script>
-<script th:src="@{/js/index-0ff0cded264cbd12.js}"></script>
-<script th:src="@{/js/welcome-fe69ca0ca87a96a8.js}"></script>
-<script th:src="@{/js/914-19f37e5d4529c929.js}"></script>
-<script th:src="@{/js/128-7b4f23ae02ef08df.js}"></script>
-<script th:src="@{/js/0914c8c2f0c5ef65.js}"></script>
 </body>
 </html>
