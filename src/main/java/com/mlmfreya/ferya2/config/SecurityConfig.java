@@ -42,15 +42,14 @@ public class SecurityConfig {
         http
                 .authorizeHttpRequests(authorizeRequests ->
                         authorizeRequests
-                                .requestMatchers("/", "/home", "/about", "/login", "/register","/shop/**","/public/**").permitAll()
+                                .requestMatchers("/assets/**","/js/**","/", "/home", "/about", "/login", "/register","/shop/**","/public/**").permitAll()
 //                                .requestMatchers("/admin/**").hasRole(User.Role.ADMIN.toString())
                                 .anyRequest().authenticated()
                 )
                 .formLogin().loginPage("/login").permitAll()
                 .and()
                 .logout().permitAll()
-                .and()
-                .csrf().disable();
+                .and();
 
         return http.build();
     }
