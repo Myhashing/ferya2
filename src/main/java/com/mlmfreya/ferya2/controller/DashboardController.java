@@ -33,13 +33,18 @@ public class DashboardController {
     }
 
     @GetMapping("/dashboard")
-    public String ShowCrypto(Model model, Principal principal) {
+    public String ShowCrypto(){
+        return "dashboard/default";
+    }
+
+    @GetMapping("/overview")
+    public String ShowOverview(Model model, Principal principal) {
         User user = userService.findByUsername(principal.getName());
         model.addAttribute("investments", userService.getUserInvestments(user));
         model.addAttribute("commissions", userService.getUserCommissions(user));
         model.addAttribute("payouts", userService.getPayoutHistory(user));
         model.addAttribute("user", user); // User entity is added to the model
-        return "dashboard/default";
+        return "dashboard/pages/overview";
     }
 
 
