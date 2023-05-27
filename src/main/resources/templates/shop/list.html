@@ -375,12 +375,8 @@ if (document.documentElement) {
                                             <td th:text="${package.minInvestmentAmount}"></td>
                                             <td th:text="${#temporals.format(package.createdAt, 'MMM dd, yyyy')}"></td>
                                             <td>
-                                                <!--begin::Add subscription-->
-                                                <a href="#"
-                                                   class="btn btn-primary" data-bs-toggle="modal"
-                                                   data-bs-target="#kt_modal_create_app">
-                                                    <i class="ki-duotone ki-plus fs-2"></i>Buy staking</a>
-                                                <!--end::Add subscription-->
+                                                <button class="buy-button" data-package-id="1">Buy</button>
+
                                             </td>
                                         </tr>
 
@@ -1084,7 +1080,7 @@ if (document.documentElement) {
             <!--begin::Modal header-->
             <div class="modal-header">
                 <!--begin::Modal title-->
-                <h2>Create App</h2>
+                <h2>Stake </h2>
                 <!--end::Modal title-->
                 <!--begin::Close-->
                 <div class="btn btn-sm btn-icon btn-active-color-primary" data-bs-dismiss="modal">
@@ -1232,7 +1228,7 @@ if (document.documentElement) {
                                     <div class="fv-row mb-10">
                                         <!--begin::Label-->
                                         <label class="d-flex align-items-center fs-5 fw-semibold mb-2">
-                                            <span class="required">App Name</span>
+                                            <span id="app-name"  class="required">App Name</span>
                                             <span class="ms-1" data-bs-toggle="tooltip"
                                                   title="Specify your unique app name">
 														<i class="ki-duotone ki-information-5 text-gray-500 fs-6">
@@ -3331,7 +3327,21 @@ if (document.documentElement) {
 <!--end::Modal - Invite Friend-->
 <!--end::Modals-->
 <!--begin::Javascript-->
+<script>
+    $(document).ready(function() {
+        $('.buy-button').click(function() {
+            var packageId = $(this).data('package-id'); // get the package id from the button
+            var packageDetails = getPackageDetails(packageId); // a function that fetches package details based on id
 
+            // populate the label in the modal with package details
+            $('#kt_modal_create_app .app-name').text(packageDetails.name);
+
+            // show the modal
+            $('#kt_modal_create_app').modal('show');
+        });
+    });
+
+</script>
 <!--begin::Global Javascript Bundle(mandatory for all pages)-->
 <script th:src="@{/plugins/global/plugins.bundle.js}"></script>
 <script th:src="@{/js/scripts.bundle.js}"></script>
