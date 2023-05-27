@@ -42,7 +42,13 @@ public class SecurityConfig {
         http
                 .authorizeHttpRequests(authorizeRequests ->
                         authorizeRequests
-                                .requestMatchers("/assets/**","/js/**","/", "/home", "/about", "/login", "/register","/shop/**","/public/**").permitAll()
+                                .requestMatchers(
+                                        "/assets/**","/plugins/**",
+                                        "/css/**","/media/**",
+                                        "/js/**","/",
+                                        "/home", "/about",
+                                        "/login", "/register",
+                                        "/shop/**","/public/**").permitAll()
 //                                .requestMatchers("/admin/**").hasRole(User.Role.ADMIN.toString())
                                 .anyRequest().authenticated()
                 )

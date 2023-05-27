@@ -54,7 +54,7 @@ public class OrderController {
         List<InvestmentPackage> packages = packageService.getAllPackages();
         model.addAttribute("packages", packages);
 
-        return "user/packages";
+        return "shop/list";
     }
     @PostMapping("/add-to-cart")
     public String addToCart(@RequestParam("packageId") Long packageId,

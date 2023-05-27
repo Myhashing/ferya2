@@ -1,9 +1,6 @@
 package com.mlmfreya.ferya2.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -20,11 +17,15 @@ public class InvestmentPackage {
     private Long id;
     private String name;
     private String description;
-
+    //TODO: set default as active
+    private Status status;
     private int duration;
     private BigDecimal returnOnInvestment;
     private BigDecimal minInvestmentAmount;  // New field for minimum investment amount
 
+    public enum Status{
+        ACTIVE,DISABLE
+    }
     @CreationTimestamp
     private LocalDateTime createdAt;
 

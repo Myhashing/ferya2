@@ -48,6 +48,7 @@ public class PackageController {
 
     @GetMapping("/add")
     public String showAddPackageForm(Model model) {
+
         model.addAttribute("package", new InvestmentPackage());
         return "admin/add-package";
     }
@@ -58,6 +59,7 @@ public class PackageController {
         if (result.hasErrors()) {
             return "admin/add-package";
         }
+        investmentPackage.setStatus(InvestmentPackage.Status.ACTIVE);
         investmentPackageService.savePackage(investmentPackage);
         return "redirect:/admin/package/list";
     }
