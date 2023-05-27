@@ -1,7 +1,9 @@
 package com.mlmfreya.ferya2.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.mlmfreya.ferya2.dto.UserRegistrationDto;
 import com.mlmfreya.ferya2.dto.WalletResponse;
 import com.mlmfreya.ferya2.model.*;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.math.BigDecimal;
+
 import java.util.List;
 
 
@@ -27,8 +30,7 @@ public class OrderController {
 
     @Autowired
     private InvestmentPackageService packageService;
-    @Autowired
-    private PaymentGatewayService paymentService;
+
 
     @Autowired
     private TransactionService transactionService;
@@ -38,14 +40,21 @@ public class OrderController {
 
     @Autowired
     private UserService userService;
-    @Autowired
-    private TransactionRepository transactionRepository;
+
 
     @Autowired
     private WalletService walletService;
 
     @Autowired
     private PaymentWatcherService paymentWatcherService;
+
+    @GetMapping("/package/{id}")
+    @ResponseBody
+    public InvestmentPackage getPackage(@PathVariable Long id){
+        InvestmentPackage investmentPackage = packageService.getPackage(id);
+        return investmentPackage;
+    }
+
     @GetMapping("/list")
     public String listPackages(Model model) {
         if(this.cart != null) {
@@ -56,6 +65,12 @@ public class OrderController {
 
         return "shop/list";
     }
+
+    @GetMapping("/reg")
+    public String test(){
+        return "shop/reg";
+    }
+
     @PostMapping("/add-to-cart")
     public String addToCart(@RequestParam("packageId") Long packageId,
                             @RequestParam("investmentAmount") BigDecimal investmentAmount,
@@ -68,7 +83,7 @@ public class OrderController {
         // Validate that the investment amount is not less than the minimum investment amount
         if (investmentAmount.compareTo(investmentPackage.getMinInvestmentAmount()) < 0) {
             model.addAttribute("error", "The minimum investment amount for this package is " + investmentPackage.getMinInvestmentAmount());
-            return "user/packages";
+            return "shop/list";
         }
 
 
