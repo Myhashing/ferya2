@@ -94,7 +94,7 @@ public class OrderController {
         // Save cart in the session
         session.setAttribute("cart", cart);
 
-        return "redirect:/shop/form";
+        return "redirect:/shop/reg";
     }
 
 
@@ -109,7 +109,7 @@ public class OrderController {
         // Add cart to the model
         model.addAttribute("cart", cart);
         // Render the form view
-        return "user/form";
+        return "shop/reg";
     }
 
 
