@@ -1,13 +1,10 @@
 package com.mlmfreya.ferya2.controller;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonNode;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.mlmfreya.ferya2.dto.UserRegistrationDto;
 import com.mlmfreya.ferya2.dto.WalletResponse;
 import com.mlmfreya.ferya2.model.*;
-import com.mlmfreya.ferya2.repository.TransactionRepository;
 import com.mlmfreya.ferya2.service.*;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -129,10 +126,10 @@ public class OrderController {
             parent = userService.getUserByReferralCode(parentReferralCode);
             if (parent == null) {
                 model.addAttribute("errorMessage", "Parent referral code does not exist.");
-                return "user/form";
+                return "shop/reg";
             } else if(parent.getLeftChild() != null && parent.getRightChild() != null) {
                 model.addAttribute("errorMessage", "Parent already has two children. No room for more.");
-                return "user/form";
+                return "shop/reg";
             } else {
                 session.setAttribute("parentUser", parent);
             }
@@ -215,7 +212,7 @@ public class OrderController {
         model.addAttribute("amount", amount);
 
         // If all data is present, display the payment page
-        return "payment";
+        return "/shop/payment";
     }
 
     @GetMapping("/backToShop")

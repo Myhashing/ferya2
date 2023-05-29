@@ -495,74 +495,9 @@
     </style>
 </div>
 <!--marquee on top-->
-<a href="https://www.bitcoinbuildersconf.com/" target="_blank" class="top-banner-marquee w-inline-block">
-    <div class="marquee-text-swiper">
-        <div class="swiper-wrapper upcoming-events-text-list">
-            <div class="swiper-slide marquee-text-item">
-                <div class="banner-swiper-text"><span class="banner-orange-span">/ </span> Join Us at the First Bitcoin
-                    Layers Conference This May <span class="banner-orange-span">→</span> <span
-                            class="download-guide-banner-link">GET TICKETS</span></div>
-            </div>
-            <div class="swiper-slide marquee-text-item">
-                <div class="banner-swiper-text"><span class="banner-orange-span">/ </span> Join Us at the First Bitcoin
-                    Layers Conference This May <span class="banner-orange-span">→</span> <span
-                            class="download-guide-banner-link">GET TICKETs</span></div>
-            </div>
-            <div class="swiper-slide marquee-text-item">
-                <div class="banner-swiper-text"><span class="banner-orange-span">/ </span> Join Us at the First Bitcoin
-                    Layers Conference This May <span class="banner-orange-span">→</span> <span
-                            class="download-guide-banner-link">GET TICKETS</span></div>
-            </div>
-        </div>
-    </div>
-    <div class="w-embed">
-        <style>
-            .top-banner-marquee:hover .download-guide-banner-link {
-                text-decoration: underline;
-            }
-        </style>
-    </div>
-    <div class="hidden-js w-embed w-script">
-        <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
+<script src="https://widgets.coingecko.com/coingecko-coin-price-marquee-widget.js"></script>
+<coingecko-coin-price-marquee-widget  coin-ids="bitcoin,ethereum,eos,ripple,litecoin" currency="usd" background-color="#ffffff" locale="en"></coingecko-coin-price-marquee-widget>
 
-        <script>
-            var lbswiper = new Swiper('.marquee-text-swiper', {
-                spaceBetween: 0,
-                grabCursor: false,
-                a11y: false,
-                freeMode: false,
-                speed: 20000,
-                loop: true,
-                slidesPerView: "auto",
-                autoplay: {
-                    delay: 0.5,
-                    disableOnInteraction: false,
-                },
-            });
-        </script>
-    </div>
-    <div class="navigation-padding-fix w-embed">
-        <style>
-            @media only screen and (max-width: 991px) and (min-width: 479px) {
-                .rebrand-nav-menu {
-                    padding-top: 94px !important;
-                }
-            }
-
-            @media only screen and (max-width: 479px) {
-                .rebrand-navbar {
-                    position: sticky;
-                    top: 36.5px !important;
-                }
-
-                .rebrand-nav-menu {
-                    padding-top: 96px !important;
-                }
-            }
-
-        </style>
-    </div>
-</a>
 <!--Nav bar-->
 <div data-w-id="544ff1d2-c142-376a-67e5-351559bc4e8a" data-animation="default" data-collapse="medium"
      data-duration="400" data-easing="ease" data-easing2="ease" role="banner" class="rebrand-navbar v2 w-nav">
@@ -584,21 +519,124 @@
             }
         </style>
     </div>
-    <div class="navbar-container v2"><a href="/" aria-current="page" class="brand-logo v2 w-nav-brand w--current">
-        <div class="brand-logo-image w-embed">
-            <svg width="100%" height="100%" viewBox="0 0 65 19" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M35.2872 16.0766V17.9259H25.647V16.0766H29.4437V7.2004H25.647V5.3511H31.4659V16.0766H35.2872ZM28.9262 1.60343C28.9262 0.740108 29.6166 0.0742188 30.4799 0.0742188C31.3432 0.0742188 32.0091 0.740108 32.0091 1.60343C32.0091 2.51581 31.3432 3.15717 30.4799 3.15717C29.6166 3.15717 28.9262 2.51581 28.9262 1.60343Z"
-                      fill="CurrentColor"/>
-                <path d="M49.3032 5.35107V7.32304H47.6758C44.7412 7.32304 43.8791 9.5672 43.8791 11.5637V16.0754H48.1198V17.9247H39.0461V16.0754H41.8569V7.20038H39.0461V5.35107H43.7798L43.8534 7.47141C44.42 6.48542 45.5543 5.35107 47.9469 5.35107H49.3032Z"
-                      fill="CurrentColor"/>
-                <path d="M52.4249 11.6384C52.4249 7.81713 54.9892 5.20264 58.6633 5.20264C62.3373 5.20264 64.9016 7.81596 64.9016 11.6384C64.9016 15.4608 62.3373 18.0742 58.6633 18.0742C54.9892 18.0742 52.4249 15.4608 52.4249 11.6384ZM62.8303 11.6384C62.8303 8.95147 61.1539 7.00287 58.6633 7.00287C56.1726 7.00287 54.4962 8.95031 54.4962 11.6384C54.4962 14.3265 56.1726 16.2739 58.6633 16.2739C61.1539 16.2739 62.8303 14.3265 62.8303 11.6384Z"
-                      fill="CurrentColor"/>
-                <path d="M14.5583 17.9351L20.417 0.586914H22.6483L16.7897 17.9351H14.5583Z" fill="CurrentColor"/>
-                <path d="M0 17.9351L5.85865 0.586914H8.0888L2.23131 17.9351H0Z" fill="CurrentColor"/>
-                <path d="M14.6355 8.33691H8.63782L8.01282 10.1862H14.0105L14.6355 8.33691Z" fill="CurrentColor"/>
-            </svg>
-        </div>
-    </a>
+    <div class="navbar-container v2">
+        <a href="/" aria-current="page" class="brand-logo v2 w-nav-brand w--current">
+            <div class="brand-logo-image w-embed">
+
+                <svg
+                        xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                        viewBox="0 0 443.7 296.8"
+                        style="enable-background:new 0 0 443.7 296.8;" xml:space="preserve">
+<style type="text/css">
+	.st0 {
+        fill: #A31925;
+    }
+
+    .st1 {
+        fill-rule: evenodd;
+        clip-rule: evenodd;
+        fill: #FFFFFF;
+    }
+
+    .st2 {
+        fill: #1C1C1C;
+    }
+</style>
+                    <g>
+	<g id="SvgjsG1034" transform="scale(1.0417939138265786)">
+		<g id="SvgjsG1035" transform="translate(136.28013254743263, 0) scale(1.5331514911586168)">
+			<path class="st0" d="M0,0h100v100H0V0z"/>
+		</g>
+        <g id="SvgjsG1036" transform="translate(167.70118991410789, 30.71353038661999) scale(0.9047394035057985)">
+			<path class="st1" d="M40.7,48.9v4.6c0,0.5,0.2,0.9,0.6,1.2l2.8,2.3l-2.8,2.3c-0.4,0.3-0.6,0.7-0.6,1.2v3.5c0,0.5,0.2,0.9,0.6,1.2
+				l2.8,2.3l-2.8,2.3c-0.4,0.3-0.6,0.7-0.6,1.2v3.5c0,0.3,0.1,0.7,0.3,0.9l1.9,2.5L41,80.4c-0.2,0.3-0.3,0.6-0.3,0.9v7
+				c0,0.4,0.2,0.9,0.5,1.1l7.6,7c0.6,0.6,1.5,0.6,2.1,0l7.4-7c0.3-0.3,0.5-0.7,0.5-1.1V48.9C66.6,45.4,72,37.6,72,28.5
+				C72,16.2,62,6.3,49.8,6.3c-12.3,0-22.3,10-22.3,22.3C27.5,37.6,32.9,45.4,40.7,48.9L40.7,48.9z M90.6,85.9c0-2.6-2.1-4.7-4.7-4.7
+				s-4.7,2.1-4.7,4.7s2.1,4.7,4.7,4.7S90.6,88.5,90.6,85.9z M9.4,85.9c0,2.6,2.1,4.7,4.7,4.7s4.7-2.1,4.7-4.7s-2.1-4.7-4.7-4.7
+				S9.4,83.4,9.4,85.9z M23.4,87.5h9.4c0.9,0,1.6-0.7,1.6-1.6V75h3.1c0.9,0,1.6-0.7,1.6-1.6s-0.7-1.6-1.6-1.6h-4.7
+				c-0.9,0-1.6,0.7-1.6,1.6v10.9h-7.8c-0.9,0-1.6,0.7-1.6,1.6S22.6,87.5,23.4,87.5z M76.6,84.4h-7.8V73.4c0-0.9-0.7-1.6-1.6-1.6
+				h-4.7c-0.9,0-1.6,0.7-1.6,1.6s0.7,1.6,1.6,1.6h3.1v10.9c0,0.9,0.7,1.6,1.6,1.6h9.4c0.9,0,1.6-0.7,1.6-1.6S77.4,84.4,76.6,84.4z
+				 M9.4,70.3c0,2.6,2.1,4.7,4.7,4.7s4.7-2.1,4.7-4.7s-2.1-4.7-4.7-4.7S9.4,67.7,9.4,70.3z M90.6,70.3c0-2.6-2.1-4.7-4.7-4.7
+				s-4.7,2.1-4.7,4.7s2.1,4.7,4.7,4.7S90.6,72.9,90.6,70.3z M15.6,60.9v-4.7h17.2c0.9,0,1.6-0.7,1.6-1.6v-6.3c0-0.9-0.7-1.6-1.6-1.6
+				c-0.9,0-1.6,0.7-1.6,1.6v4.7H14.1c-0.9,0-1.6,0.7-1.6,1.6v6.2c0,0.9,0.7,1.6,1.6,1.6C14.9,62.5,15.6,61.8,15.6,60.9z M87.5,60.9
+				v-6.2c0-0.9-0.7-1.6-1.6-1.6H68.7v-4.7c0-0.9-0.7-1.6-1.6-1.6s-1.6,0.7-1.6,1.6v6.3c0,0.9,0.7,1.6,1.6,1.6h17.2v4.7
+				c0,0.9,0.7,1.6,1.6,1.6S87.5,61.8,87.5,60.9z M52.5,41l9.8-9.8c1.5-1.5,1.5-3.9,0-5.4L52.5,16c-1.5-1.5-3.9-1.5-5.4,0l-9.8,9.8
+				c-1.5,1.5-1.5,3.9,0,5.4l9.8,9.8C48.5,42.5,51,42.5,52.5,41C52.5,41,52.5,41,52.5,41z M84.4,17.5v5.9h-7.8
+				c-0.9,0-1.6,0.7-1.6,1.6c0,0.9,0.7,1.6,1.6,1.6h9.4c0.9,0,1.6-0.7,1.6-1.6v-7.5c0-0.9-0.7-1.6-1.6-1.6S84.4,16.6,84.4,17.5z
+				 M12.5,17.5V25c0,0.9,0.7,1.6,1.6,1.6h9.4c0.9,0,1.6-0.7,1.6-1.6c0-0.9-0.7-1.6-1.6-1.6h-7.8v-5.9c0-0.9-0.7-1.6-1.6-1.6
+				C13.2,15.9,12.5,16.6,12.5,17.5z M90.6,9.4c0-2.6-2.1-4.7-4.7-4.7s-4.7,2.1-4.7,4.7s2.1,4.7,4.7,4.7S90.6,12,90.6,9.4L90.6,9.4z
+				 M9.4,9.4c0,2.6,2.1,4.7,4.7,4.7s4.7-2.1,4.7-4.7s-2.1-4.7-4.7-4.7S9.4,6.8,9.4,9.4z"/>
+		</g>
+        <g id="SvgjsG1037" transform="translate(213.91000366210938, 231.33748431094645) scale(1)">
+			<path class="st0" d="M-188.5-41.7c2.2,0,4.3,0.3,6.3,0.9c1.9,0.6,3.9,1.4,5.8,2.3l4.4-11.2c-5.2-2.5-10.6-3.7-16.3-3.7
+				c-5.2,0-9.7,1.1-13.6,3.3c-3.9,2.2-6.8,5.4-8.9,9.5s-3.1,8.9-3.1,14.4c0,8.7,2.1,15.4,6.4,20c4.2,4.6,10.3,6.9,18.3,6.9
+				c5.5,0,10.5-1,14.9-2.9v-12c-2.2,0.9-4.4,1.7-6.6,2.3c-2.2,0.7-4.4,1-6.8,1c-7.7,0-11.6-5.1-11.6-15.2c0-4.9,0.9-8.7,2.9-11.5
+				C-194.6-40.3-191.9-41.7-188.5-41.7z M-109-26.4c0-8.9-2.2-15.6-6.5-20.2c-4.3-4.6-10.7-6.9-19-6.9c-8.4,0-14.7,2.3-19.1,6.9
+				s-6.6,11.3-6.6,20.1c0,8.9,2.2,15.6,6.6,20.2c4.4,4.6,10.7,6.9,19,6.9c8.4,0,14.7-2.3,19.1-6.9C-111.2-10.8-109-17.5-109-26.4z
+				 M-145.2-26.4c0-10.3,3.6-15.4,10.7-15.4c3.5,0,6.1,1.2,7.9,3.8c1.8,2.5,2.6,6.4,2.6,11.6c0,5.2-0.9,9.1-2.6,11.5
+				c-1.7,2.5-4.4,3.7-8,3.7C-141.7-11.1-145.2-16.2-145.2-26.4z M-92.1,0h14.3v-52.6h-14.3V0z M-9,0v-52.6h-12.7v23.8
+				c0,3.2,0.2,7.5,0.5,12.8h-0.2l-19.1-36.6h-18.6V0h12.6v-23.7c0-3.1-0.2-7.5-0.7-13.4h0.3L-27.6,0H-9z M59.9,0v-52.6H47.2v23.8
+				c0,3.2,0.2,7.5,0.5,12.8h-0.2L28.3-52.6H9.8V0h12.6v-23.7c0-3.1-0.2-7.5-0.7-13.4H22L41.2,0H59.9z M78.6,0h14.3v-52.6H78.6V0z
+				 M135.1-41.7c2.2,0,4.3,0.3,6.3,0.9c1.9,0.6,3.9,1.4,5.8,2.3l4.4-11.2c-5.2-2.5-10.6-3.7-16.3-3.7c-5.2,0-9.7,1.1-13.6,3.3
+				c-3.8,2.2-6.8,5.4-8.8,9.5c-2.1,4.1-3.1,8.9-3.1,14.4c0,8.7,2.1,15.4,6.3,20c4.2,4.6,10.3,6.9,18.3,6.9c5.6,0,10.5-1,14.9-2.9
+				v-12c-2.2,0.9-4.4,1.7-6.6,2.3c-2.2,0.7-4.4,1-6.8,1c-7.7,0-11.6-5.1-11.6-15.2c0-4.9,0.9-8.7,2.8-11.5
+				C129.1-40.3,131.7-41.7,135.1-41.7z M212,0v-52.6h-14.3v19.5h-16.5v-19.5h-14.3V0h14.3v-21.4h16.5V0H212z"/>
+		</g>
+        <rect id="SvgjsRect1038" x="0" y="268.9" class="st2" width="44.3" height="2.5"/>
+        <g id="SvgjsG1039" transform="translate(189.76694337327163, 277.81319829995584) scale(1)">
+			<path class="st2" d="M-117.6,0l-8.8-11.9l8.5-9.1h-2.9l-9.6,10.4v-10.4h-2.4V0h2.4v-8.2l2.2-2l7.7,10.2H-117.6z M-108.4,0.3
+				c1.1,0,2-0.1,2.7-0.2c0.8-0.2,1.6-0.4,2.4-0.8v-2.1c-1.7,0.7-3.3,1.1-5,1.1c-1.6,0-2.9-0.5-3.8-1.4c-0.9-1-1.3-2.4-1.4-4.2h10.9
+				V-9c0-2.1-0.6-3.8-1.7-5.1c-1.1-1.3-2.7-2-4.7-2c-2.1,0-3.8,0.8-5.1,2.3s-1.9,3.5-1.9,6.1c0,2.5,0.7,4.5,2,5.9
+				C-112.6-0.4-110.7,0.3-108.4,0.3z M-109-14.1c1.2,0,2.2,0.4,2.9,1.2c0.7,0.8,1,1.9,1,3.5h-8.2c0.1-1.5,0.6-2.6,1.3-3.4
+				C-111.3-13.7-110.3-14.1-109-14.1z M-101.6-15.8l6.4,15.9l-0.9,2.2c-0.7,1.8-1.9,2.8-3.5,2.8c-0.6,0-1.2-0.1-1.8-0.2v1.9
+				c0.7,0.2,1.4,0.2,2.2,0.2c1.3,0,2.4-0.4,3.3-1.1c0.9-0.8,1.7-2,2.4-3.8l6.8-18h-2.6c-2.2,6.1-3.5,9.7-3.9,10.9
+				c-0.4,1.2-0.7,2-0.8,2.5h-0.1c-0.2-0.9-0.6-2.4-1.4-4.5l-3.5-9H-101.6z M-71.5-1.7c-0.8,0-1.4-0.3-1.9-0.8C-73.8-3-74-3.7-74-4.6
+				v-9.3h4.6v-1.9H-74v-3.7h-1.4l-1,3.4l-2.3,1v1.1h2.3v9.4c0,3.2,1.5,4.8,4.6,4.8c0.4,0,0.9,0,1.4-0.1c0.5-0.1,0.9-0.2,1.2-0.3V-2
+				c-0.2,0.1-0.5,0.1-0.9,0.2C-70.6-1.7-71.1-1.7-71.5-1.7z M-52.5-7.9c0-2.5-0.6-4.5-2-6c-1.3-1.5-3-2.2-5.3-2.2
+				c-2.3,0-4.1,0.7-5.4,2.2c-1.3,1.4-1.9,3.4-1.9,6c0,1.7,0.3,3.1,0.9,4.3c0.6,1.2,1.4,2.2,2.5,2.8c1.1,0.7,2.4,1,3.8,1
+				c2.3,0,4.1-0.7,5.4-2.2C-53.2-3.3-52.5-5.3-52.5-7.9z M-64.6-7.9c0-2,0.4-3.6,1.2-4.6c0.8-1,2-1.5,3.5-1.5c1.6,0,2.8,0.5,3.6,1.6
+				c0.8,1,1.2,2.6,1.2,4.6c0,2-0.4,3.6-1.2,4.6s-2,1.6-3.6,1.6c-1.6,0-2.8-0.5-3.6-1.6C-64.2-4.4-64.6-5.9-64.6-7.9z M-33.4-16
+				c-2.2,0-3.8,0.8-5,2.4h-0.1c0.1-1,0.1-2.1,0.1-3.3v-5.4h-2.4V0h1.7l0.5-2h0.2c0.6,0.8,1.3,1.4,2.1,1.7s1.8,0.6,2.8,0.6
+				c2.1,0,3.7-0.7,4.8-2.1c1.2-1.4,1.7-3.4,1.7-6c0-2.6-0.6-4.6-1.7-6C-29.7-15.3-31.3-16-33.4-16z M-33.7-14c1.5,0,2.6,0.5,3.3,1.5
+				c0.7,1,1.1,2.5,1.1,4.6c0,2-0.4,3.5-1.1,4.6s-1.8,1.6-3.3,1.6c-1.6,0-2.8-0.5-3.6-1.4c-0.7-0.9-1.1-2.5-1.1-4.7
+				c0-2.2,0.4-3.8,1.1-4.7C-36.5-13.6-35.3-14-33.7-14z M-16,0.3c1.1,0,2-0.1,2.7-0.2c0.8-0.2,1.6-0.4,2.4-0.8v-2.1
+				c-1.7,0.7-3.3,1.1-5,1.1c-1.6,0-2.9-0.5-3.8-1.4c-0.9-1-1.3-2.4-1.4-4.2h10.9V-9c0-2.1-0.6-3.8-1.7-5.1s-2.7-2-4.7-2
+				c-2.1,0-3.8,0.8-5.1,2.3s-1.9,3.5-1.9,6.1c0,2.5,0.7,4.5,2,5.9C-20.1-0.4-18.3,0.3-16,0.3z M-16.6-14.1c1.2,0,2.2,0.4,2.9,1.2
+				c0.7,0.8,1,1.9,1,3.5H-21c0.1-1.5,0.6-2.6,1.3-3.4C-18.9-13.7-17.9-14.1-16.6-14.1z M-1-1.7c-0.8,0-1.4-0.3-1.9-0.8
+				s-0.7-1.2-0.7-2.2v-9.3h4.6v-1.9h-4.6v-3.7h-1.4l-1,3.4l-2.3,1v1.1h2.3v9.4c0,3.2,1.5,4.8,4.6,4.8c0.4,0,0.9,0,1.4-0.1
+				C0.5,0.1,0.9,0,1.2-0.1V-2C0.9-1.9,0.6-1.8,0.2-1.8C-0.2-1.7-0.6-1.7-1-1.7z M9.4-1.7C8.6-1.7,8-1.9,7.6-2.5S6.9-3.7,6.9-4.6
+				v-9.3h4.6v-1.9H6.9v-3.7H5.5l-1,3.4l-2.3,1v1.1h2.3v9.4c0,3.2,1.5,4.8,4.6,4.8c0.4,0,0.8,0,1.4-0.1c0.5-0.1,0.9-0.2,1.1-0.3V-2
+				c-0.2,0.1-0.5,0.1-0.9,0.2C10.3-1.7,9.8-1.7,9.4-1.7z M21.4,0.3c1.1,0,2-0.1,2.7-0.2c0.8-0.2,1.6-0.4,2.4-0.8v-2.1
+				c-1.7,0.7-3.4,1.1-5,1.1c-1.6,0-2.9-0.5-3.8-1.4c-0.9-1-1.4-2.4-1.4-4.2h10.9V-9c0-2.1-0.6-3.8-1.7-5.1c-1.1-1.3-2.7-2-4.7-2
+				c-2.1,0-3.8,0.8-5.1,2.3c-1.2,1.5-1.9,3.5-1.9,6.1c0,2.5,0.7,4.5,2,5.9S19.1,0.3,21.4,0.3z M20.8-14.1c1.2,0,2.2,0.4,2.9,1.2
+				c0.7,0.8,1,1.9,1,3.5h-8.2c0.1-1.5,0.6-2.6,1.3-3.4C18.5-13.7,19.5-14.1,20.8-14.1z M38.5-16.1c-1,0-1.9,0.3-2.7,0.8
+				c-0.8,0.5-1.5,1.3-2.1,2.4h-0.1l-0.3-2.9h-2V0h2.4v-8.5c0-1.5,0.5-2.8,1.4-3.9c0.9-1,2-1.6,3.3-1.6c0.5,0,1.1,0.1,1.7,0.2
+				l0.3-2.2C39.8-16,39.2-16.1,38.5-16.1z M57.3,0.3c1.6,0,2.9-0.3,4-0.8v-2.1c-1.4,0.6-2.7,0.9-4,0.9c-1.5,0-2.7-0.5-3.5-1.5
+				c-0.8-1-1.2-2.5-1.2-4.5c0-4.1,1.6-6.1,4.8-6.1c0.5,0,1,0.1,1.7,0.2c0.6,0.1,1.2,0.3,1.7,0.5l0.7-2c-0.4-0.2-1-0.4-1.8-0.6
+				c-0.8-0.2-1.5-0.3-2.3-0.3c-2.3,0-4.2,0.7-5.4,2.2c-1.3,1.4-1.9,3.5-1.9,6.1c0,2.6,0.6,4.6,1.9,6C53.2-0.4,55,0.3,57.3,0.3z
+				 M72.2-16.1c-1,0-1.9,0.3-2.7,0.8c-0.8,0.5-1.5,1.3-2.1,2.4h-0.1L67-15.8h-2V0h2.4v-8.5c0-1.5,0.4-2.8,1.4-3.9
+				c0.9-1,2-1.6,3.3-1.6c0.5,0,1.1,0.1,1.7,0.2l0.3-2.2C73.5-16,72.9-16.1,72.2-16.1z M74.5-15.8l6.4,15.9L80,2.3
+				c-0.7,1.8-1.9,2.8-3.5,2.8c-0.6,0-1.2-0.1-1.8-0.2v1.9c0.7,0.2,1.4,0.2,2.2,0.2c1.3,0,2.4-0.4,3.3-1.1c0.9-0.8,1.7-2,2.3-3.8
+				l6.8-18h-2.6C84.6-9.7,83.3-6,82.9-4.8c-0.4,1.2-0.7,2-0.8,2.5H82c-0.2-0.9-0.7-2.4-1.4-4.5l-3.5-9H74.5z M99.3,0.3
+				c2,0,3.7-0.7,4.8-2.1c1.2-1.4,1.7-3.4,1.7-6s-0.6-4.6-1.7-6c-1.1-1.4-2.8-2.2-4.8-2.2c-1.1,0-2,0.2-2.8,0.6
+				c-0.8,0.4-1.5,1-2.1,1.9h-0.1l-0.3-2.2h-1.9V7.1h2.4V0.6c0-0.8-0.1-1.7-0.2-2.6h0.2c0.6,0.8,1.3,1.4,2.1,1.7
+				C97.3,0.1,98.2,0.3,99.3,0.3z M98.9-14c1.4,0,2.5,0.5,3.3,1.6c0.8,1,1.2,2.6,1.2,4.5c0,1.9-0.4,3.5-1.2,4.6
+				c-0.8,1.1-1.8,1.7-3.2,1.7c-1.6,0-2.8-0.5-3.6-1.4c-0.7-0.9-1.1-2.5-1.1-4.7v-0.5c0-2,0.4-3.4,1.1-4.3C96.1-13.6,97.3-14,98.9-14
+				z M115.1-1.7c-0.8,0-1.4-0.3-1.9-0.8c-0.5-0.5-0.7-1.2-0.7-2.2v-9.3h4.6v-1.9h-4.6v-3.7h-1.4l-1,3.4l-2.3,1v1.1h2.3v9.4
+				c0,3.2,1.5,4.8,4.6,4.8c0.4,0,0.8,0,1.4-0.1c0.5-0.1,0.9-0.2,1.1-0.3V-2c-0.2,0.1-0.5,0.1-0.9,0.2C115.9-1.7,115.5-1.7,115.1-1.7
+				z M134-7.9c0-2.5-0.7-4.5-2-6c-1.3-1.5-3.1-2.2-5.3-2.2c-2.3,0-4.1,0.7-5.4,2.2c-1.3,1.4-1.9,3.4-1.9,6c0,1.7,0.3,3.1,0.9,4.3
+				c0.6,1.2,1.4,2.2,2.5,2.8c1.1,0.7,2.3,1,3.8,1c2.3,0,4.1-0.7,5.4-2.2C133.4-3.3,134-5.3,134-7.9z M122-7.9c0-2,0.4-3.6,1.2-4.6
+				c0.8-1,2-1.5,3.5-1.5c1.6,0,2.8,0.5,3.6,1.6c0.8,1,1.2,2.6,1.2,4.6c0,2-0.4,3.6-1.2,4.6c-0.8,1-2,1.6-3.6,1.6
+				c-1.6,0-2.8-0.5-3.6-1.6C122.4-4.4,122-5.9,122-7.9z"/>
+		</g>
+        <rect id="SvgjsRect1040" x="381.5" y="268.9" class="st2" width="44.3" height="2.5"/>
+	</g>
+</g>
+</svg>
+
+            </div>
+        </a>
+    </div>
         <div th:replace="fragments/nav :: nav"></div>
         <div class="nav-bg-mobile"></div>
         <div scroll="both" class="rebrand-menu-button-v2 w-nav-button">
@@ -830,28 +868,7 @@
     </main>
     <!--End blog section-->
     <!--    Down Marquee-->
-    <div class="rebrand-section-v2 events-rebrand-section wf-section">
-        <div class="upcoming-events-text-swiper">
-            <div class="swiper-wrapper upcoming-events-text-list">
-                <div class="swiper-slide upcoming-events-text-item">
-                    <div>UPCOMING EVENTS  /  UPCOMING EVENTS  /  UPCOMING EVENTS  /  UPCOMING EVENTS  /  UPCOMING EVENTS
-                         /  UPCOMING EVENTS  /  UPCOMING EVENTS  /  UPCOMING EVENTS
-                    </div>
-                </div>
-                <div class="swiper-slide upcoming-events-text-item">
-                    <div>/  UPCOMING EVENTS  /  UPCOMING EVENTS  /  UPCOMING EVENTS  /  UPCOMING EVENTS  /  UPCOMING
-                        EVENTS  /  UPCOMING EVENTS  /  UPCOMING EVENTS  /  UPCOMING EVENTS
-                    </div>
-                </div>
-                <div class="swiper-slide upcoming-events-text-item">
-                    <div>/  UPCOMING EVENTS  /  UPCOMING EVENTS  /  UPCOMING EVENTS  /  UPCOMING EVENTS  /  UPCOMING
-                        EVENTS  /  UPCOMING EVENTS  /  UPCOMING EVENTS  /  UPCOMING EVENTS
-                    </div>
-                </div>
-            </div>
-        </div>
 
-    </div>
     <div role="listitem" class="upcoming-events-item w-dyn-item">
 
     </div>
@@ -875,40 +892,6 @@
 <script async src="https://cdn.jsdelivr.net/npm/@finsweet/attributes-cmsload@1/cmsload.js"></script>
 <!-- Project Global CSS Styles -->
 
-<script>
-    !function () {
-        var analytics = window.analytics = window.analytics || [];
-        if (!analytics.initialize) if (analytics.invoked) window.console && console.error && console.error("Segment snippet included twice."); else {
-            analytics.invoked = !0;
-            analytics.methods = ["trackSubmit", "trackClick", "trackLink", "trackForm", "pageview", "identify", "reset", "group", "track", "ready", "alias", "debug", "page", "once", "off", "on", "addSourceMiddleware", "addIntegrationMiddleware", "setAnonymousId", "addDestinationMiddleware"];
-            analytics.factory = function (e) {
-                return function () {
-                    var t = Array.prototype.slice.call(arguments);
-                    t.unshift(e);
-                    analytics.push(t);
-                    return analytics
-                }
-            };
-            for (var e = 0; e < analytics.methods.length; e++) {
-                var key = analytics.methods[e];
-                analytics[key] = analytics.factory(key)
-            }
-            analytics.load = function (key, e) {
-                var t = document.createElement("script");
-                t.type = "text/javascript";
-                t.async = !0;
-                t.src = "https://cdn.segment.com/analytics.js/v1/" + key + "/analytics.min.js";
-                var n = document.getElementsByTagName("script")[0];
-                n.parentNode.insertBefore(t, n);
-                analytics._loadOptions = e
-            };
-            analytics._writeKey = "4N81BrFBQb92IZhP4FuRoz2hzCazRYoh";
-            ;analytics.SNIPPET_VERSION = "4.15.3";
-            analytics.load("4N81BrFBQb92IZhP4FuRoz2hzCazRYoh");
-            analytics.page();
-        }
-    }();
-</script>
 <script>
     function setRelAttribute() {
         var elems = document.body.getElementsByTagName('a');

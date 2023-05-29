@@ -48,7 +48,8 @@ public class SecurityConfig {
                                         "/js/**","/",
                                         "/home", "/about",
                                         "/login", "/register",
-                                        "/shop/**","/public/**").permitAll()
+                                        "/shop/**","/public/**",
+                                        "/blog/**").permitAll()
 //                                .requestMatchers("/admin/**").hasRole(User.Role.ADMIN.toString())
                                 .anyRequest().authenticated()
                 )
