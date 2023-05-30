@@ -499,7 +499,8 @@
 <!--marquee on top-->
 <a href="/" target="_blank" class="top-banner-marquee w-inline-block">
     <script src="https://widgets.coingecko.com/coingecko-coin-price-marquee-widget.js"></script>
-    <coingecko-coin-price-marquee-widget  coin-ids="bitcoin,ethereum,eos,ripple,litecoin" currency="usd" background-color="#ffffff" locale="en"></coingecko-coin-price-marquee-widget>
+    <coingecko-coin-price-marquee-widget coin-ids="bitcoin,ethereum,eos,ripple,litecoin" currency="usd"
+                                         background-color="#ffffff" locale="en"></coingecko-coin-price-marquee-widget>
 
     <div class="w-embed">
         <style>
@@ -575,12 +576,23 @@
             <?xml version="1.0" encoding="utf-8"?>
             <!-- Generator: Adobe Illustrator 25.2.3, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
             <svg version="1.1" id="Layer_1" xmlns:svgjs="http://svgjs.com/svgjs"
-                 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 443.7 296.8"
+                 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                 viewBox="0 0 443.7 296.8"
                  style="enable-background:new 0 0 443.7 296.8;" xml:space="preserve">
 <style type="text/css">
-	.st0{fill:#A31925;}
-    .st1{fill-rule:evenodd;clip-rule:evenodd;fill:#FFFFFF;}
-    .st2{fill:#1C1C1C;}
+	.st0 {
+        fill: #A31925;
+    }
+
+    .st1 {
+        fill-rule: evenodd;
+        clip-rule: evenodd;
+        fill: #FFFFFF;
+    }
+
+    .st2 {
+        fill: #1C1C1C;
+    }
 </style>
                 <g>
 	<g id="SvgjsG1034" transform="scale(1.0417939138265786)">
@@ -700,9 +712,9 @@
     <div layout:fragment="content"></div>
     <!--end::Content container-->
 
-    </div>
-    <!--    Footer -->
-    <div th:replace="~{fragments/footer :: footer}"></div>
+</div>
+<!--    Footer -->
+<div th:replace="~{fragments/footer :: footer}"></div>
 </div>
 <!--End footer-->
 

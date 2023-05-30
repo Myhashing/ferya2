@@ -33,4 +33,9 @@ public class BlogController {
     public String customerinweb3(){
         return "blog/defi-kyc-the-contradiction-of-knowing-your-customer-in-web3";
     }
+
+    @GetMapping("Revolutionize-Your-Passive-Income")
+    public String Revolutionize(){
+        return "blog/Revolutionize-Your-Passive-Income";
+    }
 }
