@@ -88,18 +88,18 @@ public class UserController {
     public String login() {
         return "login";}
 
-    //create login post endpoint to receive form data validate and authenticate user
     @PostMapping("/login")
     public String authenticateUser(@RequestParam String username, @RequestParam String password, HttpServletRequest request) {
         UserDetails userDetails = userDetailsService.loadUserByUsername(username);
         if (passwordEncoder.matches(password, userDetails.getPassword())) {
             UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
             SecurityContextHolder.getContext().setAuthentication(auth);
-            return "redirect:/home";  // Redirect to a secure page after successful login
+            return "redirect:/dashboard";  // Redirect to dashboard page after successful login
         } else {
             return "redirect:/login?error";  // Redirect back to login page if authentication fails
         }
     }
+
 
     @GetMapping("/public/checkEmailUnique")
     @ResponseBody
@@ -120,6 +120,8 @@ public class UserController {
             return false;
         }
     }
+
+
 
 
 

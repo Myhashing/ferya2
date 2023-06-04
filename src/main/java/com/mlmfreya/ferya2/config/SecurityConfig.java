@@ -53,7 +53,7 @@ public class SecurityConfig {
 //                                .requestMatchers("/admin/**").hasRole(User.Role.ADMIN.toString())
                                 .anyRequest().authenticated()
                 )
-                .formLogin().loginPage("/login").permitAll()
+                .formLogin().loginPage("/login").successForwardUrl("/dashboard").permitAll() // Redirect to "/dashboard" after successful login
                 .and()
                 .logout().permitAll()
                 .and()
