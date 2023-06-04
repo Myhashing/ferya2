@@ -34,7 +34,7 @@
         var walletAddress = document.getElementById("walletAddress").innerText;
 
         // Make API call to check wallet status
-        fetch('http://localhost:3000/api/tron/getBalance/' + walletAddress)
+        fetch('https://tronapi.coinnich.com/api/tron/getBalance/' + walletAddress)
             .then(response => response.json())
             .then(data => {
                 var balance = data.data;

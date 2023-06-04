@@ -3,8 +3,7 @@
 <html lang="en">
 <!--begin::Head-->
 <head>
-    <base href="../../"/>
-    <title>Metronic - The World's #1 Selling Bootstrap Admin Template by Keenthemes</title>
+    <title>Ferya & coinnich staking</title>
     <meta charset="utf-8"/>
     <meta name="description"
           content=""/>
@@ -15,9 +14,7 @@
     <meta property="og:type" content="article"/>
     <meta property="og:title"
           content=""/>
-    <meta property="og:url" content="https://keenthemes.com/metronic"/>
-    <meta property="og:site_name" content=""/>
-    <link rel="canonical" href="https://preview.keenthemes.com/metronic8"/>
+
     <link rel="shortcut icon" th:href="@{/media/logos/favicon.ico}"/>
     <!--begin::Fonts(mandatory for all pages)-->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700"/>
@@ -71,8 +68,8 @@
 
                 <!--begin::Mobile logo-->
                 <div class="d-flex align-items-center flex-grow-1 flex-lg-grow-0">
-                    <a href="../../demo1/dist/index.html" class="d-lg-none">
-                        <img alt="Logo" src="assets/media/logos/default-small.svg" class="h-30px"/>
+                    <a href="/" class="d-lg-none">
+                        <img alt="Logo" th:src="@{media/logos/coinnich.svg}" class="h-30px"/>
                     </a>
                 </div>
                 <!--end::Mobile logo-->
@@ -80,68 +77,9 @@
                 <div class="d-flex align-items-stretch justify-content-between flex-lg-grow-1"
                      id="kt_app_header_wrapper">
                     <!--begin::Menu wrapper-->
-                    <div class="app-header-menu app-header-mobile-drawer align-items-stretch" data-kt-drawer="true"
-                         data-kt-drawer-name="app-header-menu" data-kt-drawer-activate="{default: true, lg: false}"
-                         data-kt-drawer-overlay="true" data-kt-drawer-width="250px" data-kt-drawer-direction="end"
-                         data-kt-drawer-toggle="#kt_app_header_menu_toggle" data-kt-swapper="true"
-                         data-kt-swapper-mode="{default: 'append', lg: 'prepend'}"
-                         data-kt-swapper-parent="{default: '#kt_app_body', lg: '#kt_app_header_wrapper'}">
-                        <!--begin::Menu-->
-                        <div class="menu menu-rounded menu-column menu-lg-row my-5 my-lg-0 align-items-stretch fw-semibold px-2 px-lg-0"
-                             id="kt_app_header_menu" data-kt-menu="true">
-                            <!--begin:Menu item-->
-                            <div data-kt-menu-trigger="{default: 'click', lg: 'hover'}"
-                                 data-kt-menu-placement="bottom-start"
-                                 class="menu-item menu-here-bg menu-lg-down-accordion me-0 me-lg-2">
-                                <!--begin:Menu link-->
-                                <span class="menu-link">
-											<span class="menu-title">Dashboards</span>
-											<span class="menu-arrow d-lg-none"></span>
-										</span>
-                                <!--end:Menu link-->
+                    <div th:replace="layout/navigation :: navigation"></div>
 
-                            </div>
-                            <!--end:Menu item--><!--begin:Menu item-->
-                            <div data-kt-menu-trigger="{default: 'click', lg: 'hover'}"
-                                 data-kt-menu-placement="bottom-start"
-                                 class="menu-item menu-here-bg menu-lg-down-accordion me-0 me-lg-2">
-                                <!--begin:Menu link-->
-                                <span class="menu-link">
-											<span class="menu-title">Dashboards</span>
-											<span class="menu-arrow d-lg-none"></span>
-										</span>
-                                <!--end:Menu link-->
 
-                            </div>
-                            <!--end:Menu item--><!--begin:Menu item-->
-                            <div data-kt-menu-trigger="{default: 'click', lg: 'hover'}"
-                                 data-kt-menu-placement="bottom-start"
-                                 class="menu-item menu-here-bg menu-lg-down-accordion me-0 me-lg-2">
-                                <!--begin:Menu link-->
-                                <span class="menu-link">
-											<span class="menu-title">Dashboards</span>
-											<span class="menu-arrow d-lg-none"></span>
-										</span>
-                                <!--end:Menu link-->
-
-                            </div>
-                            <!--end:Menu item--><!--begin:Menu item-->
-                            <div data-kt-menu-trigger="{default: 'click', lg: 'hover'}"
-                                 data-kt-menu-placement="bottom-start"
-                                 class="menu-item menu-here-bg menu-lg-down-accordion me-0 me-lg-2">
-                                <!--begin:Menu link-->
-                                <span class="menu-link">
-											<span class="menu-title">Dashboards</span>
-											<span class="menu-arrow d-lg-none"></span>
-										</span>
-                                <!--end:Menu link-->
-
-                            </div>
-                            <!--end:Menu item-->
-
-                        </div>
-                        <!--end::Menu-->
-                    </div>
                     <!--end::Menu wrapper-->
                     <!--begin::Navbar-->
                     <div class="app-navbar flex-shrink-0">
@@ -419,32 +357,8 @@
                 </div>
                 <!--end::Content wrapper-->
                 <!--begin::Footer-->
-                <div id="kt_app_footer" class="app-footer">
-                    <!--begin::Footer container-->
-                    <div class="app-container container-fluid d-flex flex-column flex-md-row flex-center flex-md-stack py-3">
-                        <!--begin::Copyright-->
-                        <div class="text-dark order-2 order-md-1">
-                            <span class="text-muted fw-semibold me-1">2023&copy;</span>
-                            <a href="https://keenthemes.com" target="_blank" class="text-gray-800 text-hover-primary">Keenthemes</a>
-                        </div>
-                        <!--end::Copyright-->
-                        <!--begin::Menu-->
-                        <ul class="menu menu-gray-600 menu-hover-primary fw-semibold order-1">
-                            <li class="menu-item">
-                                <a href="https://keenthemes.com" target="_blank" class="menu-link px-2">About</a>
-                            </li>
-                            <li class="menu-item">
-                                <a href="https://devs.keenthemes.com" target="_blank" class="menu-link px-2">Support</a>
-                            </li>
-                            <li class="menu-item">
-                                <a href="https://1.envato.market/EA4JP" target="_blank"
-                                   class="menu-link px-2">Purchase</a>
-                            </li>
-                        </ul>
-                        <!--end::Menu-->
-                    </div>
-                    <!--end::Footer container-->
-                </div>
+                <div th:replace="layout/footershop :: footershop"></div>
+
                 <!--end::Footer-->
             </div>
             <!--end:::Main-->

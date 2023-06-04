@@ -3,63 +3,18 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
     <title>Freya Platform</title>
-    <meta name="description" content="Write, test and deploy Bitcoin smart contracts, directly from your browser.">
+    <meta name="description" content="Coinnich and Ferya are VPN and crypto platform">
     <meta name="next-head-count" content="4">
     <script type="text/javascript" async=""
             src="https://cdn.segment.com/analytics.js/v1/MnnyAqYhnX6dAIfBi57o3tC1FpHCMKCm/analytics.min.js"></script>
-    <!--<script async="" src="https://www.googletagmanager.com/gtm.js?id=GTM-NBM85Q5"></script>
-    <script>(function (w, d, s, l, i) {
-        w[l] = w[l] || [];
-        w[l].push({
-            'gtm.start':
-                new Date().getTime(), event: 'gtm.js'
-        });
-        var f = d.getElementsByTagName(s)[0],
-            j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : '';
-        j.async = true;
-        j.src =
-            'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
-        f.parentNode.insertBefore(j, f);
-    })(window, document, 'script', 'dataLayer', 'GTM-NBM85Q5');</script>-->
+
     <link rel="shortcut icon" href="/images/favicon.ico">
     <link rel="preload" href="/fonts/AeonikFono/AeonikFono-Regular.woff2" as="font" crossorigin="anonymous"
           type="font/woff2">
-    <meta property="og:title" content="Hiro Platform">
+    <meta property="og:title" content="Coinnish Platform">
     <meta property="og:type" content="application">
-    <meta property="og:url" content="https://platform.hiro.so">
-    <meta property="og:image" content="https://platform.hiro.so/images/og-image.png">
-    <!--<script>!function () {
-        var analytics = window.analytics = window.analytics || [];
-        if (!analytics.initialize) if (analytics.invoked) window.console && console.error && console.error("Segment snippet included twice."); else {
-            analytics.invoked = !0;
-            analytics.methods = ["trackSubmit", "trackClick", "trackLink", "trackForm", "pageview", "identify", "reset", "group", "track", "ready", "alias", "debug", "page", "once", "off", "on", "addSourceMiddleware", "addIntegrationMiddleware", "setAnonymousId", "addDestinationMiddleware"];
-            analytics.factory = function (e) {
-                return function () {
-                    var t = Array.prototype.slice.call(arguments);
-                    t.unshift(e);
-                    analytics.push(t);
-                    return analytics
-                }
-            };
-            for (var e = 0; e < analytics.methods.length; e++) {
-                var key = analytics.methods[e];
-                analytics[key] = analytics.factory(key)
-            }
-            analytics.load = function (key, e) {
-                var t = document.createElement("script");
-                t.type = "text/javascript";
-                t.async = !0;
-                t.src = "https://cdn.segment.com/analytics.js/v1/" + key + "/analytics.min.js";
-                var n = document.getElementsByTagName("script")[0];
-                n.parentNode.insertBefore(t, n);
-                analytics._loadOptions = e
-            };
-            analytics._writeKey = "MnnyAqYhnX6dAIfBi57o3tC1FpHCMKCm";
-            analytics.SNIPPET_VERSION = "4.15.2";
-            analytics.load("MnnyAqYhnX6dAIfBi57o3tC1FpHCMKCm");
-            analytics.page();
-        }
-    }();</script>-->
+
+
     <link rel="preload" href="/_next/static/css/df812eb6ff707863.css" as="style">
     <link rel="stylesheet" href="/_next/static/css/df812eb6ff707863.css" data-n-g="">
     <noscript data-n-css=""></noscript>
@@ -1499,96 +1454,6 @@
         color: currentColor;
         margin-right: var(--chakra-space-3);
     }</style>
-    <script type="text/javascript" data-name="TokenSigning" data-by="Web-eID extension">(function pageScript() {
-        let hasDeprecationWarningDisplayed = false;
-        const eidPromises = {};
-        window.addEventListener("message", function (event) {
-            if (event.source !== window)
-                return;
-            if (event.data.src && (event.data.src === "background.js")) {
-                console.log("Page received: ");
-                console.log(event.data);
-                if (event.data.nonce) {
-                    const p = eidPromises[event.data.nonce];
-                    if (event.data.result === "ok") {
-                        if (event.data.signature !== undefined) {
-                            p.resolve({hex: event.data.signature});
-                        } else if (event.data.version !== undefined) {
-                            p.resolve(event.data.extension + "/" + event.data.version);
-                        } else if (event.data.cert !== undefined) {
-                            p.resolve({hex: event.data.cert});
-                        } else {
-                            console.log("No idea how to handle message");
-                            console.log(event.data);
-                        }
-                    } else {
-                        p.reject(new Error(event.data.result));
-                    }
-                    delete eidPromises[event.data.nonce];
-                } else {
-                    console.log("No nonce in event msg");
-                }
-            }
-        }, false);
-
-        function nonce() {
-            let val = "";
-            const hex = "abcdefghijklmnopqrstuvwxyz0123456789";
-            for (let i = 0; i < 16; i++)
-                val += hex.charAt(Math.floor(Math.random() * hex.length));
-            return val;
-        }
-
-        function messagePromise(msg) {
-            if (!hasDeprecationWarningDisplayed) {
-                console.warn("TokenSigning API is deprecated. Please consider switching to the new Web-eID library.");
-                hasDeprecationWarningDisplayed = true;
-            }
-            return new Promise(function (resolve, reject) {
-                window.postMessage(msg, "*");
-                eidPromises[msg.nonce] = {resolve, reject};
-            });
-        }
-
-        window.TokenSigning = class TokenSigning {
-            getCertificate(options) {
-                const msg = {
-                    src: "page.js",
-                    nonce: nonce(),
-                    type: "CERT",
-                    lang: options.lang,
-                    filter: options.filter,
-                };
-                console.log("getCertificate()");
-                return messagePromise(msg);
-            }
-
-            sign(cert, hash, options) {
-                const msg = {
-                    src: "page.js",
-                    nonce: nonce(),
-                    type: "SIGN",
-                    cert: cert.hex,
-                    hash: hash.hex,
-                    hashtype: hash.type,
-                    lang: options.lang,
-                    info: options.info,
-                };
-                console.log("sign()");
-                return messagePromise(msg);
-            }
-
-            getVersion() {
-                const msg = {
-                    src: "page.js",
-                    nonce: nonce(),
-                    type: "VERSION",
-                };
-                console.log("getVersion()");
-                return messagePromise(msg);
-            }
-        };
-    })();</script>
 </head>
 <body class="chakra-ui-dark" data-new-gr-c-s-check-loaded="8.906.0" data-gr-ext-installed="">
 <script id="chakra-script">!(function () {
@@ -1618,7 +1483,8 @@
             </div>
             <div class="css-10d0bpn">
                 <div class="css-1lekzkb">
-                    <div class="css-1tl4nmz">/-/</div>
+                    <div class="css-1tl4nmz"><div class="css-t6svvj"><img th:src="@{/media/logos/coinnich.svg}" alt="Freya Platform"
+                                                                          style="max-height:100%"></div></div>
                     <div class="css-1n6kba1">
                         <div class="css-193m7l6">
                             <svg viewBox="0 0 14 18" focusable="false" class="chakra-icon css-ghbzni">
@@ -1664,8 +1530,7 @@
                         </div>
                     </div>
                     <div class="css-1dcjh27">
-                        <div class="css-t6svvj"><img src="/images/hiro-platform-logo.svg" alt="Freya Platform"
-                                                     style="max-height:100%"></div>
+
                         <span class="chakra-badge css-8hnw5o">Beta</span></div>
                     <div class="css-ubx7sq">
                         <div class="css-1ra3e36">
@@ -1724,33 +1589,15 @@
             </footer>
         </div>
     </div>
-    <!--<a class="chakra-button css-1hun9ae" href="#" target="_blank">
-        <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 16 16" focusable="false"
-             class="chakra-icon css-8nmnjd" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
-            <path d="M7.549 10.078c.46.182.88.424 1.258.725.378.3.701.65.97 1.046a4.829 4.829 0 0 1 .848 2.714V15H9.75v-.438a3.894 3.894 0 0 0-1.155-2.782 4.054 4.054 0 0 0-1.251-.84 3.898 3.898 0 0 0-1.532-.315A3.894 3.894 0 0 0 3.03 11.78a4.06 4.06 0 0 0-.84 1.251c-.206.474-.31.985-.315 1.531V15H1v-.438a4.724 4.724 0 0 1 .848-2.713 4.918 4.918 0 0 1 2.229-1.77 2.994 2.994 0 0 1-.555-.493 3.156 3.156 0 0 1-.417-.602 2.942 2.942 0 0 1-.26-.683 3.345 3.345 0 0 1-.095-.739c0-.423.08-.82.24-1.189a3.095 3.095 0 0 1 1.626-1.627 3.067 3.067 0 0 1 2.386-.007 3.095 3.095 0 0 1 1.627 1.627 3.067 3.067 0 0 1 .157 1.928c-.06.237-.148.465-.266.684a3.506 3.506 0 0 1-.417.608c-.16.187-.345.35-.554.492zM5.812 9.75c.301 0 .584-.057.848-.17a2.194 2.194 0 0 0 1.162-1.163c.119-.269.178-.554.178-.854a2.138 2.138 0 0 0-.643-1.538 2.383 2.383 0 0 0-.697-.472 2.048 2.048 0 0 0-.848-.178c-.3 0-.583.057-.847.17a2.218 2.218 0 0 0-1.17 1.17c-.113.264-.17.547-.17.848 0 .3.057.583.17.847.115.264.27.497.466.697a2.168 2.168 0 0 0 1.552.643zM15 1v7h-1.75l-2.625 2.625V8H9.75v-.875h1.75v1.388l1.388-1.388h1.237v-5.25h-8.75v1.572a7.255 7.255 0 0 0-.438.069 2.62 2.62 0 0 0-.437.123V1H15z"></path>
-        </svg>
-        Feedback</a>--><span id="__chakra_env" hidden=""></span></div>
+   <span id="__chakra_env" hidden=""></span></div>
 <script>
     function redirectToSignIn() {
         window.location.href = "/public/signin";
     }
 </script>
-<!--<script id="__NEXT_DATA__" type="application/json">{
-    "props": {
-        "pageProps": {}
-    },
-    "page": "/",
-    "query": {},
-    "buildId": "mAfnLZ7PIv1YsC9Q546op",
-    "nextExport": true,
-    "autoExport": true,
-    "isFallback": false,
-    "scriptLoader": []
-}</script>-->
 
-<next-route-announcer><p aria-live="assertive" id="__next-route-announcer__" role="alert"
-                         style="border: 0px none; clip: rect(0px, 0px, 0px, 0px); height: 1px; margin: -1px; overflow: hidden; padding: 0px; position: absolute; top: 0px; width: 1px; white-space: nowrap; overflow-wrap: normal;"></p>
-</next-route-announcer>
+
+
 <div class="chakra-portal">
     <ul role="region" aria-live="polite" id="chakra-toast-manager-top"
         style="position: fixed; z-index: 5500; pointer-events: none; display: flex; flex-direction: column; margin: 0px auto; top: env(safe-area-inset-top, 0px); right: env(safe-area-inset-right, 0px); left: env(safe-area-inset-left, 0px);"></ul>

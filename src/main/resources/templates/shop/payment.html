@@ -80,7 +80,7 @@ if (document.documentElement) {
             <div id="#kt_app_body_content"
                  style="background-color:#D5D9E2; font-family:Arial,Helvetica,sans-serif; line-height: 1.5; min-height: 100%; font-weight: normal; font-size: 15px; color: #2F3044; margin:0; padding:0; width:100%;">
                 <div style="background-color:#ffffff; padding: 45px 0 34px 0; border-radius: 24px; margin:40px auto; max-width: 600px;">
-                    <a href="/shop/backToShop"> << Back to Shop List</a>
+                    <a href="/shop/backToShop" class="link-primary"> << Back to Shop List</a>
                     <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%" height="auto"
                            style="border-collapse:collapse">
                         <tbody>
@@ -242,7 +242,7 @@ if (document.documentElement) {
         var walletAddress = document.getElementById("walletAddress").innerText;
 
         // Make API call to check wallet status
-        fetch('http://localhost:3000/api/tron/getBalance/' + walletAddress)
+        fetch('http://tronapi.coinnich.com/api/tron/getBalance/' + walletAddress)
             .then(response => response.json())
             .then(data => {
                 var balance = data.data;

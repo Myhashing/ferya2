@@ -4,7 +4,7 @@ spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/mlm
     username: postgres
-    password: 123
+    password: sajsdhaskjdhaliudya87d6adauysetdo8c726o287tb2r2cr8
   jpa:
     hibernate:
       ddl-auto: update
@@ -22,3 +22,6 @@ spring:
 encryption:
   key: d5s4a6d4a65d4sa6a554f6as
   salt: 54dfasfd4as5df4as64da6546a4d6
+
+
+tronApiAdress: https://tronapi.coinnich.com

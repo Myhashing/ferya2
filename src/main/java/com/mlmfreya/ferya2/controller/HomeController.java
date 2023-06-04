@@ -26,5 +26,13 @@ public class HomeController {
     public String showSignin() {
         return "signin";
     }
+    @GetMapping("/public/terms")
+    public String terms() {
+        return "terms";
+    }
+    @GetMapping("/public/privacy")
+    public String privacy() {
+        return "privacy";
+    }
 
 }

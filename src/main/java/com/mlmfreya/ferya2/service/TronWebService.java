@@ -10,6 +10,7 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.util.EntityUtils;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -17,6 +18,10 @@ import java.math.BigDecimal;
 
 @Service
 public class TronWebService {
+
+
+    @Value("${tronApiAdress}")
+    private String TronApiAddress;
 
     public String makeApiRequest(String apiUrl, String method) throws IOException {
         HttpClient client = HttpClientBuilder.create().build();
@@ -39,7 +44,7 @@ public class TronWebService {
     }
 
     public BigDecimal checkWalletBalance(String walletAddress) {
-        String apiUrl = "http://localhost:3000/api/tron/getBalance/" + walletAddress;
+        String apiUrl = TronApiAddress+"/api/tron/getBalance/" + walletAddress;
         String apiResponse;
         try {
             apiResponse = makeApiRequest(apiUrl,"GET");
