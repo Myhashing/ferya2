@@ -26,29 +26,36 @@ import java.util.Map;
 @Service
 public class BinanceService {
 
-    private final WebsocketStreamClientImpl webSocketClient;
     private final PriceDataRepository priceDataRepository;
+    private final RestTemplate restTemplate;
 
     @Autowired
     private CryptoSymbolRepository cryptoSymbolRepository;
 
-    public BinanceService(PriceDataRepository priceDataRepository) {
-        this.webSocketClient = new WebsocketStreamClientImpl();
+    public BinanceService(PriceDataRepository priceDataRepository, RestTemplate restTemplate) {
         this.priceDataRepository = priceDataRepository;
+        this.restTemplate = restTemplate;
     }
 
     @PostConstruct
     public void start() {
-        ArrayList<String> streams = new ArrayList<>();
+        fetchAndStorePrices();
+    }
 
-        List<String> top100Cryptos = getTop100Cryptos(); // You need to implement this method
+    @Scheduled(fixedRate = 3000)
+    public void fetchAndStorePrices() {
+        String url = "https://api.binance.us/api/v3/ticker/price";
+        ResponseEntity<List> response = restTemplate.getForEntity(url, List.class);
+        List<Map<String, String>> prices = response.getBody();
 
-        for(String crypto : top100Cryptos) {
-            streams.add(crypto.toLowerCase() + "usdt@trade");
+        for(Map<String, String> priceInfo : prices) {
+            String symbol = priceInfo.get("symbol");
+            String price = priceInfo.get("price");
+
+            // Save the price in the database
+            PriceData priceData = new PriceData(symbol, price);
+            priceDataRepository.save(priceData);
         }
-
-
-        webSocketClient.combineStreams(streams, this::handleNewPrice);
     }
 
     private void handleNewPrice(String event) {
@@ -146,7 +153,7 @@ public class BinanceService {
     }
     public Double convertToDouble(Object obj) {
         if (obj == null) {
-            return null;
+            return 0.0;  // return a default value instead of null
         } else if (obj instanceof Integer) {
             return ((Integer) obj).doubleValue();
         } else if (obj instanceof Long) {
@@ -154,9 +161,10 @@ public class BinanceService {
         } else if (obj instanceof Double) {
             return (Double) obj;
         } else {
-            return null;
+            throw new IllegalArgumentException("Object cannot be converted to double");  // throw an exception if conversion is not possible
         }
     }
+
 
 
 
