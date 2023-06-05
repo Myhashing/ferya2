@@ -1,5 +1,6 @@
 package com.mlmfreya.ferya2.controller;
 
+import com.mlmfreya.ferya2.model.Investment;
 import com.mlmfreya.ferya2.model.User;
 import com.mlmfreya.ferya2.service.BinanceService;
 import com.mlmfreya.ferya2.service.UserService;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.security.Principal;
+import java.util.List;
 
 @Controller
 public class DashboardController {
@@ -59,16 +61,44 @@ public class DashboardController {
             if (user != null) {
                 model.addAttribute("user", user);
                 model.addAttribute("totalEarnings", userService.getTotalEarnings(user));
+                    model.addAttribute("totalCommissions", userService.getTotalCommissions(user));
+                    model.addAttribute("totalInvestments", userService.getTotalInvestments(user));
+                    model.addAttribute("totalUserNetwork", userService.getTotalUserNetwork(user));
+                    model.addAttribute("totalInvestedAmount", userService.getTotalInvestments(user)); // total invested amount
+                    model.addAttribute("totalMonthlyInterest", userService.getTotalInterestPerMonth(user)); // total monthly interest received
+                }
+            }
+            model.addAttribute("investments", userService.getUserInvestments(user));
+            model.addAttribute("commissions", userService.getUserCommissions(user));
+            model.addAttribute("payouts", userService.getPayoutHistory(user));
+            return "dashboard/pages/overview";
+        }
+
+    @GetMapping("/referral")
+    public String showReferralDetails(Model model, Principal principal) {
+        User user = null;
+        if (principal != null) {
+            user = userService.findByUsername(principal.getName());
+            if (user != null) {
+                model.addAttribute("user", user);
+                model.addAttribute("totalEarnings", userService.getTotalEarnings(user));
                 model.addAttribute("totalCommissions", userService.getTotalCommissions(user));
                 model.addAttribute("totalInvestments", userService.getTotalInvestments(user));
                 model.addAttribute("totalUserNetwork", userService.getTotalUserNetwork(user));
+                model.addAttribute("totalInvestedAmount", userService.getTotalInvestments(user)); // total invested amount
+                model.addAttribute("totalMonthlyInterest", userService.getTotalInterestPerMonth(user)); // total monthly interest received
+
+                model.addAttribute("referralSignups", userService.getTotalUserNetwork(user));
+                model.addAttribute("avgInvestment", userService.getAverageInvestmentPerUserInNetwork(user));
+                model.addAttribute("netEarnings", userService.getTotalEarnings(user));
+                List<Investment> investments = userService.getInvestmentsInNetwork(user);
+                model.addAttribute("investments", investments);
             }
         }
-        model.addAttribute("investments", userService.getUserInvestments(user));
-        model.addAttribute("commissions", userService.getUserCommissions(user));
-        model.addAttribute("payouts", userService.getPayoutHistory(user));
-        return "dashboard/pages/overview";
+        return "dashboard/pages/referrals";
     }
+
+
 
 
 

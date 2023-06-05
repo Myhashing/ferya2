@@ -27,10 +27,7 @@ public class Investment {
     private InvestmentPackage investmentPackage;
     private LocalDateTime nextInterestPaymentDate;
 
-    public <R> R getInterest() {
-        return
-        return investedAmount * investmentPackage.getReturnOnInvestment();
-    }
+
 
     // ... getters and setters ...
 }

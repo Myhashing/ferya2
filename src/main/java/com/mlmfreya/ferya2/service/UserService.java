@@ -16,11 +16,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDateTime;
-import java.util.List;
-import java.util.Optional;
-import java.util.Random;
-import java.util.UUID;
+import java.util.*;
 import java.math.BigDecimal;
 
 @Service
@@ -238,14 +236,90 @@ public class UserService {
     }
 
 
-    public double getTotalInvestments(User user) {
-        List<Investment> investments = investmentRepository.findByUser(user);
-        return investments.stream().mapToDouble(Investment::getAmount).sum();
+    public BigDecimal getTotalInvestments(User user) {
+        List<Investment> investments = getUserInvestments(user);
+        BigDecimal totalInvestments = BigDecimal.ZERO;
+
+        for (Investment investment : investments) {
+            totalInvestments = totalInvestments.add(investment.getInvestedAmount());
+        }
+
+        return totalInvestments;
     }
 
+
     public int getTotalUserNetwork(User user) {
-        // Assuming a Network class with a User field
-        return networkRepository.countByUser(user);
+        int totalNetwork = 0;
+
+        User leftChild = user.getLeftChild();
+        User rightChild = user.getRightChild();
+
+        if (leftChild != null) {
+            totalNetwork += 1 + getTotalUserNetwork(leftChild);
+        }
+
+        if (rightChild != null) {
+            totalNetwork += 1 + getTotalUserNetwork(rightChild);
+        }
+
+        return totalNetwork;
+    }
+
+    public BigDecimal getTotalEarnings(User user) {
+        BigDecimal totalCommissions = getTotalCommissions(user);
+        BigDecimal totalMonthlyInterest = getTotalInterestPerMonth(user);
+        return totalCommissions.add(totalMonthlyInterest);
+    }
+
+
+
+    public BigDecimal getAverageInvestmentPerUserInNetwork(User user) {
+        int totalUserNetwork = getTotalUserNetwork(user);
+        BigDecimal totalInvestmentsInNetwork = getTotalInvestmentsInNetwork(user);
+
+        if (totalUserNetwork == 0) {
+            return BigDecimal.ZERO;
+        }
+
+        return totalInvestmentsInNetwork.divide(new BigDecimal(totalUserNetwork), 2, RoundingMode.HALF_UP);
+    }
+
+    public BigDecimal getTotalInvestmentsInNetwork(User user) {
+        BigDecimal totalInvestments = getTotalInvestments(user);
+
+        User leftChild = user.getLeftChild();
+        User rightChild = user.getRightChild();
+
+        if (leftChild != null) {
+            totalInvestments = totalInvestments.add(getTotalInvestmentsInNetwork(leftChild));
+        }
+
+        if (rightChild != null) {
+            totalInvestments = totalInvestments.add(getTotalInvestmentsInNetwork(rightChild));
+        }
+
+        return totalInvestments;
+    }
+
+    public List<Investment> getInvestmentsInNetwork(User user) {
+        List<Investment> investments = new ArrayList<>();
+        addInvestmentsInNetwork(user, investments);
+        return investments;
+    }
+
+    private void addInvestmentsInNetwork(User user, List<Investment> investments) {
+        investments.addAll(user.getInvestments());
+
+        User leftChild = user.getLeftChild();
+        User rightChild = user.getRightChild();
+
+        if (leftChild != null) {
+            addInvestmentsInNetwork(leftChild, investments);
+        }
+
+        if (rightChild != null) {
+            addInvestmentsInNetwork(rightChild, investments);
+        }
     }
 
 
