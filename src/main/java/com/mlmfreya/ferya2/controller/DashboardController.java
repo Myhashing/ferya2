@@ -1,6 +1,7 @@
 package com.mlmfreya.ferya2.controller;
 
 import com.mlmfreya.ferya2.model.User;
+import com.mlmfreya.ferya2.service.BinanceService;
 import com.mlmfreya.ferya2.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,10 +16,13 @@ import java.security.Principal;
 public class DashboardController {
 
     private final UserService userService;
+    private final BinanceService binanceService;
 
     @Autowired
-    public DashboardController(UserService userService) {
+    public DashboardController(UserService userService,
+                               BinanceService binanceService) {
         this.userService = userService;
+        this.binanceService = binanceService;
     }
 
 
@@ -33,7 +37,17 @@ public class DashboardController {
     }
 
     @GetMapping("/dashboard")
-    public String ShowCrypto(){
+    public String ShowCrypto(Model model,Principal principal){
+
+        if (principal != null) {
+            User user = userService.findByUsername(principal.getName());
+            if (user != null) {
+                model.addAttribute("user", user);
+            }
+        }
+        model.addAttribute("btcprice",binanceService.CryptoPrice("BTCUSDT"));
+        model.addAttribute("ethprice",binanceService.CryptoPrice("ETHUSDT"));
+        model.addAttribute("dogeprice",binanceService.CryptoPrice("DOGEUSDT"));
         return "dashboard/default";
     }
 

@@ -8,8 +8,9 @@ import lombok.Data;
 
 import java.time.LocalDateTime;
 
-@Entity
+
 @Data
+@Entity
 public class PriceData {
 
     @Id
@@ -19,12 +20,6 @@ public class PriceData {
     private String symbol;
     private String price;
     private LocalDateTime timestamp;
-
-    public PriceData(String symbol, String price) {
-        this.symbol = symbol;
-        this.price = price;
-        this.timestamp = LocalDateTime.now();
-    }
 
     // getters and setters
 }

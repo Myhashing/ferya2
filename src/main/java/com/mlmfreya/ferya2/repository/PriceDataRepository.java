@@ -12,6 +12,7 @@ public interface PriceDataRepository extends JpaRepository<PriceData, Long> {
     @Query("delete from PriceData pd where pd.timestamp < :timestamp")
     void deleteDataOlderThan(@Param("timestamp") LocalDateTime timestamp);
 
-    PriceData findTopBySymbolOrderByTimestampDesc(String symbol);
+
+    PriceData findTopBySymbolOrderByTimestampDesc(String symble);
 
 }

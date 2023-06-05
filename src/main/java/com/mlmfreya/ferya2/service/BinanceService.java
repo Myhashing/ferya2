@@ -1,6 +1,5 @@
 package com.mlmfreya.ferya2.service;
 
-import com.binance.connector.client.impl.WebsocketStreamClientImpl;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mlmfreya.ferya2.model.CryptoSymbol;
@@ -37,12 +36,12 @@ public class BinanceService {
         this.restTemplate = restTemplate;
     }
 
-    @PostConstruct
+//    @PostConstruct
     public void start() {
         fetchAndStorePrices();
     }
 
-    @Scheduled(fixedRate = 3000)
+//    @Scheduled(fixedRate = 20000)
     public void fetchAndStorePrices() {
         String url = "https://api.binance.us/api/v3/ticker/price";
         ResponseEntity<List> response = restTemplate.getForEntity(url, List.class);
@@ -53,7 +52,9 @@ public class BinanceService {
             String price = priceInfo.get("price");
 
             // Save the price in the database
-            PriceData priceData = new PriceData(symbol, price);
+            PriceData priceData = new PriceData();
+            priceData.setPrice(price);
+            priceData.setSymbol(symbol);
             priceDataRepository.save(priceData);
         }
     }
@@ -65,7 +66,9 @@ public class BinanceService {
         String price = parsePrice(event);
 
         // Save the price in the database
-        PriceData priceData = new PriceData(symbol, price);
+        PriceData priceData = new PriceData();
+        priceData.setPrice(price);
+        priceData.setSymbol(symbol);
         priceDataRepository.save(priceData);
     }
 
@@ -166,6 +169,9 @@ public class BinanceService {
     }
 
 
+    public PriceData CryptoPrice(String symbol){
+        return priceDataRepository.findTopBySymbolOrderByTimestampDesc(symbol);
+    }
 
 
 }
