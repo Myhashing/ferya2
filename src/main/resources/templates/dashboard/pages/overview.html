@@ -8,6 +8,7 @@
 </head>
 <body>
 <div layout:fragment="content">
+
     <!--begin::Content-->
     <div id="kt_app_content" class="app-content flex-column-fluid">
         <!--begin::Content container-->
@@ -33,7 +34,7 @@
                                 <div class="d-flex flex-column">
                                     <!--begin::Name-->
                                     <div class="d-flex align-items-center mb-2">
-                                        <a href="#" class="text-gray-900 text-hover-primary fs-2 fw-bold me-1" th:text="${user.email}"></a>
+                                        <a href="#" class="text-gray-900 text-hover-primary fs-2 fw-bold me-1" th:text="${user.fullName}"></a>
                                         <a href="#">
                                             <i class="ki-duotone ki-verify fs-1 text-primary">
                                                 <span class="path1"></span>
@@ -50,19 +51,19 @@
                                                 <span class="path1"></span>
                                                 <span class="path2"></span>
                                                 <span class="path3"></span>
-                                            </i>Developer</a>
+                                            </i>User</a>
                                         <a href="#"
                                            class="d-flex align-items-center text-gray-400 text-hover-primary me-5 mb-2">
                                             <i class="ki-duotone ki-geolocation fs-4 me-1">
                                                 <span class="path1"></span>
                                                 <span class="path2"></span>
-                                            </i>SF, Bay Area</a>
+                                            </i>Region 1</a>
                                         <a href="#"
                                            class="d-flex align-items-center text-gray-400 text-hover-primary mb-2">
                                             <i class="ki-duotone ki-sms fs-4 me-1">
                                                 <span class="path1"></span>
                                                 <span class="path2"></span>
-                                            </i>max@kt.com</a>
+                                            </i>[[${user.email}]]</a>
                                     </div>
                                     <!--end::Info-->
                                 </div>
@@ -197,7 +198,8 @@
                                                     <span class="path2"></span>
                                                 </i>
                                                 <div class="fs-2 fw-bold" data-kt-countup="true"
-                                                     data-kt-countup-value="4500" data-kt-countup-prefix="$">0
+
+                                                     data-kt-countup-prefix="$">[[${user.getTotalCommission}]]
                                                 </div>
                                             </div>
                                             <!--end::Number-->
@@ -215,12 +217,12 @@
                                                     <span class="path2"></span>
                                                 </i>
                                                 <div class="fs-2 fw-bold" data-kt-countup="true"
-                                                     data-kt-countup-value="80">0
+                                                     >[[${user.getTotalInvestedAmount()}]]
                                                 </div>
                                             </div>
                                             <!--end::Number-->
                                             <!--begin::Label-->
-                                            <div class="fw-semibold fs-6 text-gray-400">Projects</div>
+                                            <div class="fw-semibold fs-6 text-gray-400">Total Investment</div>
                                             <!--end::Label-->
                                         </div>
                                         <!--end::Stat-->

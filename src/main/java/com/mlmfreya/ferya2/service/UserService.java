@@ -21,6 +21,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Random;
 import java.util.UUID;
+import java.math.BigDecimal;
 
 @Service
 public class UserService {
@@ -163,7 +164,7 @@ public class UserService {
         user.setResetPasswordToken(token);
         userRepository.save(user);
 
-        String resetPasswordLink = "http://localhost:8080/reset-password?token=" + token;
+        String resetPasswordLink = "/reset-password?token=" + token;
 
         SimpleMailMessage mailMessage = new SimpleMailMessage();
         mailMessage.setTo(user.getEmail());
@@ -210,6 +211,42 @@ public class UserService {
         }
     }
 
+    public BigDecimal getTotalInterestPerMonth(User user) {
+        List<Investment> investments = getUserInvestments(user);
+        BigDecimal totalInterest = BigDecimal.ZERO;
+
+        for (Investment investment : investments) {
+            BigDecimal returnRate = investment.getInvestmentPackage().getReturnOnInvestment();
+            BigDecimal investmentAmount = investment.getInvestedAmount();
+            BigDecimal interest = investmentAmount.multiply(returnRate);
+            totalInterest = totalInterest.add(interest);
+        }
+
+        return totalInterest;
+    }
+
+
+    public BigDecimal getTotalCommissions(User user) {
+        List<Commission> commissions = getUserCommissions(user);
+        BigDecimal totalCommissions = BigDecimal.ZERO;
+
+        for (Commission commission : commissions) {
+            totalCommissions = totalCommissions.add(commission.getAmount());
+        }
+
+        return totalCommissions;
+    }
+
+
+    public double getTotalInvestments(User user) {
+        List<Investment> investments = investmentRepository.findByUser(user);
+        return investments.stream().mapToDouble(Investment::getAmount).sum();
+    }
+
+    public int getTotalUserNetwork(User user) {
+        // Assuming a Network class with a User field
+        return networkRepository.countByUser(user);
+    }
 
 
 }

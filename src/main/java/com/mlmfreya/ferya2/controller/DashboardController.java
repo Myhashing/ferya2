@@ -53,13 +53,23 @@ public class DashboardController {
 
     @GetMapping("/overview")
     public String ShowOverview(Model model, Principal principal) {
-        User user = userService.findByUsername(principal.getName());
+        User user = null;
+        if (principal != null) {
+            user = userService.findByUsername(principal.getName());
+            if (user != null) {
+                model.addAttribute("user", user);
+                model.addAttribute("totalEarnings", userService.getTotalEarnings(user));
+                model.addAttribute("totalCommissions", userService.getTotalCommissions(user));
+                model.addAttribute("totalInvestments", userService.getTotalInvestments(user));
+                model.addAttribute("totalUserNetwork", userService.getTotalUserNetwork(user));
+            }
+        }
         model.addAttribute("investments", userService.getUserInvestments(user));
         model.addAttribute("commissions", userService.getUserCommissions(user));
         model.addAttribute("payouts", userService.getPayoutHistory(user));
-        model.addAttribute("user", user); // User entity is added to the model
         return "dashboard/pages/overview";
     }
+
 
 
     @PostMapping("/withdraw")
