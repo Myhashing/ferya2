@@ -181,13 +181,15 @@ public class UserService {
         return false;
     }
 
-    public void addPackageToUser(User user, InvestmentPackage investmentPackage, BigDecimal investedAmount) {
+    public void addPackageToUser(User user, InvestmentPackage investmentPackage, BigDecimal investedAmount, User networkRootUser) {
         Investment investment = new Investment();
         investment.setUser(user);
         investment.setInvestmentPackage(investmentPackage);
         investment.setInvestedAmount(investedAmount);
         investment.setInvestmentDate(LocalDateTime.now());
         investment.setNextInterestPaymentDate(LocalDateTime.now().plusDays(30));
+        investment.setNetworkRootUser(networkRootUser);
+
         investmentRepository.save(investment);
 
         user.getInvestments().add(investment);

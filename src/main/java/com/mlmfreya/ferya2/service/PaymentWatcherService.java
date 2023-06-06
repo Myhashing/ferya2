@@ -73,12 +73,12 @@ public class PaymentWatcherService {
         user.setEmail(paymentRequest.getEmail());
         user.setFullName(paymentRequest.getName());
         user.setTronWalletAddress(paymentRequest.getWalletAddress());
-
         User newUser;
+        User networkRootUser = null;
+
         if (paymentRequest.getParentId() == null) {
             // Register the user directly if parentId is null
-            newUser = userService.registerUser(user);
-        } else {
+
             User parent = userRepository.findById(paymentRequest.getParentId())
                     .orElseThrow(() -> new IllegalArgumentException("Parent user not found"));
 
@@ -94,16 +94,29 @@ public class PaymentWatcherService {
 
             // Register the user with parent and position
             newUser = userService.registerUser(user, parent, position);
+            // Set networkRootUser to the root user of the parent's network
+            networkRootUser = getNetworkRootUser(parent);
+        } else {
+            // Register the user directly if parentId is null
+            newUser = userService.registerUser(user);
         }
 
         // Add the purchased package to the user's account
-        userService.addPackageToUser(newUser, paymentRequest.getInvestmentPackage(), amount);
+        userService.addPackageToUser(newUser, paymentRequest.getInvestmentPackage(), amount, networkRootUser);
 
         // Send a welcome email to the user
         emailService.sendWelcomeEmail(user);
 
         // Update the transaction status
         transactionService.updateTransactionStatus(paymentRequest.getWalletAddress(), Transaction.Status.complete);
+    }
+
+    public User getNetworkRootUser(User user) {
+        User current = user;
+        while (current.getParent() != null) {
+            current = current.getParent();
+        }
+        return current;
     }
 
 

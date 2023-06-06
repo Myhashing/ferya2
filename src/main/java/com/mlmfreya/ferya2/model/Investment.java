@@ -7,7 +7,7 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Data
-@Entity
+@Table(name = "investments")
 public class Investment {
 
     @Id
@@ -26,6 +26,11 @@ public class Investment {
     @JoinColumn(name = "package_id")
     private InvestmentPackage investmentPackage;
     private LocalDateTime nextInterestPaymentDate;
+
+    @ManyToOne
+    @JoinColumn(name = "network_root_user_id", nullable = true)
+    private User networkRootUser;
+
 
 
 
