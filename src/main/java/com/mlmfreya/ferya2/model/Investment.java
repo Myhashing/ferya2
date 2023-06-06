@@ -1,5 +1,6 @@
 package com.mlmfreya.ferya2.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -19,8 +20,10 @@ public class Investment {
 
     private LocalDateTime investmentDate;
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "user_id")
+    @JsonBackReference
+
     private User user;
 
     @ManyToOne

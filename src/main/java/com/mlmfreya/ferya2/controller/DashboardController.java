@@ -94,15 +94,7 @@ public class DashboardController {
                 model.addAttribute("referralSignups", userService.getTotalUserNetwork(user));
                 model.addAttribute("avgInvestment", userService.getAverageInvestmentPerUserInNetwork(user));
                 model.addAttribute("netEarnings", userService.getTotalEarnings(user));
-                List<Investment> investments = userService.getInvestmentsInNetwork(user);
-                model.addAttribute("investments", investments);
-                Map<User, Investment> childInvestments = new HashMap<>();
-                for (User child : children) {
-                    Investment investment = userService.getInvestmentInNetwork(child, user);
-                    childInvestments.put(child, investment);
-                }
-                model.addAttribute("childInvestments", childInvestments);
-
+                
             }
         }
         return "dashboard/pages/referrals";

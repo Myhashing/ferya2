@@ -7,6 +7,7 @@ import com.mlmfreya.ferya2.repository.CommissionRepository;
 import com.mlmfreya.ferya2.repository.InvestmentRepository;
 import com.mlmfreya.ferya2.repository.PayoutRepository;
 import com.mlmfreya.ferya2.repository.UserRepository;
+import jakarta.persistence.EntityManager;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
@@ -24,10 +25,14 @@ import java.math.BigDecimal;
 @Service
 public class UserService {
     private final UserRepository userRepository;
+    private final EntityManager entityManager;
+
 
     @Autowired
-    public UserService(UserRepository userRepository) {
+    public UserService(UserRepository userRepository, EntityManager entityManager) {
         this.userRepository = userRepository;
+        this.entityManager = entityManager;
+
     }
 
     @Autowired
@@ -192,7 +197,7 @@ public class UserService {
 
         investmentRepository.save(investment);
 
-        user.getInvestments().add(investment);
+        user.setInvestments(investment);
         userRepository.save(user);
 
         // Calculate and distribute commissions after a new package is added to the user
@@ -303,14 +308,14 @@ public class UserService {
         return totalInvestments;
     }
 
-    public List<Investment> getInvestmentsInNetwork(User user) {
-        List<Investment> investments = new ArrayList<>();
+    public Investment getInvestmentsInNetwork(User user) {
+       Investment investments = new Investment();
         addInvestmentsInNetwork(user, investments);
         return investments;
     }
 
-    private void addInvestmentsInNetwork(User user, List<Investment> investments) {
-        investments.addAll(user.getInvestments());
+    private void addInvestmentsInNetwork(User user, Investment investments) {
+        investments = user.getInvestments();
 
         User leftChild = user.getLeftChild();
         User rightChild = user.getRightChild();
@@ -357,10 +362,12 @@ public class UserService {
         addReferredUsers(user.getRightChild(), referredUsers);
     }
     public List<User> getAllChildren(User user) {
-        List<User> children = new ArrayList<>();
-        getAllChildrenHelper(user, children);
-        return children;
+        return entityManager.createQuery(
+                        "SELECT u FROM User u LEFT JOIN FETCH u.investments WHERE u.parent = :parent", User.class)
+                .setParameter("parent", user)
+                .getResultList();
     }
+
 
     private void getAllChildrenHelper(User user, List<User> children) {
         if (user == null) {
@@ -376,11 +383,16 @@ public class UserService {
         }
     }
 
-    public Investment getInvestmentInNetwork(User user, User networkRootUser) {
-        return user.getInvestments().stream()
-                .filter(investment -> investment.getNetworkRootUser().equals(networkRootUser))
-                .findFirst()
-                .orElse(null);
+    public User getInvestmentInNetwork(User user, User networkRootUser) {
+        Investment investment = user.getInvestments();
+        if (investment != null && investment.getNetworkRootUser().equals(networkRootUser)) {
+            return user;
+        } else {
+            throw new RuntimeException("No investment found for this user with the specified network root user.");
+        }
     }
+
+
+
 
 }

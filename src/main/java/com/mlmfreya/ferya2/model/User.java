@@ -1,5 +1,6 @@
 package com.mlmfreya.ferya2.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
@@ -46,8 +47,9 @@ public class User {
     private String emailVerificationToken;
     private boolean isEmailVerified = false;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL,fetch = FetchType.EAGER)
-    private List<Investment> investments = new ArrayList<>();
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    @JsonManagedReference
+    private Investment investments  ;
 
 
 
@@ -77,7 +79,7 @@ public class User {
     private List<Commission> commissions = new ArrayList<>();
 
     public boolean hasInvestment() {
-        return !this.investments.isEmpty();
+        return this.investments != null;
     }
 
 
@@ -90,22 +92,22 @@ public class User {
     }
 
     public BigDecimal getInvestedAmount() {
-        if(this.investments.isEmpty()) {
+        if(this.investments == null) {
             throw new RuntimeException("No investments found for this user.");
         } else {
-            return this.investments.get(0).getInvestedAmount();
+            return this.investments.getInvestedAmount();
         }
     }
 
+
     public BigDecimal getTotalInvestedAmount() {
-        if(this.investments.isEmpty()) {
+        if(this.investments == null) {
             throw new RuntimeException("No investments found for this user.");
         } else {
-            return this.investments.stream()
-                    .map(Investment::getInvestedAmount)
-                    .reduce(BigDecimal.ZERO, BigDecimal::add);
+            return this.investments.getInvestedAmount();
         }
     }
+
 
     @Override
     public String toString() {
