@@ -17,12 +17,16 @@ public class InterestService {
     private UserRepository userRepository;
     @Autowired
     private InvestmentRepository investmentRepository;
+    @Autowired
+    private InvestmentService investmentService;
+
 
     public void calculateAndDistributeInterest(Investment investment) {
         // If next interest payment date is today or before today
         if (LocalDate.now().equals(investment.getNextInterestPaymentDate().toLocalDate()) || LocalDate.now().isAfter(investment.getNextInterestPaymentDate().toLocalDate())) {
             BigDecimal interest = investment.getInvestmentPackage().getReturnOnInvestment().multiply(investment.getInvestedAmount());
-            User user = investment.getUser();
+
+            User user = investmentService.getUserFromInvestment(investment);
             user.setBalance(user.getBalance().add(interest));
             userRepository.save(user);
 

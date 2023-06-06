@@ -19,12 +19,12 @@ public class Investment {
     private BigDecimal investedAmount;
 
     private LocalDateTime investmentDate;
-
-    @OneToOne
-    @JoinColumn(name = "user_id")
-    @JsonBackReference
-
-    private User user;
+//
+//    @OneToOne
+//    @JoinColumn(name = "user_id")
+//    @JsonBackReference
+//
+//    private User user;
 
     @ManyToOne
     @JoinColumn(name = "package_id")

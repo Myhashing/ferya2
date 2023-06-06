@@ -47,9 +47,8 @@ public class User {
     private String emailVerificationToken;
     private boolean isEmailVerified = false;
 
-    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL,fetch = FetchType.EAGER)
-    @JsonManagedReference
-    private Investment investments  ;
+    @OneToOne
+    private Investment investments;
 
 
 
@@ -117,6 +116,7 @@ public class User {
                 ", fullName='" + fullName + '\'' +
                 ", password='" + password + '\'' +
                 ", role=" + role +
+                ", investments" + investments + '\''+
                 ", tronWalletAddress='" + tronWalletAddress + '\'' +
                 ", createdAt=" + createdAt +
                 ", updatedAt=" + updatedAt +

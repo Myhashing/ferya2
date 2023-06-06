@@ -52,9 +52,18 @@ public class UserService {
     @Autowired
     private PayoutRepository payoutRepository;
 
-    public List<Investment> getUserInvestments(User user) {
-        return investmentRepository.findByUser(user);
+    public Investment getUserInvestments(User user) {
+        // Get the user from the database (you might already have the user entity, in that case you don't need this line)
+        User userFromDb = userRepository.findById(user.getId()).orElse(null);
+
+        if (userFromDb != null) {
+            return userFromDb.getInvestments();
+        } else {
+            // Handle the case when the user is not found in the database
+            return null;
+        }
     }
+
 
     public List<Commission> getUserCommissions(User user) {
         return commissionRepository.findByInvestor(user);
@@ -188,7 +197,6 @@ public class UserService {
 
     public void addPackageToUser(User user, InvestmentPackage investmentPackage, BigDecimal investedAmount, User networkRootUser) {
         Investment investment = new Investment();
-        investment.setUser(user);
         investment.setInvestmentPackage(investmentPackage);
         investment.setInvestedAmount(investedAmount);
         investment.setInvestmentDate(LocalDateTime.now());
@@ -217,10 +225,10 @@ public class UserService {
     }
 
     public BigDecimal getTotalInterestPerMonth(User user) {
-        List<Investment> investments = getUserInvestments(user);
+        Investment investment = user.getInvestments();
         BigDecimal totalInterest = BigDecimal.ZERO;
 
-        for (Investment investment : investments) {
+        if (investment != null) {
             BigDecimal returnRate = investment.getInvestmentPackage().getReturnOnInvestment().divide(new BigDecimal(100));
             BigDecimal investmentAmount = investment.getInvestedAmount();
             BigDecimal interest = investmentAmount.multiply(returnRate);
@@ -229,6 +237,7 @@ public class UserService {
 
         return totalInterest;
     }
+
 
 
     public BigDecimal getTotalCommissions(User user) {
@@ -244,14 +253,13 @@ public class UserService {
 
 
     public BigDecimal getTotalInvestments(User user) {
-        List<Investment> investments = getUserInvestments(user);
-        BigDecimal totalInvestments = BigDecimal.ZERO;
-
-        for (Investment investment : investments) {
-            totalInvestments = totalInvestments.add(investment.getInvestedAmount());
+        Investment investment = getUserInvestments(user);
+        BigDecimal total = BigDecimal.ZERO;
+        if (investment != null){
+            total = investment.getInvestedAmount();
         }
 
-        return totalInvestments;
+        return total;
     }
 
 
