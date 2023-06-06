@@ -356,10 +356,31 @@ public class UserService {
         addReferredUsers(user.getLeftChild(), referredUsers);
         addReferredUsers(user.getRightChild(), referredUsers);
     }
+    public List<User> getAllChildren(User user) {
+        List<User> children = new ArrayList<>();
+        getAllChildrenHelper(user, children);
+        return children;
+    }
 
+    private void getAllChildrenHelper(User user, List<User> children) {
+        if (user == null) {
+            return;
+        }
+        if (user.getLeftChild() != null) {
+            children.add(user.getLeftChild());
+            getAllChildrenHelper(user.getLeftChild(), children);
+        }
+        if (user.getRightChild() != null) {
+            children.add(user.getRightChild());
+            getAllChildrenHelper(user.getRightChild(), children);
+        }
+    }
 
-
-
-
+    public Investment getInvestmentInNetwork(User user, User networkRootUser) {
+        return user.getInvestments().stream()
+                .filter(investment -> investment.getNetworkRootUser().equals(networkRootUser))
+                .findFirst()
+                .orElse(null);
+    }
 
 }

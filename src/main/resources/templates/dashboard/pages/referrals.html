@@ -485,12 +485,13 @@
 
                                 <!--begin::Tbody-->
                                 <tbody class="fs-6 fw-semibold text-gray-600">
-                                <tr th:each="userInnet : ${usersInNetwork}">
-                                    <td class="ps-9" th:text="${userInnet.}"></td>
-                                    <td class="ps-0"><a href="" class="text-gray-600 text-hover-primary" th:text="${investment.user.email}"></a></td>
-                                    <td th:text="${#dates.format(investment.investmentDate, 'dd-MM-yyyy')}"></td>
-                                    <td th:text="${investment.investedAmount}"></td>
-<!--                                    <td class="text-success" th:text="${investment.}"></td>-->
+                                <tr th:each="child : ${children}">
+                                    <td class="ps-9" th:text="${#objects.nullSafe(childInvestments[child].investmentPackage, '').name}"></td>
+                                    <td class="ps-0"><a href="" class="text-gray-600 text-hover-primary" th:text="${child.email}"></a></td>
+                                    <td th:text="${#dates.format(#objects.nullSafe(childInvestments[child].investmentDate, ''), 'dd-MM-yyyy')}"></td>
+                                    <td th:text="${#objects.nullSafe(childInvestments[child].investedAmount, '')}"></td>
+
+                                    <!--                                    <td class="text-success" th:text="${investment.}"></td>-->
                                 </tr>
 
 

@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.security.Principal;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class DashboardController {
@@ -81,21 +83,26 @@ public class DashboardController {
             user = userService.findByUsername(principal.getName());
             if (user != null) {
                 model.addAttribute("user", user);
+                List<User> children = userService.getAllChildren(user);
+                model.addAttribute("children", children);
                 model.addAttribute("totalEarnings", userService.getTotalEarnings(user));
                 model.addAttribute("totalCommissions", userService.getTotalCommissions(user));
                 model.addAttribute("totalInvestments", userService.getTotalInvestments(user));
                 model.addAttribute("totalUserNetwork", userService.getTotalUserNetwork(user));
                 model.addAttribute("totalInvestedAmount", userService.getTotalInvestments(user)); // total invested amount
                 model.addAttribute("totalMonthlyInterest", userService.getTotalInterestPerMonth(user)); // total monthly interest received
-                List<User> usersInNetwork = userService.getUsersInNetwork(user, 15);
-                model.addAttribute("usersInNetwork", usersInNetwork);
-
-
                 model.addAttribute("referralSignups", userService.getTotalUserNetwork(user));
                 model.addAttribute("avgInvestment", userService.getAverageInvestmentPerUserInNetwork(user));
                 model.addAttribute("netEarnings", userService.getTotalEarnings(user));
                 List<Investment> investments = userService.getInvestmentsInNetwork(user);
                 model.addAttribute("investments", investments);
+                Map<User, Investment> childInvestments = new HashMap<>();
+                for (User child : children) {
+                    Investment investment = userService.getInvestmentInNetwork(child, user);
+                    childInvestments.put(child, investment);
+                }
+                model.addAttribute("childInvestments", childInvestments);
+
             }
         }
         return "dashboard/pages/referrals";
