@@ -214,7 +214,7 @@ public class UserService {
         BigDecimal totalInterest = BigDecimal.ZERO;
 
         for (Investment investment : investments) {
-            BigDecimal returnRate = investment.getInvestmentPackage().getReturnOnInvestment();
+            BigDecimal returnRate = investment.getInvestmentPackage().getReturnOnInvestment().divide(new BigDecimal(100));
             BigDecimal investmentAmount = investment.getInvestedAmount();
             BigDecimal interest = investmentAmount.multiply(returnRate);
             totalInterest = totalInterest.add(interest);
@@ -321,6 +321,43 @@ public class UserService {
             addInvestmentsInNetwork(rightChild, investments);
         }
     }
+
+    public List<User> getUsersInNetwork(User user, int level) {
+        List<User> usersInNetwork = new ArrayList<>();
+        if (level == 0) {
+            usersInNetwork.add(user);
+        }
+        if (level < 15) {
+            List<User> referredUsers = getReferredUsers(user);
+            for (User referredUser : referredUsers) {
+                usersInNetwork.add(referredUser);
+                usersInNetwork.addAll(getUsersInNetwork(referredUser, level + 1));
+            }
+        }
+        return usersInNetwork;
+    }
+
+
+    public List<User> getReferredUsers(User user) {
+        List<User> referredUsers = new ArrayList<>();
+        addReferredUsers(user, referredUsers);
+        return referredUsers;
+    }
+
+    private void addReferredUsers(User user, List<User> referredUsers) {
+        if (user == null) {
+            return;
+        }
+
+        referredUsers.add(user);
+
+        addReferredUsers(user.getLeftChild(), referredUsers);
+        addReferredUsers(user.getRightChild(), referredUsers);
+    }
+
+
+
+
 
 
 }

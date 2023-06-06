@@ -87,6 +87,9 @@ public class DashboardController {
                 model.addAttribute("totalUserNetwork", userService.getTotalUserNetwork(user));
                 model.addAttribute("totalInvestedAmount", userService.getTotalInvestments(user)); // total invested amount
                 model.addAttribute("totalMonthlyInterest", userService.getTotalInterestPerMonth(user)); // total monthly interest received
+                List<User> usersInNetwork = userService.getUsersInNetwork(user, 15);
+                model.addAttribute("usersInNetwork", usersInNetwork);
+
 
                 model.addAttribute("referralSignups", userService.getTotalUserNetwork(user));
                 model.addAttribute("avgInvestment", userService.getAverageInvestmentPerUserInNetwork(user));
