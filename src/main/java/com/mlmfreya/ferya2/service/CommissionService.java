@@ -77,25 +77,25 @@ public class CommissionService {
             userRepository.save(parent);
 
             // Store the commission in the commission table
-//            addCommission(parent, newUser, referralCommission, Commission.Type.REFERRAL);
+            addCommission(parent, referralCommission, Commission.Type.REFERRAL);
         }
 
 
     }
 
-   /* @Transactional
-    public void distributeNetworkCommissions(User parent, User newUser, BigDecimal investmentAmount, int level) {
+   @Transactional
+    public void distributeNetworkCommissions(User parent,  BigDecimal investmentAmount, int level) {
         if (level == 0 || parent.getParent() == null) {
             return;
         }
 
         if (parent.hasBothChildren()) {
             BigDecimal networkCommission = investmentAmount.multiply(NETWORK_COMMISSION_RATE);
-            addCommission(parent, newUser, networkCommission, Type.NETWORK);
+            addCommission(parent, networkCommission, Type.NETWORK);
         }
 
-        distributeNetworkCommissions(parent.getParent(), newUser, investmentAmount, level - 1);
-    }*/
+        distributeNetworkCommissions(parent.getParent(), investmentAmount, level - 1);
+    }
 
     @Transactional
     public void addCommission(User beneficiary, BigDecimal amount, Type type) {
@@ -122,7 +122,7 @@ public class CommissionService {
         for (User user : allUsers) {
             if (user.hasInvestment()) {
                 BigDecimal investmentAmount = user.getTotalInvestedAmount(); // Assumes one investment per user
-                //calculateAndDistributeCommissions(user);
+                calculateAndDistributeCommissions(user);
             }
         }
     }

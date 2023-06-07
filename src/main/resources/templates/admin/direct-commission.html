@@ -34,8 +34,8 @@
     <tr th:each="user : ${eligibleUsers}">
         <td th:text="${user.id}"></td>
         <td th:text="${user.fullName}"></td>
-        <td th:text="${user.rightChild.fullName} + ${user.rightChild.investedAmount}"></td>
-        <td th:text="${user.leftChild.fullName}"></td>
+        <td th:text="${user.rightChild.fullName} +' ' + ${user.rightChild.investedAmount}"></td>
+        <td th:text="${user.leftChild.fullName} + ' '+ ${user.leftChild.investedAmount}"></td>
         <td th:text="${user.totalReferralCommission}"></td>
         <td>
             <form th:action="@{/admin/payCommission}" method="post">
