@@ -19,6 +19,8 @@ public class Investment {
     private BigDecimal investedAmount;
 
     private LocalDateTime investmentDate;
+    private BigDecimal pendingInterest;
+
 //
 //    @OneToOne
 //    @JoinColumn(name = "user_id")

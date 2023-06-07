@@ -7,7 +7,7 @@ spring:
     password: 123
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: create
   devtools:
     livereload:
       port: 8090

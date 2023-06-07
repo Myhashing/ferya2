@@ -209,7 +209,7 @@ public class UserService {
         userRepository.save(user);
 
         // Calculate and distribute commissions after a new package is added to the user
-        commissionService.calculateAndDistributeCommissions(user, investedAmount);
+//        commissionService.calculateAndDistributeCommissions(user, investedAmount);
     }
 
 

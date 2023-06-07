@@ -41,4 +41,25 @@ public class InterestService {
         }
     }
 
+    public void calculateAndRecordInterest(Investment investment) {
+        // If next interest payment date is today or before today
+        if (LocalDate.now().equals(investment.getNextInterestPaymentDate().toLocalDate()) || LocalDate.now().isAfter(investment.getNextInterestPaymentDate().toLocalDate())) {
+            BigDecimal interest = investment.getInvestmentPackage().getReturnOnInvestment().multiply(investment.getInvestedAmount());
+
+            // Record the interest in the investment instead of adding it to the user's balance
+            investment.setPendingInterest(investment.getPendingInterest().add(interest));
+
+            // Add 30 days to next interest payment date
+            investment.setNextInterestPaymentDate(investment.getNextInterestPaymentDate().plusDays(30));
+
+            // If next interest payment date is after the end of the contract, set it to null
+            if (investment.getNextInterestPaymentDate().isAfter(investment.getInvestmentDate().plusDays(investment.getInvestmentPackage().getDuration()))) {
+                investment.setNextInterestPaymentDate(null);
+            }
+
+            investmentRepository.save(investment);
+        }
+    }
+
+
 }

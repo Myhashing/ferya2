@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.mlmfreya.ferya2.model.Commission;
@@ -21,6 +22,9 @@ public class CommissionService {
     private static final BigDecimal REFERRAL_COMMISSION_RATE = BigDecimal.valueOf(0.10);
     private static final BigDecimal NETWORK_COMMISSION_RATE = BigDecimal.valueOf(0.01);
     private static final BigDecimal MAX_COMMISSION_MULTIPLIER = BigDecimal.valueOf(30);
+
+    private List<Commission> pendingCommissions = new ArrayList<>();
+
 
     @Autowired
     private UserRepository userRepository;
@@ -66,27 +70,22 @@ public class CommissionService {
             commission.setBeneficiary(beneficiary);
             commission.setType(type);
             commission.setAmount(amount);
-            commissionRepository.save(commission);
+
+            // Add the commission to the list of pending commissions instead of saving it immediately
+            pendingCommissions.add(commission);
 
             beneficiary.getCommissions().add(commission);
-            userRepository.save(beneficiary);
         }
     }
-/*    private void distributeCommission(User parent, User investor, BigDecimal commissionAmount, Commission.Type type) {
-        // Check if both children of the parent have invested
-        if (parent.getLeftChild() != null && parent.getRightChild() != null) {
-            // Create a new commission
-            Commission commission = new Commission();
-            commission.setInvestor(investor);
-            commission.setBeneficiary(parent);
-            commission.setAmount(commissionAmount);
-            commission.setType(type);
 
-            // Save the commission
+    @Transactional
+    public void processPendingCommissions() {
+        for (Commission commission : pendingCommissions) {
             commissionRepository.save(commission);
+            userRepository.save(commission.getBeneficiary());
         }
-    }*/
-
+        pendingCommissions.clear();
+    }
     @Transactional
     public void calculateMonthlyCommissions() {
         List<User> allUsers = userRepository.findAll();
