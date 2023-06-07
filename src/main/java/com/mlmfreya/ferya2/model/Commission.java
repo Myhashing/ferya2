@@ -19,10 +19,6 @@ public class Commission {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "investor_id", nullable = false)
-    private User investor;
-
-    @ManyToOne
     @JoinColumn(name = "beneficiary_id", nullable = false)
     private User beneficiary;
 

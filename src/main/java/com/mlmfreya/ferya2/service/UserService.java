@@ -20,7 +20,6 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.LocalDateTime;
 import java.util.*;
-import java.math.BigDecimal;
 
 @Service
 public class UserService {
@@ -66,7 +65,7 @@ public class UserService {
 
 
     public List<Commission> getUserCommissions(User user) {
-        return commissionRepository.findByInvestor(user);
+        return commissionRepository.findByBeneficiary(user);
     }
 
     public List<Payout> getPayoutHistory(User user) {
@@ -401,6 +400,11 @@ public class UserService {
     }
 
 
+    public List<User> findUsersEligibleForDirectCommission() {
+        return userRepository.findUsersEligibleForDirectCommission();
+    }
 
-
+    public Optional<User> findUserById(Long userId) {
+        return userRepository.findById(userId);
+    }
 }

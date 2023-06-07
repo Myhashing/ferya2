@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Admin - Direct Commission</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+<h1>Users Eligible for Direct Commission</h1>
+<table>
+    <thead>
+    <tr>
+        <th>User ID</th>
+        <th>Name</th>
+        <th>Left Referral</th>
+        <th>Right Referral</th>
+        <th>Total Referral Commission</th>
+        <th>Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="user : ${eligibleUsers}">
+        <td th:text="${user.id}"></td>
+        <td th:text="${user.fullName}"></td>
+        <td th:text="${user.rightChild.fullName} + ${user.rightChild.investedAmount}"></td>
+        <td th:text="${user.leftChild.fullName}"></td>
+        <td th:text="${user.totalReferralCommission}"></td>
+        <td>
+            <form th:action="@{/admin/payCommission}" method="post">
+                <input type="hidden" th:value="${user.id}" name="userId"/>
+                <button type="submit">Pay</button>
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

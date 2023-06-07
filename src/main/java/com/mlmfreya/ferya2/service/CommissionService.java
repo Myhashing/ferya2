@@ -54,23 +54,36 @@ public class CommissionService {
         commissionRepository.save(commission);
     }
 
+
+
+
+
     @Transactional
-    public void calculateAndDistributeCommissions(User newUser, BigDecimal investmentAmount) {
+    public void calculateAndDistributeCommissions(User parent) {
         // Calculate referral commission for parent
-        User parent = newUser.getParent();
         if (parent != null && parent.hasBothChildren()) {
-            BigDecimal referralCommission = investmentAmount.multiply(REFERRAL_COMMISSION_RATE);
-            addCommission(parent, newUser, referralCommission, Commission.Type.REFERRAL);
+            // Get the investment amounts of both children
+            BigDecimal leftChildInvestment = parent.getLeftChild().getInvestments().getInvestedAmount();
+            BigDecimal rightChildInvestment = parent.getRightChild().getInvestments().getInvestedAmount();
+
+            // Determine the lower investment amount
+            BigDecimal lowerInvestmentAmount = leftChildInvestment.compareTo(rightChildInvestment) < 0 ? leftChildInvestment : rightChildInvestment;
+
+            // Calculate the referral commission based on the lower investment amount
+            BigDecimal referralCommission = lowerInvestmentAmount.multiply(REFERRAL_COMMISSION_RATE);
+
+            // Add the commission to the parent's totalReferralCommission
+            parent.setTotalReferralCommission(parent.getTotalReferralCommission().add(referralCommission));
+            userRepository.save(parent);
+
+            // Store the commission in the commission table
+//            addCommission(parent, newUser, referralCommission, Commission.Type.REFERRAL);
         }
 
-        // Calculate and distribute network commissions up to 15 levels
-        // Network commissions rule
-        if (parent != null) {
-            distributeNetworkCommissions(parent, newUser, investmentAmount, 15);
-        }
+
     }
 
-    @Transactional
+   /* @Transactional
     public void distributeNetworkCommissions(User parent, User newUser, BigDecimal investmentAmount, int level) {
         if (level == 0 || parent.getParent() == null) {
             return;
@@ -82,22 +95,16 @@ public class CommissionService {
         }
 
         distributeNetworkCommissions(parent.getParent(), newUser, investmentAmount, level - 1);
-    }
+    }*/
 
     @Transactional
-    public void addCommission(User beneficiary, User investor, BigDecimal amount, Type type) {
-        if (beneficiary.getTotalCommission().add(amount).compareTo(beneficiary.getInvestedAmount().multiply(MAX_COMMISSION_MULTIPLIER)) <= 0) {
+    public void addCommission(User beneficiary, BigDecimal amount, Type type) {
             Commission commission = new Commission();
-            commission.setInvestor(investor);
             commission.setBeneficiary(beneficiary);
             commission.setType(type);
             commission.setAmount(amount);
-
-            // Add the commission to the list of pending commissions instead of saving it immediately
-            pendingCommissions.add(commission);
-
-            beneficiary.getCommissions().add(commission);
-        }
+            commission.setStatus(Commission.Status.PAID);
+            commissionRepository.save(commission);
     }
 
     @Transactional
@@ -115,7 +122,7 @@ public class CommissionService {
         for (User user : allUsers) {
             if (user.hasInvestment()) {
                 BigDecimal investmentAmount = user.getTotalInvestedAmount(); // Assumes one investment per user
-                calculateAndDistributeCommissions(user, investmentAmount);
+                //calculateAndDistributeCommissions(user);
             }
         }
     }

@@ -17,9 +17,9 @@ public class CommissionScheduler {
     @Autowired
     private CommissionService commissionService;
 
-    @Scheduled(cron = "0 0 0 1 * ?") // This means the job will run at 00:00 on the 1st day of every month.
+    /*@Scheduled(cron = "0 0 0 1 * ?") // This means the job will run at 00:00 on the 1st day of every month.
     public void calculateMonthlyCommissions() {
         commissionService.calculateMonthlyCommissions();
 
-    }
+    }*/
 }
