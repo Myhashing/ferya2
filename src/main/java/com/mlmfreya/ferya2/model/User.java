@@ -47,7 +47,8 @@ public class User {
     private String emailVerificationToken;
     private boolean isEmailVerified = false;
 
-    @OneToOne
+
+    @OneToOne(fetch = FetchType.LAZY)
     private Investment investments;
 
 

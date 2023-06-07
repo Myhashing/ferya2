@@ -488,7 +488,8 @@
                                 <tr th:each="child : ${children}">
                                     <td class="ps-9"  th:text="${child.investments.investmentPackage.name}"></td>
                                     <td class="ps-0"><a href="" class="text-gray-600 text-hover-primary" th:text="${child.email}"></a></td>
-                                    <td th:if="${child.investments != null}" th:text="${#dates.format(child.investments.investmentDate, 'dd-MM-yyyy')}"></td>
+<!--                                    <td th:if="${child.investments != null}" th:text="${#dates.format(child.investments.investmentDate, 'dd-MM-yyyy')}"></td>-->
+                                    <td th:if="${child.investments != null}" th:text="${child.investments.investmentDate}"></td>
                                     <td th:if="${child.investments != null}" th:text="${child.investments.investedAmount}"></td>
                                 </tr>
 

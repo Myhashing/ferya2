@@ -76,13 +76,10 @@ public class PaymentWatcherService {
         User newUser;
         User networkRootUser = null;
 
-        if (paymentRequest.getParentId() == null) {
-            // Register the user directly if parentId is null
-
+        if (paymentRequest.getParentId() != null) {
             User parent = userRepository.findById(paymentRequest.getParentId())
                     .orElseThrow(() -> new IllegalArgumentException("Parent user not found"));
 
-            // Determine the position
             String position;
             if (parent.getLeftChild() == null) {
                 position = "LEFT";
@@ -92,24 +89,17 @@ public class PaymentWatcherService {
                 throw new IllegalArgumentException("Parent user already has two children");
             }
 
-            // Register the user with parent and position
             newUser = userService.registerUser(user, parent, position);
-            // Set networkRootUser to the root user of the parent's network
             networkRootUser = getNetworkRootUser(parent);
         } else {
-            // Register the user directly if parentId is null
             newUser = userService.registerUser(user);
         }
 
-        // Add the purchased package to the user's account
         userService.addPackageToUser(newUser, paymentRequest.getInvestmentPackage(), amount, networkRootUser);
-
-        // Send a welcome email to the user
         emailService.sendWelcomeEmail(user);
-
-        // Update the transaction status
         transactionService.updateTransactionStatus(paymentRequest.getWalletAddress(), Transaction.Status.complete);
     }
+
 
     public User getNetworkRootUser(User user) {
         User current = user;
