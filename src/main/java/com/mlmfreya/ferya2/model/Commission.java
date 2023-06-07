@@ -33,5 +33,12 @@ public class Commission {
     @Column(nullable = false)
     private BigDecimal amount;
 
+    @Enumerated(EnumType.STRING)
+    private Status status;
+
+    public enum Status {
+        PENDING,
+        PAID
+    }
     // getters and setters
 }

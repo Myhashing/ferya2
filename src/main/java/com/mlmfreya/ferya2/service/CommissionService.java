@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import com.mlmfreya.ferya2.model.Commission;
 import com.mlmfreya.ferya2.model.Commission.Type;
@@ -24,13 +25,34 @@ public class CommissionService {
     private static final BigDecimal MAX_COMMISSION_MULTIPLIER = BigDecimal.valueOf(30);
 
     private List<Commission> pendingCommissions = new ArrayList<>();
+    private final CommissionRepository commissionRepository;
+    private final UserRepository userRepository;
 
+
+
+    public List<Commission> getPendingCommissions() {
+        return commissionRepository.findAll().stream()
+                .filter(commission -> commission.getStatus() == Commission.Status.PENDING)
+                .collect(Collectors.toList());
+    }
 
     @Autowired
-    private UserRepository userRepository;
+    public CommissionService(CommissionRepository commissionRepository, UserRepository userRepository) {
+        this.commissionRepository = commissionRepository;
+        this.userRepository = userRepository;
+    }
+    public void payoutCommission(Long commissionId) {
+        Commission commission = commissionRepository.findById(commissionId)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid commission ID: " + commissionId));
 
-    @Autowired
-    private CommissionRepository commissionRepository;
+        User beneficiary = commission.getBeneficiary();
+        BigDecimal commissionAmount = commission.getAmount();
+        beneficiary.setBalance(beneficiary.getBalance().add(commissionAmount));
+        commission.setStatus(Commission.Status.PAID);
+
+        userRepository.save(beneficiary);
+        commissionRepository.save(commission);
+    }
 
     @Transactional
     public void calculateAndDistributeCommissions(User newUser, BigDecimal investmentAmount) {
