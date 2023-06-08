@@ -26,6 +26,3 @@ encryption:
 
 
 tronApiAdress: https://tronapi.coinnich.com
-logging:
-  level:
-    root: TRACE

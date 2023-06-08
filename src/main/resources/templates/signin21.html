@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>COINNICH & FERYA BETTER FINANCE</title>
+  <meta charset="utf-8"/>
+  <meta name="description" content=""/>
+  <meta name="keywords" content=""/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta property="og:locale" content="en_US"/>
+  <meta property="og:type" content="article"/>
+  <meta property="og:title" content=""/>
+  <meta property="og:url" content=""/>
+  <meta property="og:site_name" content="COINNICH | FERYA"/>
+  <link rel="canonical" href=""/>
+  <link rel="shortcut icon" href=""/>
+  <!--begin::Fonts(mandatory for all pages)-->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700"/>
+  <!--end::Fonts-->
+  <!--begin::Global Stylesheets Bundle(mandatory for all pages)-->
+  <link th:href="@{/plugins/global/plugins.bundle.css}" rel="stylesheet" type="text/css"/>
+  <link th:href="@{/css/style.bundle.css}" rel="stylesheet" type="text/css"/>
+  <!--end::Global Stylesheets Bundle-->
+</head>
+<body>
+<h2>Login</h2>
+<form th:action="@{/login}" method="post">
+  <div>
+    <label>Email:</label>
+    <input type="text" name="username" required>
+  </div>
+  <div>
+    <label>Password:</label>
+    <input type="password" name="password" required>
+  </div>
+  <div>
+    <input type="submit" value="Sign In">
+  </div>
+</form>
+
+
+</body>
+</html>

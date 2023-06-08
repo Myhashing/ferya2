@@ -93,18 +93,6 @@ public class UserController {
     public String login() {
         return "signin2";}
 
-    @PostMapping("/public/login2")
-    public String authenticateUser(@RequestParam String username, @RequestParam String password, Model model, HttpServletRequest request) {
-        UserDetails userDetails = userDetailsService.loadUserByUsername(username);
-        if (passwordEncoder.matches(password, userDetails.getPassword())) {
-            UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
-            SecurityContextHolder.getContext().setAuthentication(auth);
-            return "redirect:/dashboard";  // Redirect to dashboard page after successful login
-        } else {
-            model.addAttribute("error", "Invalid username or password");  // Add error message to model
-            return "login";  // Redirect back to login page if authentication fails
-        }
-    }
 
 
 
