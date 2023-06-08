@@ -11,7 +11,14 @@ spring:
   devtools:
     livereload:
       port: 8090
-
+  thymeleaf:
+    prefix: classpath:/templates/
+    suffix: .html
+    mode: HTML
+    encoding: UTF-8
+    servlet:
+      content-type: text/html
+    cache: false
 
   mail:
     host: mail.amanatpay.com
