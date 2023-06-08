@@ -59,7 +59,12 @@ public class UserController {
         return "redirect:/login";
     }
 
-    @PostMapping("/forgot-password")
+    @GetMapping("/public/forget-password")
+    public String forgetpassword(){
+        return "forget-password";
+    }
+
+    @PostMapping("/public/forgot-password")
     public String processForgotPassword(@RequestParam("email") String email, Model model) {
         User user = userService.findByEmail(email);
         if (user == null) {
@@ -86,19 +91,21 @@ public class UserController {
 
     @GetMapping("/login")
     public String login() {
-        return "login";}
+        return "signin2";}
 
-    @PostMapping("/login")
-    public String authenticateUser(@RequestParam String username, @RequestParam String password, HttpServletRequest request) {
+    @PostMapping("/public/login2")
+    public String authenticateUser(@RequestParam String username, @RequestParam String password, Model model, HttpServletRequest request) {
         UserDetails userDetails = userDetailsService.loadUserByUsername(username);
         if (passwordEncoder.matches(password, userDetails.getPassword())) {
             UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
             SecurityContextHolder.getContext().setAuthentication(auth);
             return "redirect:/dashboard";  // Redirect to dashboard page after successful login
         } else {
-            return "redirect:/login?error";  // Redirect back to login page if authentication fails
+            model.addAttribute("error", "Invalid username or password");  // Add error message to model
+            return "login";  // Redirect back to login page if authentication fails
         }
     }
+
 
 
     @GetMapping("/public/checkEmailUnique")

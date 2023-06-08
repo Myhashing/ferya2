@@ -24,7 +24,7 @@ public class HomeController {
 
     @GetMapping("/public/signin")
     public String showSignin() {
-        return "signin";
+        return "signin2";
     }
     @GetMapping("/public/terms")
     public String terms() {

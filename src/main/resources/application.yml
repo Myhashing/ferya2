@@ -12,6 +12,7 @@ spring:
     livereload:
       port: 8090
 
+
   mail:
     host: mail.amanatpay.com
     port: 587
@@ -25,3 +26,6 @@ encryption:
 
 
 tronApiAdress: https://tronapi.coinnich.com
+logging:
+  level:
+    root: TRACE

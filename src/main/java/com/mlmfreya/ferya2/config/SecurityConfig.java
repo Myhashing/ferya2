@@ -7,6 +7,7 @@ import com.mlmfreya.ferya2.service.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -28,6 +29,7 @@ public class SecurityConfig {
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
+
 
     @Bean
     public DaoAuthenticationProvider authenticationProvider() {
@@ -53,7 +55,7 @@ public class SecurityConfig {
 //                                .requestMatchers("/admin/**").hasRole(User.Role.ADMIN.toString())
                                 .anyRequest().authenticated()
                 )
-                .formLogin().loginPage("/login").permitAll() // Redirect to "/dashboard" after successful login
+                .formLogin().loginPage("/login").defaultSuccessUrl("/dashboard").failureUrl("/login?error=true").permitAll() // Redirect to "/dashboard" after successful login
                 .and()
                 .logout().permitAll()
                 .and()
