@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>User List</title>
+</head>
+<body>
+<h1>User List</h1>
+<div th:each="user : ${users}">
+    <form th:action="@{/admin/user/{id}(id=${user.id})}" th:object="${user}" method="post">
+        <div>
+            <label for="email">Email:</label>
+            <input type="email" id="email" th:field="*{email}" />
+        </div>
+        <div>
+            <label for="fullName">Full Name:</label>
+            <input type="text" id="fullName" th:field="*{fullName}" />
+        </div>
+        <div>
+            <label for="password">Password:</label>
+            <input type="password" id="password" th:field="*{password}" />
+        </div>
+        <div>
+            <label for="role">Role:</label>
+            <select id="role" th:field="*{role}">
+                <option th:each="role : ${T(com.mlmfreya.ferya2.model.User.Role).values()}" th:value="${role}" th:text="${role}"></option>
+            </select>
+        </div>
+        <div>
+            <label for="tronWalletAddress">Tron Wallet Address:</label>
+            <input type="text" id="tronWalletAddress" th:field="*{tronWalletAddress}" />
+        </div>
+        <div>
+            <label for="referralCode">Referral Code:</label>
+            <input type="text" id="referralCode" th:field="*{referralCode}" />
+        </div>
+        <div>
+            <label for="resetPasswordToken">Reset Password Token:</label>
+            <input type="text" id="resetPasswordToken" th:field="*{resetPasswordToken}" />
+        </div>
+        <div>
+            <label for="emailVerificationToken">Email Verification Token:</label>
+            <input type="text" id="emailVerificationToken" th:field="*{emailVerificationToken}" />
+        </div>
+        <div>
+            <label for="isEmailVerified">Is Email Verified:</label>
+            <input type="checkbox" id="isEmailVerified" th:field="*{isEmailVerified}" />
+        </div>
+        <div>
+            <label for="balance">Balance:</label>
+            <input type="text" id="balance" th:field="*{balance}" />
+        </div>
+        <div>
+            <input type="submit" value="Update" />
+        </div>
+    </form>
+</div>
+</body>
+</html>
