@@ -30,7 +30,8 @@
                             <h4 class="mb-0">How to use Referral Program</h4>
 
                             <p class="fs-6 fw-semibold text-gray-600 py-4 m-0">
-                                Use images to enhance your post, improve its flow, add humor <br> and explain complex topics
+                                Unlock the power of networking with our Referral Program! It's simple - share your
+                                unique referral code with friends, family, or your network.
                             </p>
 
                             <a href="#" class="btn btn-light btn-active-light-primary fw-bold">Get Started</a>
@@ -44,13 +45,20 @@
                             </h4>
 
                             <p class="fs-6 fw-semibold text-gray-600 py-4 m-0">
-                                Plan your blog post by choosing a topic, creating an outline conduct <br> research, and checking facts
+                                When they sign up using your code, you'll earn rewards. It's a win-win situation - they
+                                get access to our fantastic services, and you get rewarded for spreading the word. Start
+                                sharing and start earning today!
                             </p>
 
                             <div class="d-flex">
-                                <input id="kt_referral_link_input" type="text" class="form-control form-control-solid me-3 flex-grow-1" name="search" th:attr="value=${user.referralCode}" spellcheck="false" data-ms-editor="true">
+                                <input id="kt_referral_link_input" type="text"
+                                       class="form-control form-control-solid me-3 flex-grow-1" name="search"
+                                       th:attr="value=${user.referralCode}" spellcheck="false" data-ms-editor="true">
 
-                                <button id="kt_referral_program_link_copy_btn" class="btn btn-light btn-active-light-primary fw-bold flex-shrink-0" data-clipboard-target="#kt_referral_link_input">Copy Code</button>
+                                <button id="kt_referral_program_link_copy_btn"
+                                        class="btn btn-light btn-active-light-primary fw-bold flex-shrink-0"
+                                        data-clipboard-target="#kt_referral_link_input">Copy Code
+                                </button>
                             </div>
                         </div>
                         <!--end::Col-->
@@ -64,7 +72,8 @@
                             <div class="card card-dashed flex-center min-w-175px my-3 p-6">
                                 <span class="fs-4 fw-semibold text-info pb-1 px-2">Net Earnings</span>
                                 <span class="fs-lg-2tx fw-bold d-flex justify-content-center">
-                        $<span data-kt-countup="true" th:attr="data-kt-countup-value=${netEarnings}" class="counted" data-kt-initialized="1">[[${netEarnings}]]</span>
+                        $<span data-kt-countup="true" th:attr="data-kt-countup-value=${netEarnings}" class="counted"
+                               data-kt-initialized="1">[[${netEarnings}]]</span>
                     </span>
                             </div>
                         </div>
@@ -75,7 +84,8 @@
                             <div class="card card-dashed flex-center min-w-175px my-3 p-6">
                                 <span class="fs-4 fw-semibold text-success pb-1 px-2">Balance</span>
                                 <span class="fs-lg-2tx fw-bold d-flex justify-content-center">
-                        $<span data-kt-countup="true" th:attr="data-kt-countup-value=${user.balance}" class="counted" data-kt-initialized="1">[[${user.balance}]]</span>
+                        $<span data-kt-countup="true" th:attr="data-kt-countup-value=${user.balance}" class="counted"
+                               data-kt-initialized="1">[[${user.balance}]]</span>
                     </span>
                             </div>
                         </div>
@@ -86,7 +96,8 @@
                             <div class="card card-dashed flex-center min-w-175px my-3 p-6">
                                 <span class="fs-4 fw-semibold text-danger pb-1 px-2">Avg User Investment</span>
                                 <span class="fs-lg-2tx fw-bold d-flex justify-content-center">
-                        $<span data-kt-countup="true" th:attr="data-kt-countup-value=${avgInvestment}" class="counted" data-kt-initialized="1">[[${avgInvestment}]]</span>
+                        $<span data-kt-countup="true" th:attr="data-kt-countup-value=${avgInvestment}" class="counted"
+                               data-kt-initialized="1">[[${avgInvestment}]]</span>
                     </span>
                             </div>
                         </div>
@@ -97,7 +108,8 @@
                             <div class="card card-dashed flex-center min-w-175px my-3 p-6">
                                 <span class="fs-4 fw-semibold text-primary pb-1 px-2">Referral Signups</span>
                                 <span class="fs-lg-2tx fw-bold d-flex justify-content-center">
-                        <span data-kt-countup="true" th:attr="data-kt-countup-value=${referralSignups}" class="counted" data-kt-initialized="1">[[${referralSignups}]]</span>
+                        <span data-kt-countup="true" th:attr="data-kt-countup-value=${referralSignups}" class="counted"
+                              data-kt-initialized="1">[[${referralSignups}]]</span>
                     </span>
                             </div>
                         </div>
@@ -107,8 +119,11 @@
 
                     <!--begin::Info-->
                     <p class="fs-5 fw-semibold text-gray-600 py-6">
-                        Writing headlines for blog posts is as much an art as it is a science, and probably warrants its own post,
-                        but for now, all I’d advise is experimenting with what works for your audience, especially if it’s not resonating with your audience
+                        Please note that as per our withdrawal policy, a user is eligible to submit a withdrawal request
+                        only when the balance in their wallet exceeds $30 USD. This policy ensures the smooth operation
+                        of our financial system and helps us maintain a sustainable and fair environment for all users.
+                        We appreciate your understanding and cooperation in adhering to these guidelines. Remember, your
+                        financial growth is our priority!
                     </p>
                     <!--end::Info-->
 
@@ -116,7 +131,8 @@
                     <!--begin::Notice-->
                     <div class="notice d-flex bg-light-primary rounded border-primary border border-dashed  p-6">
                         <!--begin::Icon-->
-                        <i class="ki-duotone ki-bank fs-2tx text-primary me-4"><span class="path1"></span><span class="path2"></span></i>        <!--end::Icon-->
+                        <i class="ki-duotone ki-bank fs-2tx text-primary me-4"><span class="path1"></span><span
+                                class="path2"></span></i>        <!--end::Icon-->
 
                         <!--begin::Wrapper-->
                         <div class="d-flex flex-stack flex-grow-1 flex-wrap flex-md-nowrap">
@@ -124,13 +140,15 @@
                             <div class="mb-3 mb-md-0 fw-semibold">
                                 <h4 class="text-gray-900 fw-bold">Withdraw Your Money to your wallet</h4>
 
-                                <div class="fs-6 text-gray-700 pe-7">Withdraw money securily to your wallet. Commision is $2 + 1% per transaction under $50</div>
+                                <div class="fs-6 text-gray-700 pe-7">Withdraw money securily to your wallet. Commision
+                                    is $2 + 1% per transaction under $50
+                                </div>
                             </div>
                             <!--end::Content-->
 
                             <!--begin::Action-->
                             <a href="/withdraw" class="btn btn-primary px-6 align-self-center text-nowrap">
-                                Withdraw Money            </a>
+                                Withdraw Money </a>
                             <!--end::Action-->
                         </div>
                         <!--end::Wrapper-->
@@ -155,7 +173,8 @@
                         <ul class="nav nav-stretch fs-5 fw-semibold nav-line-tabs border-transparent" role="tablist">
 
                             <li class="nav-item" role="presentation">
-                                <a id="kt_referrals_tab_3" class="nav-link text-active-gray-800" data-bs-toggle="tab" role="tab" href="#kt_referrals_3" aria-selected="true">
+                                <a id="kt_referrals_tab_3" class="nav-link text-active-gray-800" data-bs-toggle="tab"
+                                   role="tab" href="#kt_referrals_3" aria-selected="true">
                                     2023
                                 </a>
                             </li>
@@ -171,7 +190,8 @@
 
 
                     <!--begin::Tab panel-->
-                    <div id="kt_referrals_3" class="card-body p-0 tab-pane fade" role="tabpanel" aria-labelledby="#kt_referrals_tab_3">
+                    <div id="kt_referrals_3" class="card-body p-0 tab-pane fade" role="tabpanel"
+                         aria-labelledby="#kt_referrals_tab_3">
                         <div class="table-responsive">
                             <!--begin::Table-->
                             <table class="table table-row-bordered align-middle gy-6">
@@ -190,14 +210,15 @@
                                 <!--begin::Tbody-->
                                 <tbody class="fs-6 fw-semibold text-gray-600">
                                 <tr th:each="child : ${children}">
-                                    <td class="ps-9"  th:text="${child.investments.investmentPackage.name}"></td>
-                                    <td class="ps-0"><a href="" class="text-gray-600 text-hover-primary" th:text="${child.email}"></a></td>
-<!--                                    <td th:if="${child.investments != null}" th:text="${#dates.format(child.investments.investmentDate, 'dd-MM-yyyy')}"></td>-->
-                                    <td th:if="${child.investments != null}" th:text="${child.investments.investmentDate}"></td>
-                                    <td th:if="${child.investments != null}" th:text="${child.investments.investedAmount}"></td>
+                                    <td class="ps-9" th:text="${child.investments.investmentPackage.name}"></td>
+                                    <td class="ps-0"><a href="" class="text-gray-600 text-hover-primary"
+                                                        th:text="${child.email}"></a></td>
+                                    <!--                                    <td th:if="${child.investments != null}" th:text="${#dates.format(child.investments.investmentDate, 'dd-MM-yyyy')}"></td>-->
+                                    <td th:if="${child.investments != null}"
+                                        th:text="${child.investments.investmentDate}"></td>
+                                    <td th:if="${child.investments != null}"
+                                        th:text="${child.investments.investedAmount}"></td>
                                 </tr>
-
-
 
 
                                 </tbody>

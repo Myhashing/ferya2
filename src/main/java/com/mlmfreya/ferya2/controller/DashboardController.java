@@ -57,7 +57,6 @@ public class DashboardController {
                     model.addAttribute("totalCommissions", userService.getTotalCommissions(user));
                     model.addAttribute("totalInvestments", userService.getTotalInvestments(user));
                     model.addAttribute("totalUserNetwork", userService.getTotalUserNetwork(user));
-                    model.addAttribute("totalInvestedAmount", userService.getTotalInvestments(user)); // total invested amount
                     model.addAttribute("totalMonthlyInterest", userService.getTotalInterestPerMonth(user)); // total monthly interest received
                 }
             }
@@ -75,18 +74,15 @@ public class DashboardController {
             if (user != null) {
                 model.addAttribute("user", user);
                 List<User> children = userService.getAllChildren(user);
-
                 model.addAttribute("children", children);
-                model.addAttribute("totalEarnings", userService.getTotalEarnings(user));
+                model.addAttribute("netEarnings", userService.getTotalEarnings(user));
                 model.addAttribute("totalCommissions", userService.getTotalCommissions(user));
                 model.addAttribute("totalInvestments", userService.getTotalInvestments(user));
                 model.addAttribute("totalUserNetwork", userService.getTotalUserNetwork(user));
-                model.addAttribute("totalInvestedAmount", userService.getTotalInvestments(user)); // total invested amount
                 model.addAttribute("totalMonthlyInterest", userService.getTotalInterestPerMonth(user)); // total monthly interest received
                 model.addAttribute("referralSignups", children.size());
                 model.addAttribute("avgInvestment", userService.getAverageInvestmentPerUserInNetwork(user));
-                model.addAttribute("totalEarnings", userService.getTotalEarnings(user));
-                
+
             }
         }
         return "dashboard/pages/referrals";
