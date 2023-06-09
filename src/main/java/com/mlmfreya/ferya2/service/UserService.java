@@ -110,6 +110,11 @@ public class UserService {
         if (userRepository.findByEmail(user.getEmail()).isPresent()) {
             throw new IllegalArgumentException("Email is already in use");
         }
+        String referralCode  ;
+        do {
+            referralCode = String.format("%06d", new Random().nextInt(999999));
+        } while (referralCodeExists(referralCode));
+        user.setReferralCode(referralCode);
 
         // If not, save the user
         return userRepository.save(user);
@@ -119,6 +124,7 @@ public class UserService {
     public User registerUser(User user, User parent, String position) {
         user.setRole(User.Role.USER);
         user.setParent(parent);
+        user.setBalance(BigDecimal.ZERO);
 
         if (position.equals("LEFT")) {
             parent.setLeftChild(user);
