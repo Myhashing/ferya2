@@ -3,9 +3,11 @@ package com.mlmfreya.ferya2.controller;
 
 import com.mlmfreya.ferya2.dto.UserRegistrationDto;
 import com.mlmfreya.ferya2.model.User;
+import com.mlmfreya.ferya2.model.WithdrawRequest;
 import com.mlmfreya.ferya2.repository.UserRepository;
 import com.mlmfreya.ferya2.service.UserDetailsServiceImpl;
 import com.mlmfreya.ferya2.service.UserService;
+import com.mlmfreya.ferya2.service.WithdrawService;
 import jakarta.servlet.http.HttpServletRequest;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +21,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.math.BigDecimal;
+import java.nio.file.attribute.UserPrincipalNotFoundException;
+import java.security.Principal;
+import java.util.List;
+
 @Controller
 public class UserController {
     private final UserService userService;
@@ -26,16 +33,19 @@ public class UserController {
     private final PasswordEncoder passwordEncoder;
     private final UserRepository userRepository;
 
+    private final WithdrawService withdrawService;
 
     @Autowired
     public UserController(UserService userService,
                           UserDetailsServiceImpl userDetailsService,
                           PasswordEncoder passwordEncoder,
-                          UserRepository userRepository) {
+                          UserRepository userRepository,
+                          WithdrawService withdrawService) {
         this.userService = userService;
         this.userDetailsService = userDetailsService;
         this.passwordEncoder = passwordEncoder;
         this.userRepository = userRepository;
+        this.withdrawService = withdrawService;
     }
 
     @GetMapping("/users/{email}")
@@ -115,6 +125,42 @@ public class UserController {
             return false;
         }
     }
+
+    @GetMapping("withdraw")
+    public String withdralist( Principal principal,Model model ){
+        try{
+            User user = userService.getUserByEmail(principal.getName()).orElseThrow(()-> new UsernameNotFoundException(" User Not found"));
+            List<WithdrawRequest> withdrawRequest = withdrawService.all(user);
+           model.addAttribute("withdraws",withdrawRequest);
+            return "dashboard/pages/withdraw";
+
+        }catch(Exception e){
+            model.addAttribute("error",e.getMessage());
+            return "redirect:/withdraw?error";
+        }
+
+    }
+
+    @PostMapping("/withdraw")
+    public String withdraw(@RequestParam("amount") BigDecimal amount, Principal principal,Model model ){
+        try{
+            User user = userService.getUserByEmail(principal.getName()).orElseThrow(()-> new UsernameNotFoundException(" User Not found"));
+            if (user.getBalance().compareTo(BigDecimal.valueOf(30)) >= 0 && user.getBalance().compareTo(amount) >= 0) {
+                withdrawService.create(amount,user);
+                return "redirect:/withdraw?success";
+            } else {
+                return "redirect:/withdraw?error";
+            }
+        }catch(Exception e){
+            model.addAttribute("error",e.getMessage());
+            return "redirect:/withdraw?error";
+        }
+
+
+        }
+
+
+
 
 
 
