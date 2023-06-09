@@ -91,16 +91,6 @@ public class DashboardController {
 
 
 
-
-    @PostMapping("/withdraw")
-    public String withdrawIncome(@RequestParam("amount") double amount,
-                                 @RequestParam("account") String account,
-                                 Principal principal) {
-        User user = userService.findByUsername(principal.getName());
-        userService.requestWithdraw(user, amount, account);
-        return "redirect:/dashboard";
-    }
-
     @PostMapping("/profile")
     public String updateProfile(@RequestParam("email") String email,
                                 @RequestParam("name") String name,
