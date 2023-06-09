@@ -8,6 +8,7 @@ import com.mlmfreya.ferya2.model.*;
 import com.mlmfreya.ferya2.service.*;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -21,6 +22,9 @@ import java.util.List;
 @Controller
 @RequestMapping("/shop")
 public class OrderController {
+
+    @Value("${tronApiAdress}")
+    private String TronApiAddress;
 
     @Autowired
     private ShoppingCart cart;
@@ -143,7 +147,7 @@ public class OrderController {
         // create a new wallet address for this transaction
         String paymentWalletAddress;
         try {
-            String createWalletApiUrl = "http://localhost:3000/api/tron/createAccount";
+            String createWalletApiUrl =  TronApiAddress+"/createAccount";
             String apiResponse = tronWebService.makeApiRequest(createWalletApiUrl,"POST");
             ObjectMapper mapper = new ObjectMapper();
             WalletResponse response = mapper.readValue(apiResponse, WalletResponse.class);

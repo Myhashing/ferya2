@@ -32,4 +32,4 @@ encryption:
   salt: 54dfasfd4as5df4as64da6546a4d6
 
 
-tronApiAdress: https://tronapi.coinnich.com
+tronApiAdress: https://tronapi.coinnich.com/api/tron
