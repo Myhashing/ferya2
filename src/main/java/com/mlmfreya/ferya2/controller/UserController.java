@@ -147,6 +147,28 @@ public class UserController {
 
     }
 
+
+    @GetMapping("/statements")
+    public String statements( Principal principal,Model model ){
+        try {
+
+            if (principal != null) {
+                User user = userService.findByUsername(principal.getName());
+                if (user != null) {
+                    model.addAttribute("user", user);
+                    List<WithdrawRequest> withdrawRequest = withdrawService.all(user);
+                    model.addAttribute("withdraws", withdrawRequest);
+                }
+            }
+            return "dashboard/pages/withdraw";
+
+        }catch(Exception e){
+            model.addAttribute("error",e.getMessage());
+            return "redirect:/withdraw?error";
+        }
+
+    }
+
     @PostMapping("/withdraw")
     public String withdraw(@RequestParam("amount") BigDecimal amount, Principal principal,Model model ){
         try{

@@ -38,4 +38,8 @@ public class BlogController {
     public String Revolutionize(){
         return "blog/Revolutionize-Your-Passive-Income";
     }
+    @GetMapping("vpn-server-for-business")
+    public String vpnserver(){
+        return "blog/vpn-server-for-business";
+    }
 }
