@@ -60,7 +60,7 @@ public class UserAdminController {
 
         userRepository.save(user);
 
-        return "redirect:/admin/user";  // redirect to the list of users after successful update
+        return "redirect:/admin/user/list";  // redirect to the list of users after successful update
     }
 
 
