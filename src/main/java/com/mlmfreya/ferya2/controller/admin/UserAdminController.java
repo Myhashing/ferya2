@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -33,29 +34,35 @@ public class UserAdminController {
     }
 
     @PostMapping("/{id}")
-    @ResponseBody
-    public User updateUser(@PathVariable Long id, User updatedUser) {
+    public String updateUser(@PathVariable Long id, @ModelAttribute User updatedUser, BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors()) {
+            return "editUser";  // return back to the form if there are errors
+        }
+
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
-        return userRepository.findById(id)
-                .map(user -> {
-                    user.setEmail(updatedUser.getEmail());
-                    user.setFullName(updatedUser.getFullName());
-                    if (!updatedUser.getPassword().isEmpty()) {
-                        String encodedPassword = passwordEncoder.encode(updatedUser.getPassword());
-                        user.setPassword(encodedPassword);
-                    }
-                    user.setRole(updatedUser.getRole());
-                    user.setTronWalletAddress(updatedUser.getTronWalletAddress());
-                    user.setReferralCode(updatedUser.getReferralCode());
-                    user.setResetPasswordToken(updatedUser.getResetPasswordToken());
-                    user.setEmailVerificationToken(updatedUser.getEmailVerificationToken());
-                    user.setEmailVerified(updatedUser.isEmailVerified());
-                    user.setBalance(updatedUser.getBalance());
-                    return userRepository.save(user);
-                })
+        User user = userRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
+
+        user.setEmail(updatedUser.getEmail());
+        user.setFullName(updatedUser.getFullName());
+        if (!updatedUser.getPassword().isEmpty()) {
+            String encodedPassword = passwordEncoder.encode(updatedUser.getPassword());
+            user.setPassword(encodedPassword);
+        }
+        user.setRole(updatedUser.getRole());
+        user.setTronWalletAddress(updatedUser.getTronWalletAddress());
+        user.setReferralCode(updatedUser.getReferralCode());
+        user.setResetPasswordToken(updatedUser.getResetPasswordToken());
+        user.setEmailVerificationToken(updatedUser.getEmailVerificationToken());
+        user.setEmailVerified(updatedUser.isEmailVerified());
+        user.setBalance(updatedUser.getBalance());
+
+        userRepository.save(user);
+
+        return "redirect:/admin/user";  // redirect to the list of users after successful update
     }
+
 
 
 
