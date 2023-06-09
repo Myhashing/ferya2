@@ -23,9 +23,16 @@ public class UserAdminController {
         return "admin/user/list";
     }
 
-    @PostMapping("/admin/user/{id}")
-    @ResponseBody
-    public User updateUser(@PathVariable Long id, @RequestBody User updatedUser) {
+    @GetMapping("/{id}")
+    public String editUser(@PathVariable Long id, Model model) {
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
+        model.addAttribute("user", user);
+        return "admin/user/edit";  // return the name of your edit form template
+    }
+
+    @PostMapping("/{id}")
+    public String updateUser(@PathVariable Long id, @ModelAttribute User updatedUser) {
         return userRepository.findById(id)
                 .map(user -> {
                     user.setEmail(updatedUser.getEmail());
@@ -38,7 +45,8 @@ public class UserAdminController {
                     user.setEmailVerificationToken(updatedUser.getEmailVerificationToken());
                     user.setEmailVerified(updatedUser.isEmailVerified());
                     user.setBalance(updatedUser.getBalance());
-                    return userRepository.save(user);
+                    userRepository.save(user);
+                    return "redirect:/admin/user/list";  // redirect back to the user list
                 })
                 .orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
     }
