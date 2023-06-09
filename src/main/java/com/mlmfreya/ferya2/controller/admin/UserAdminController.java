@@ -34,7 +34,7 @@ public class UserAdminController {
 
     @PostMapping("/{id}")
     @ResponseBody
-    public User updateUser(@PathVariable Long id, @RequestBody User updatedUser) {
+    public User updateUser(@PathVariable Long id, User updatedUser) {
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
         return userRepository.findById(id)
@@ -56,6 +56,7 @@ public class UserAdminController {
                 })
                 .orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
     }
+
 
 
 }
