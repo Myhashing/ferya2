@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/master}">
+<head>
+    <meta charset="UTF-8">
+    <title>Freya - Coinnich</title>
+</head>
+<body>
+<div layout:fragment="content">
+
+    <!--begin::Content-->
+    <div id="kt_app_content" class="app-content flex-column-fluid">
+        <!--begin::Content container-->
+        <div id="kt_app_content_container" class="app-container container-xxl">
+
+            <!--begin::Statements-->
+            <div class="card">
+                <!--begin::Header-->
+                <div class="card-header card-header-stretch">
+                    <!--begin::Title-->
+                    <div class="card-title">
+                        <h3 class="m-0 text-gray-800">Statement</h3>
+                    </div>
+                    <!--end::Title-->
+                    <!--begin::Toolbar-->
+                    <div class="card-toolbar m-0">
+                        <!--begin::Tab nav-->
+                        <ul class="nav nav-stretch fs-5 fw-semibold nav-line-tabs border-transparent" role="tablist">
+                            <li class="nav-item" role="presentation">
+                                <a id="kt_referrals_year_tab" class="nav-link text-active-gray-800 active" data-bs-toggle="tab" role="tab" href="#kt_referrals_1">This Year</a>
+                            </li>
+
+                        </ul>
+                        <!--end::Tab nav-->
+                    </div>
+                    <!--end::Toolbar-->
+                </div>
+                <!--end::Header-->
+                <!--begin::Tab Content-->
+                <div id="kt_referred_users_tab_content" class="tab-content">
+                    <!--begin::Tab panel-->
+                    <div id="kt_referrals_1" class="card-body p-0 tab-pane fade show active" role="tabpanel">
+                        <div class="table-responsive">
+                            <!--begin::Table-->
+                            <table class="table align-middle table-row-bordered table-row-solid gy-4 gs-9">
+                                <!--begin::Thead-->
+                                <thead class="border-gray-200 fs-5 fw-semibold bg-lighten">
+                                <tr>
+                                    <th class="min-w-175px ps-9">Date</th>
+                                    <th class="min-w-150px px-0">Request ID</th>
+                                    <th class="min-w-350px">Status</th>
+                                    <th class="min-w-125px">Amount</th>
+                                </tr>
+                                </thead>
+                                <!--end::Thead-->
+                                <!--begin::Tbody-->
+                                <tbody class="fs-6 fw-semibold text-gray-600">
+                                <tr th:each="wrq : ${withdraws}">
+                                    <td class="ps-9" th:text="${wrq.requestDate}"></td>
+                                    <td class="ps-0" th:text="${wrq.id}"></td>
+                                    <td class="ps-0" th:text="${wrq.status.name()}"></td>
+                                    <td class="text-success" th:text="${wrq.amount}"></td>
+                                </tr>
+
+                                </tbody>
+                                <!--end::Tbody-->
+                            </table>
+                            <!--end::Table-->
+                        </div>
+                    </div>
+                    <!--end::Tab panel-->
+
+                </div>
+                <!--end::Tab Content-->
+            </div>
+            <!--end::Statements-->
+        </div>
+        <!--end::Content container-->
+    </div>
+    <!--end::Content-->
+</div>
+</body>
+</html>

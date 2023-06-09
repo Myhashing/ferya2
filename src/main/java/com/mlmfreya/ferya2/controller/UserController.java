@@ -126,12 +126,18 @@ public class UserController {
         }
     }
 
-    @GetMapping("withdraw")
+    @GetMapping("/withdraw")
     public String withdralist( Principal principal,Model model ){
-        try{
-            User user = userService.getUserByEmail(principal.getName()).orElseThrow(()-> new UsernameNotFoundException(" User Not found"));
-            List<WithdrawRequest> withdrawRequest = withdrawService.all(user);
-           model.addAttribute("withdraws",withdrawRequest);
+        try {
+
+            if (principal != null) {
+               User user = userService.findByUsername(principal.getName());
+                if (user != null) {
+                    model.addAttribute("user", user);
+                    List<WithdrawRequest> withdrawRequest = withdrawService.all(user);
+                    model.addAttribute("withdraws", withdrawRequest);
+                }
+            }
             return "dashboard/pages/withdraw";
 
         }catch(Exception e){
