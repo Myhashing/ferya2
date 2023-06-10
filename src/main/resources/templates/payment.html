@@ -10,7 +10,7 @@
 <p id="walletAddress" th:text="${walletAddress}"></p>
 <div id="qrcode"></div>
 <p>You have <span id="timer" th:text="${timer}"></span> minutes to complete this transaction.</p>
-<a href="/shop/backToShop">Back to Shop List</a> <!-- Added line -->
+<a href="/shop/backToShop" class="link-primary">Back to Shop List</a> <!-- Added line -->
 <script>
     // Generate QR Code
     new QRCode(document.getElementById("qrcode"), document.getElementById("walletAddress").innerText);
@@ -47,7 +47,7 @@
                     // If payment is received, clear intervals and redirect to confirmation page
                     clearInterval(timer);
                     clearInterval(checkWalletStatus);
-                    window.location.href = "/shop/payment-confirmed";
+                    window.location.href = "/dashboard";
                 }
             })
             .catch((error) => {

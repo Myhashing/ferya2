@@ -236,29 +236,27 @@ if (document.documentElement) {
         }
     }, 1000); // Update every second
 
+
     // Check Wallet Status (you will need to replace this with your own code)
     var checkWalletStatus = setInterval(function() {
         // Get wallet address
         var walletAddress = document.getElementById("walletAddress").innerText;
 
         // Make API call to check wallet status
-        fetch('http://tronapi.coinnich.com/api/tron/getBalance/' + walletAddress)
+        fetch('/public/api/wallet/balance/' + walletAddress)
             .then(response => response.json())
             .then(data => {
-                var balance = data.data;
+                var balance = data;
 
-                console.log('Balance:', balance); // Added for debugging
                 var amountElement = document.getElementById("amount");
                 var requiredAmount = Number(amountElement.textContent);
-                console.log('Required amount:', requiredAmount);
 
                 // Check if balance is sufficient
                 if (parseFloat(balance/1000000) >= parseFloat(requiredAmount)) {
-                    console.log('Balance is sufficient. Redirecting...'); // Added for debugging
                     // If payment is received, clear intervals and redirect to confirmation page
                     clearInterval(timer);
                     clearInterval(checkWalletStatus);
-                    window.location.href = "/shop/payment-confirmed";
+                    window.location.href = "/dashboard";
                 }
             })
             .catch((error) => {
