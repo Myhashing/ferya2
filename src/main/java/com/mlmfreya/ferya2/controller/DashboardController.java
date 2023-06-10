@@ -38,6 +38,8 @@ public class DashboardController {
             User user = userService.findByUsername(principal.getName());
             if (user != null) {
                 model.addAttribute("user", user);
+                List<User> children = userService.getAllChildren(user);
+                model.addAttribute("children", children);
             }
         }
         model.addAttribute("btcprice",binanceService.CryptoPrice("BTCUSDT"));
