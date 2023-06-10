@@ -19,4 +19,6 @@ public class InvestmentService {
 
         return userRepository.findUserByInvestments(investment);
     }
+
+
 }
