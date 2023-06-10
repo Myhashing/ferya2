@@ -212,9 +212,9 @@
                                         <div class="card-header flex-nowrap pt-5">
                                             <!--begin::Title-->
                                             <h3 class="card-title align-items-start flex-column">
-                                                <span class="card-label fw-bold fs-4 text-gray-800">Tron</span>
+                                                <span class="card-label fw-bold fs-4 text-gray-800">Dogecoin</span>
                                                 <span class="mt-1 fw-semibold fs-7"
-                                                      th:text="${trxprice.getPrice() + ' USD for 1 TRX'}"></span>
+                                                      th:text="${dogeprice.getPrice() + ' USD for 1 DOGE'}"></span>
 
                                             </h3>
                                             <!--end::Title-->
@@ -317,13 +317,13 @@
                                 <!--begin::Body-->
                                 <div class="card-body text-center pt-5">
                                     <!--begin::Image-->
-                                    <img src="assets/media/svg/shapes/trx.svg" class="h-125px mb-5"
+                                    <img th:src="@{/media/svg/shapes/trx.svg}" class="h-125px mb-5"
                                          alt=""/>
                                     <!--end::Image-->
                                     <!--begin::Section-->
                                     <div class="text-start">
                                         <span class="d-block fw-bold fs-1 text-gray-800">0 TRX</span>
-                                        <span class="mt-1 fw-semibold fs-3" style="color:">0 USD</span>
+                                        <span class="mt-1 fw-semibold fs-3" >0 USD</span>
                                     </div>
                                     <!--end::Section-->
                                 </div>
