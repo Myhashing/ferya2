@@ -45,6 +45,7 @@ public class DashboardController {
         model.addAttribute("btcprice",binanceService.CryptoPrice("BTCUSDT"));
         model.addAttribute("ethprice",binanceService.CryptoPrice("ETHUSDT"));
         model.addAttribute("dogeprice",binanceService.CryptoPrice("DOGEUSDT"));
+        model.addAttribute("trxprice",binanceService.CryptoPrice("TRXUSDT"));
         return "dashboard/default";
     }
 
