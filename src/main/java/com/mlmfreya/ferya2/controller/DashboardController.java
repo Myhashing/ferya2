@@ -1,9 +1,12 @@
 package com.mlmfreya.ferya2.controller;
 
-import com.mlmfreya.ferya2.model.Investment;
+import com.mlmfreya.ferya2.model.Audit;
 import com.mlmfreya.ferya2.model.User;
+import com.mlmfreya.ferya2.service.AuditService;
 import com.mlmfreya.ferya2.service.BinanceService;
 import com.mlmfreya.ferya2.service.UserService;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.security.Principal;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,12 +25,17 @@ public class DashboardController {
 
     private final UserService userService;
     private final BinanceService binanceService;
+    private final AuditService auditService;
 
     @Autowired
+    private HttpServletRequest request;
+    @Autowired
     public DashboardController(UserService userService,
-                               BinanceService binanceService) {
+                               BinanceService binanceService,
+                               AuditService auditService) {
         this.userService = userService;
         this.binanceService = binanceService;
+        this.auditService = auditService;
     }
 
 
@@ -91,9 +100,6 @@ public class DashboardController {
         return "dashboard/pages/referrals";
     }
 
-
-
-
     @PostMapping("/profile")
     public String updateProfile(@RequestParam("email") String email,
                                 @RequestParam("name") String name,
@@ -109,5 +115,31 @@ public class DashboardController {
         model.addAttribute("error", "Cannot update profile of another user");
         return "error";
     }
+
+    @GetMapping("/log")
+    public String userSessionLog(Model model, Principal principal){
+        if (principal != null) {
+            User user = userService.findByUsername(principal.getName());
+            if (user != null) {
+                model.addAttribute("user", user);
+                HttpSession session = request.getSession(false);
+                Map<String, Object> sessionInfo = new HashMap<>();
+                if (session != null) {
+                    sessionInfo.put("sessionId", session.getId());
+                    sessionInfo.put("creationTime", new Date(session.getCreationTime()));
+                    sessionInfo.put("lastAccessedTime", new Date(session.getLastAccessedTime()));
+                    sessionInfo.put("maxInactiveInterval", session.getMaxInactiveInterval());
+                }
+                model.addAttribute("sessions",sessionInfo);
+
+                // Fetch audit records and add them to the model
+                List<Audit> audits = auditService.getAuditsForUser(user.getEmail());
+                model.addAttribute("audits", audits);
+            }
+        }
+
+        return "dashboard/pages/log";
+    }
+
 
 }

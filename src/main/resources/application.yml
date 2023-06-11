@@ -27,7 +27,9 @@ spring:
     port: 587
     username: admin@amanatpay.com
     password: 2300479435Reza00!
-
+  redis:
+    host: localhost
+    port: 6379
 
 encryption:
   key: d5s4a6d4a65d4sa6a554f6as
