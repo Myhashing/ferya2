@@ -15,109 +15,143 @@
         <div id="kt_app_content_container" class="app-container container-xxl">
             <div th:include="layout/topframe :: accountnavigation" class="card mb-5 mb-xxl-8"></div>
 
-           <!-- begin::Login sessions
-            <div class="card mb-5 mb-lg-10">
-                begin::Card header
-                <div class="card-header">
-                    begin::Heading
-                    <div class="card-title">
-                        <h3>Login Sessions</h3>
-                    </div>
-                    end::Heading
+            <table class="table align-middle table-row-bordered table-row-solid gy-4 gs-9">
+                <!--begin::Thead-->
+                <thead class="border-gray-200 fs-5 fw-semibold bg-lighten">
+                <tr>
+                    <th class="min-w-250px">Location</th>
+                    <th class="min-w-100px">Status</th>
+                    <th class="min-w-150px">Device</th>
+                    <th class="min-w-150px">IP Address</th>
+                    <th class="min-w-150px">Time</th>
+                </tr>
+                </thead>
+                <!--end::Thead-->
+                <!--begin::Tbody-->
+                <tbody class="fw-6 fw-semibold text-gray-600">
+                <tr th:each="audit : ${audits}">
+                    <td>
+                        <!-- You need to use a geolocation API to get the location from the IP address -->
+                        <a href="#" class="text-hover-primary text-gray-600">Location</a>
+                    </td>
+                    <td>
+                        <!-- You can determine the status based on the audit record -->
+                        <span class="badge badge-light-success fs-7 fw-bold">OK</span>
+                    </td>
+                    <td>
+                        <!-- You need to record the device information in your Audit object -->
+                        Device
+                    </td>
+                    <td th:text="${audit.ipAddress}"></td>
+                    <td th:text="${#dates.format(audit.loginTime, 'HH:mm:ss')}"></td>
+                </tr>
+                </tbody>
+                <!--end::Tbody-->
+            </table>
 
-                </div>
-                end::Card header
-                begin::Card body
-                <div class="card-body p-0">
-                    begin::Table wrapper
-                    <div class="table-responsive">
-                        begin::Table
-                        <table class="table align-middle table-row-bordered table-row-solid gy-4 gs-9">
-                            begin::Thead
-                            <thead class="border-gray-200 fs-5 fw-semibold bg-lighten">
-                            <tr>
-                                <th class="min-w-250px">Location</th>
-                                <th class="min-w-100px">Session id</th>
-                                <th class="min-w-150px">Device</th>
-                                <th class="min-w-150px">IP Address</th>
-                                <th class="min-w-150px">Time</th>
-                            </tr>
-                            </thead>
-                            end::Thead
-                            begin::Tbody
-                            <tbody class="fw-6 fw-semibold text-gray-600">
-                            <tr th:each="sessi : ${sessions}">
-                                <td>
-                                     You need to use a geolocation API to get the location from the IP address
-                                    <a href="#" class="text-hover-primary text-gray-600">Location</a>
-                                </td>
-                                <td>
-                                     You can determine the status based on the audit record
-                                    <span class="badge badge-light-success fs-7 fw-bold"th:text="${sessi.sessionId}">OK</span>
-                                </td>
-                                <td th:text="${#dates.format(sessi.lastAccessedTime, 'HH:mm:ss')}"></td>
-                                <td th:text="${sessi.ipAddress}"></td>
-                                <td th:text="${#dates.format(sessi.maxInactiveInterval, 'HH:mm:ss')}"></td>
-                            </tr>
-                            </tbody>
-                            end::Tbody
-                        </table>
+            <!-- begin::Login sessions
+             <div class="card mb-5 mb-lg-10">
+                 begin::Card header
+                 <div class="card-header">
+                     begin::Heading
+                     <div class="card-title">
+                         <h3>Login Sessions</h3>
+                     </div>
+                     end::Heading
 
-                        end::Table
-                    </div>
-                    end::Table wrapper
-                </div>
-                end::Card body
-            </div>
-            end::Login sessions
-            begin::Card
-            <div class="card pt-4">
-                begin::Card header
-                <div class="card-header border-0">
-                    begin::Card title
-                    <div class="card-title">
-                        <h2>Logs</h2>
-                    </div>
-                    end::Card title
+                 </div>
+                 end::Card header
+                 begin::Card body
+                 <div class="card-body p-0">
+                     begin::Table wrapper
+                     <div class="table-responsive">
+                         begin::Table
+                         <table class="table align-middle table-row-bordered table-row-solid gy-4 gs-9">
+                             begin::Thead
+                             <thead class="border-gray-200 fs-5 fw-semibold bg-lighten">
+                             <tr>
+                                 <th class="min-w-250px">Location</th>
+                                 <th class="min-w-100px">Session id</th>
+                                 <th class="min-w-150px">Device</th>
+                                 <th class="min-w-150px">IP Address</th>
+                                 <th class="min-w-150px">Time</th>
+                             </tr>
+                             </thead>
+                             end::Thead
+                             begin::Tbody
+                             <tbody class="fw-6 fw-semibold text-gray-600">
+                             <tr th:each="sessi : ${sessions}">
+                                 <td>
+                                      You need to use a geolocation API to get the location from the IP address
+                                     <a href="#" class="text-hover-primary text-gray-600">Location</a>
+                                 </td>
+                                 <td>
+                                      You can determine the status based on the audit record
+                                     <span class="badge badge-light-success fs-7 fw-bold"th:text="${sessi.sessionId}">OK</span>
+                                 </td>
+                                 <td th:text="${#dates.format(sessi.lastAccessedTime, 'HH:mm:ss')}"></td>
+                                 <td th:text="${sessi.ipAddress}"></td>
+                                 <td th:text="${#dates.format(sessi.maxInactiveInterval, 'HH:mm:ss')}"></td>
+                             </tr>
+                             </tbody>
+                             end::Tbody
+                         </table>
 
-                </div>
-                end::Card header
-                begin::Card body
-                <div class="card-body py-0">
-                    begin::Table wrapper
-                    <div class="table-responsive">
-                        begin::Table
-                        <table class="table align-middle table-row-dashed fw-semibold text-gray-600 fs-6 gy-5" id="kt_table_customers_logs">
-                            begin::Table body
-                            <tbody>
-                            begin::Table row
-                            <tr th:each="audit : ${audits}">
-                                begin::Badge=
-                                <td class="min-w-70px">
-                                    <div class="badge badge-light-success" th:text="${audit.getIpAddress()}"></div>
-                                </td>
-                                end::Badge=
-                                begin::Status=
-                                <td th:text="${audit.getEventType()}"></td>
-                                end::Status=
-                                begin::Timestamp=
-                                <td class="pe-0 text-end min-w-200px" th:text="${audit.getEventTimestamp()}"></td>
-                                <td class="pe-0 text-end min-w-200px" th:text="${audit.getLoginTime()}"></td>
-                                <td class="pe-0 text-end min-w-200px" th:text="${audit.getLogoutTime()}"></td>
-                                end::Timestamp=
-                            </tr>
-                            end::Table row
+                         end::Table
+                     </div>
+                     end::Table wrapper
+                 </div>
+                 end::Card body
+             </div>
+             end::Login sessions
+             begin::Card
+             <div class="card pt-4">
+                 begin::Card header
+                 <div class="card-header border-0">
+                     begin::Card title
+                     <div class="card-title">
+                         <h2>Logs</h2>
+                     </div>
+                     end::Card title
 
-                            </tbody>
-                            end::Table body
-                        </table>
-                        end::Table
-                    </div>
-                    end::Table wrapper
-                </div>
-                end::Card body
-            </div>
-            end::Card-->
+                 </div>
+                 end::Card header
+                 begin::Card body
+                 <div class="card-body py-0">
+                     begin::Table wrapper
+                     <div class="table-responsive">
+                         begin::Table
+                         <table class="table align-middle table-row-dashed fw-semibold text-gray-600 fs-6 gy-5" id="kt_table_customers_logs">
+                             begin::Table body
+                             <tbody>
+                             begin::Table row
+                             <tr th:each="audit : ${audits}">
+                                 begin::Badge=
+                                 <td class="min-w-70px">
+                                     <div class="badge badge-light-success" th:text="${audit.getIpAddress()}"></div>
+                                 </td>
+                                 end::Badge=
+                                 begin::Status=
+                                 <td th:text="${audit.getEventType()}"></td>
+                                 end::Status=
+                                 begin::Timestamp=
+                                 <td class="pe-0 text-end min-w-200px" th:text="${audit.getEventTimestamp()}"></td>
+                                 <td class="pe-0 text-end min-w-200px" th:text="${audit.getLoginTime()}"></td>
+                                 <td class="pe-0 text-end min-w-200px" th:text="${audit.getLogoutTime()}"></td>
+                                 end::Timestamp=
+                             </tr>
+                             end::Table row
+
+                             </tbody>
+                             end::Table body
+                         </table>
+                         end::Table
+                     </div>
+                     end::Table wrapper
+                 </div>
+                 end::Card body
+             </div>
+             end::Card-->
         </div>
         <!--end::Content container-->
     </div>
