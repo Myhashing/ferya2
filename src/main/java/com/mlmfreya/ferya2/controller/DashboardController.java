@@ -58,6 +58,21 @@ public class DashboardController {
         return "dashboard/default";
     }
 
+
+    @GetMapping("/commissions")
+    public String commissions(Model model,Principal principal){
+
+        if (principal != null) {
+            User user = userService.findByUsername(principal.getName());
+            if (user != null) {
+                model.addAttribute("user", user);
+                model.addAttribute("commissions",user.getCommissions());
+            }
+        }
+
+        return "dashboard/pages/commissions";
+    }
+
     @GetMapping("/overview")
     public String ShowOverview(Model model, Principal principal) {
         User user = null;
@@ -115,6 +130,8 @@ public class DashboardController {
         model.addAttribute("error", "Cannot update profile of another user");
         return "error";
     }
+
+
 
     @GetMapping("/log")
     public String userSessionLog(Model model, Principal principal){
