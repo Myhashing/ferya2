@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Beneficiary</th>
+        <th>Type</th>
+        <th>Amount</th>
+        <th>Status</th>
+    </tr>
+    </thead>
+    <tbody>
+    <!-- This Thymeleaf syntax will iterate over all commissions in the commissions variable, which you would need to add to the model in your controller. -->
+    <tr th:each="commission : ${commissions}">
+        <td th:text="${commission.id}"></td>
+        <td th:text="${commission.beneficiary.name}"></td> <!-- Assumes User has a name property -->
+        <td th:text="${commission.type}"></td>
+        <td th:text="${commission.amount}"></td>
+        <td th:text="${commission.status}"></td>
+    </tr>
+    </tbody>
+</table>
+
+
+</body>
+</html>

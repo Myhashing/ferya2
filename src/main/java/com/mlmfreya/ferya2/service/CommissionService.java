@@ -56,8 +56,6 @@ public class CommissionService {
 
 
 
-
-
     @Transactional
     public void calculateAndDistributeCommissions(User parent) {
         // Calculate referral commission for parent
