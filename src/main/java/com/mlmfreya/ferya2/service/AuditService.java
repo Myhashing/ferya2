@@ -3,6 +3,7 @@ package com.mlmfreya.ferya2.service;
 import com.mlmfreya.ferya2.model.Audit;
 import com.mlmfreya.ferya2.repository.AuditRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.actuate.audit.AuditEvent;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -28,6 +29,8 @@ public class AuditService {
             auditRepository.save(audit);
         }
     }
+
+
 
 
 }
