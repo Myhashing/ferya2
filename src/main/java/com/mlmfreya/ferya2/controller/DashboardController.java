@@ -129,6 +129,8 @@ public class DashboardController {
                     sessionInfo.put("creationTime", new Date(session.getCreationTime()));
                     sessionInfo.put("lastAccessedTime", new Date(session.getLastAccessedTime()));
                     sessionInfo.put("maxInactiveInterval", session.getMaxInactiveInterval());
+                    sessionInfo.put("ipAddress", request.getRemoteAddr()); // Add this line
+
                 }
                 model.addAttribute("sessions",sessionInfo);
 

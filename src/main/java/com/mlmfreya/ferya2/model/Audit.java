@@ -18,5 +18,7 @@ public class Audit {
     private LocalDateTime loginTime;
     private LocalDateTime logoutTime;
     private String ipAddress;
+    private String eventType; // Add this line
+    private LocalDateTime eventTimestamp; // Add this line
     // getters and setters
 }

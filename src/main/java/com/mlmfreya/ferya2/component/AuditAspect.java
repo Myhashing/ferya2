@@ -9,6 +9,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.WebAuthenticationDetails;
 import org.springframework.stereotype.Component;
+import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 
 @Aspect
@@ -21,14 +22,24 @@ public class AuditAspect {
     public void logLogin(JoinPoint joinPoint) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String sessionId = RequestContextHolder.currentRequestAttributes().getSessionId();
-        String username = authentication.getName();
+        String email = authentication.getName();
         String ipAddress = ((WebAuthenticationDetails) authentication.getDetails()).getRemoteAddress();
-        auditService.recordLogin(sessionId, username, ipAddress);
+        auditService.recordLogin(email, sessionId, ipAddress);
+
+        // Store the email and ip in the session
+        RequestContextHolder.currentRequestAttributes().setAttribute("email", email, RequestAttributes.SCOPE_SESSION);
+        RequestContextHolder.currentRequestAttributes().setAttribute("ip", ipAddress, RequestAttributes.SCOPE_SESSION);
     }
 
     @After("execution(* org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler.logout(..))")
     public void logLogout(JoinPoint joinPoint) {
         String sessionId = RequestContextHolder.currentRequestAttributes().getSessionId();
-        auditService.recordLogout(sessionId);
+
+        // Retrieve the email and ip from the session
+        String email = (String) RequestContextHolder.currentRequestAttributes().getAttribute("email", RequestAttributes.SCOPE_SESSION);
+        String ip = (String) RequestContextHolder.currentRequestAttributes().getAttribute("ip", RequestAttributes.SCOPE_SESSION);
+
+        auditService.recordLogout(email, sessionId, ip);
     }
 }
+

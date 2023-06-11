@@ -6,6 +6,9 @@ import org.springframework.context.ApplicationListener;
 import org.springframework.security.authentication.event.LogoutSuccessEvent;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
+import org.springframework.web.context.request.RequestAttributes;
+import org.springframework.web.context.request.RequestContextHolder;
+
 
 @Component
 public class LogoutListener implements ApplicationListener<LogoutSuccessEvent> {
@@ -17,7 +20,11 @@ public class LogoutListener implements ApplicationListener<LogoutSuccessEvent> {
     public void onApplicationEvent(LogoutSuccessEvent event) {
         UserDetails userDetails = (UserDetails) event.getAuthentication().getPrincipal();
         String email = userDetails.getUsername();
-        String sessionId = event.getAuthentication().getDetails().getSessionId();
-        auditService.recordLogout(email, sessionId);
+        String sessionId = RequestContextHolder.currentRequestAttributes().getSessionId();
+
+        // Retrieve the ip from the session
+        String ip = (String) RequestContextHolder.currentRequestAttributes().getAttribute("ip", RequestAttributes.SCOPE_SESSION);
+
+        auditService.recordLogout(email, sessionId, ip);
     }
 }
