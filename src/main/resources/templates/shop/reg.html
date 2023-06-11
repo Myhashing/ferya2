@@ -377,7 +377,25 @@
     </i>
 </div>
 <!--end::Scrolltop-->
+<style>
+    body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh; /* This makes the body take up the full viewport height */
+        margin: 0;
+        padding: 0;
+        background-color: #f8f9fa; /* This is the background color of the page */
+    }
 
+    .card {
+        width: 70%; /* This makes the card take up one third of the page width */
+        max-width: 70%;
+        box-sizing: border-box;
+        padding: 20px;
+        margin: auto;
+    }
+</style>
 <!--begin::Javascript-->
 <script>
     document.getElementById('registrationForm').addEventListener('submit', function(event) {
