@@ -23,7 +23,7 @@ public class CustomAuthenticationFailureHandler implements AuthenticationFailure
         String email = request.getParameter("username");
         String sessionId = request.getSession(false).getId();
         String ip = request.getRemoteAddr();
-        auditService.recordLoginFailure(email, sessionId, ip);
+        auditService.recordLogin(email, sessionId, ip);
         response.sendRedirect("/login?error=true");
     }
 }

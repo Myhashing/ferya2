@@ -21,7 +21,7 @@ public class CustomAuthenticationSuccessHandler implementsAuthenticationSuccessH
         String email = authentication.getName();
         String sessionId = request.getSession(false).getId();
         String ip = request.getRemoteAddr();
-        auditService.recordLoginSuccess(email, sessionId, ip);
+        auditService.recordLogin(email, sessionId, ip);
         response.sendRedirect("/dashboard");
     }
 }
