@@ -142,6 +142,4 @@ public class DashboardController {
 
         return "dashboard/pages/log";
     }
-
-
 }
