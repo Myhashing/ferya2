@@ -1,10 +1,13 @@
 package com.mlmfreya.ferya2.controller;
 
 
+import com.binance.connector.client.impl.spot.Pay;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.mlmfreya.ferya2.dto.InvestmentTopup;
 import com.mlmfreya.ferya2.dto.UserRegistrationDto;
 import com.mlmfreya.ferya2.dto.WalletResponse;
 import com.mlmfreya.ferya2.model.*;
+import com.mlmfreya.ferya2.repository.PaymentRequestUserRepository;
 import com.mlmfreya.ferya2.service.*;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 import java.io.IOException;
 import java.math.BigDecimal;
 
+import java.security.Principal;
 import java.util.List;
 
 
@@ -48,6 +52,8 @@ public class OrderController {
 
     @Autowired
     private PaymentWatcherService paymentWatcherService;
+    @Autowired
+    private PaymentRequestUserRepository paymentRequestUserRepository;
 
     @GetMapping("/package/{id}")
     @ResponseBody
@@ -248,7 +254,58 @@ public class OrderController {
 
 
 
+    @GetMapping("/topup")
+    public String topup(Model model, Principal principal){
+        if (principal != null) {
+            User user = userService.findByUsername(principal.getName());
+            if (user != null) {
+                model.addAttribute("user", user);
 
+            }
+        }
+        return "shop/topup";
+    }
+
+    @PostMapping("/topup")
+    public String topupSave(@ModelAttribute PaymentRequestUser paymentRequestUser,
+                            Principal principal,
+                            Model model){
+        if (principal != null) {
+            User user = userService.findByUsername(principal.getName());
+            if (user != null) {
+                model.addAttribute("user", user);
+                String paymentWalletAddress;
+                Wallet wallet = new Wallet();
+
+                try {
+                    String createWalletApiUrl =  TronApiAddress+"/createAccount";
+                    String apiResponse = tronWebService.makeApiRequest(createWalletApiUrl,"POST");
+                    ObjectMapper mapper = new ObjectMapper();
+                    WalletResponse response = mapper.readValue(apiResponse, WalletResponse.class);
+                    wallet.setHex(response.getData().getAddress().getHex());
+                    wallet.setBase58(response.getData().getAddress().getBase58());
+                    wallet.setPrivateKey(response.getData().getPrivateKey());
+                    wallet.setPublicKey(response.getData().getPublicKey());
+                    wallet.setEmail(user.getEmail());
+
+                    wallet= walletService.saveWallet(wallet);
+                    paymentWalletAddress = response.getData().getAddress().getBase58();
+                } catch (IOException e) {
+                    // handle exception when calling the API
+                    e.printStackTrace();
+                    return "error";
+                }
+                paymentRequestUser.setUser(user);
+                paymentRequestUser.setStatus(PaymentRequestUser.Status.Pending);
+                paymentRequestUser.setWallet(wallet);
+                paymentRequestUserRepository.save(paymentRequestUser);
+
+
+
+            }
+        }
+        return
+    }
 
 
 
