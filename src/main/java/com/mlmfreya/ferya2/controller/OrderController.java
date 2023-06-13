@@ -299,12 +299,14 @@ public class OrderController {
                 paymentRequestUser.setStatus(PaymentRequestUser.Status.Pending);
                 paymentRequestUser.setWallet(wallet);
                 paymentRequestUserRepository.save(paymentRequestUser);
-
-
-
+                model.addAttribute("walletAddress",paymentRequestUser.getWallet().getBase58());
+                model.addAttribute("timer",30 * 60);
+                model.addAttribute("amount",paymentRequestUser.getAmount());
+                return "/shop/payment";
             }
         }
-        return
+
+        return "redirect:/dashboard";
     }
 
 

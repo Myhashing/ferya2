@@ -36,12 +36,12 @@ public class BinanceService {
         this.restTemplate = restTemplate;
     }
 
-    @PostConstruct
+//    @PostConstruct
     public void start() {
         fetchAndStorePrices();
     }
 
-    @Scheduled(fixedRate = 20000)
+//    @Scheduled(fixedRate = 20000)
     public void fetchAndStorePrices() {
         String url = "https://api.binance.us/api/v3/ticker/price";
         ResponseEntity<List> response = restTemplate.getForEntity(url, List.class);
