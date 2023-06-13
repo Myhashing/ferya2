@@ -53,6 +53,8 @@ public class OrderController {
     @Autowired
     private PaymentWatcherService paymentWatcherService;
     @Autowired
+    private InterPaymentWatcherService interPaymentWatcherService;
+    @Autowired
     private PaymentRequestUserRepository paymentRequestUserRepository;
 
     @GetMapping("/package/{id}")
@@ -302,6 +304,7 @@ public class OrderController {
                 model.addAttribute("walletAddress",paymentRequestUser.getWallet().getBase58());
                 model.addAttribute("timer",30 * 60);
                 model.addAttribute("amount",paymentRequestUser.getAmount());
+                interPaymentWatcherService.watcher(paymentRequestUser);
                 return "/shop/payment";
             }
         }
