@@ -104,7 +104,9 @@ public class UserService {
 
     }
     public User registerUser(User user) {
-        user.setRole(User.Role.USER);
+        if (user.getRole() == null){
+            user.setRole(User.Role.USER);
+        }
         user.setPassword(passwordEncoder.encode(user.getPassword()));
 
         if (userRepository.findByEmail(user.getEmail()).isPresent()) {
