@@ -25,9 +25,6 @@ public class Investment {
     @OneToMany(mappedBy = "investment", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<InvestmentHistory> history = new ArrayList<>();
 
-
-
-
     @ManyToOne
     @JoinColumn(name = "package_id")
     private InvestmentPackage investmentPackage;
