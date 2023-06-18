@@ -26,12 +26,7 @@ public class Investment {
     private List<InvestmentHistory> history = new ArrayList<>();
 
 
-//
-//    @OneToOne
-//    @JoinColumn(name = "user_id")
-//    @JsonBackReference
-//
-//    private User user;
+
 
     @ManyToOne
     @JoinColumn(name = "package_id")
@@ -55,6 +50,4 @@ public class Investment {
         this.history.add(historyEntry);
     }
 
-
-    // ... getters and setters ...
 }
