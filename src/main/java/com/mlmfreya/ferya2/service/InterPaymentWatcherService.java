@@ -75,7 +75,7 @@ public class InterPaymentWatcherService {
         investmentHistoryRepository.save(investmentHistory1);
         //add to user's investment balance
         Investment investment = paymentRequestUser.getUser().getInvestments();
-        investment.setInvestedAmount(paymentRequestUser.getAmount());
+        investment.setInvestedAmount(paymentRequestUser.getAmount().add(paymentRequestUser.getUser().getInvestedAmount()));
         investmentRepository.save(investment);
         //update the payment request status
         paymentRequestUser.setStatus(PaymentRequestUser.Status.Paid);
