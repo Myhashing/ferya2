@@ -22,8 +22,7 @@ public class InvestmentPackage {
     private int duration;
     private BigDecimal returnOnInvestment;
     private BigDecimal minInvestmentAmount;  // New field for minimum investment amount
-    @Column(columnDefinition = "true")
-    private boolean cancellation;
+    private boolean cancellation = true;
 
 
     public enum Status{
