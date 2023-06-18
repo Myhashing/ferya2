@@ -1,4 +1,3 @@
-<!-- packages.html -->
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <!-- Add necessary CSS and scripts -->
@@ -7,17 +6,33 @@
 <h1>Available Packages</h1>
 <p th:if="${error}" th:text="${error}" style="color:red;"></p>
 
-<ul>
+<table>
+    <thead>
+    <tr>
+        <th>Package ID</th>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Duration</th>
+        <th>Return On Investment</th>
+        <th>Min Investment Amount</th>
+        <th>Action</th>
+    </tr>
+    </thead>
+    <tbody>
     <!-- Loop through the packages and display package information -->
-    <li th:each="package : ${packages}">
-        <h3 th:text="${package.name}"></h3>
-        <p th:text="${package.description}"></p>
-        <p><strong>Duration:</strong> <span th:text="${package.duration}"></span></p>
-        <p><strong>Return On Investment:</strong> <span th:text="${package.returnOnInvestment}"></span></p>
-        <p><strong>Min Investment Amount:</strong> <span th:text="${package.minInvestmentAmount}"></span></p>
-
-
-    </li>
-</ul>
+    <tr th:each="package : ${packages}">
+        <td th:text="${package.id}"></td>
+        <td th:text="${package.name}"></td>
+        <td th:text="${package.description}"></td>
+        <td th:text="${package.duration}"></td>
+        <td th:text="${package.returnOnInvestment}"></td>
+        <td th:text="${package.minInvestmentAmount}"></td>
+        <td>
+            <!-- Edit button, you need to replace '#' with the actual link to the edit page -->
+            <a th:href="'#/edit/' + ${package.id}" class="btn btn-primary">Edit</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
 </body>
 </html>
