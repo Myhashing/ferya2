@@ -415,5 +415,7 @@ public class UserService {
     }
 
 
-
+    public long countUsers() {
+        return userRepository.count();
+    }
 }

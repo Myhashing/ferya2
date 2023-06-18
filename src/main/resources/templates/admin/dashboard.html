@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container mt-5">
+    <h1>Admin Dashboard</h1>
+
+    <h2>Links</h2>
+    <table class="table table-bordered">
+        <tr>
+            <th>Page</th>
+            <th>Link</th>
+        </tr>
+        <tr>
+            <td>Users</td>
+            <td><a th:href="@{/admin/user/list}">/admin/user/list</a></td>
+        </tr>
+        <tr>
+            <td>Packages</td>
+            <td><a th:href="@{/admin/package/list}">/admin/package/list</a></td>
+        </tr>
+        <tr>
+            <td>Add Package</td>
+            <td><a th:href="@{/admin/package/add}">/admin/package/add</a></td>
+        </tr>
+        <tr>
+            <td>Direct Commissions</td>
+            <td><a th:href="@{/admin/direct-commission}">/admin/direct-commission</a></td>
+        </tr>
+    </table>
+
+    <h2>Statistics</h2>
+    <div class="container">
+        <h1>Admin Dashboard</h1>
+
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Total Users</th>
+                <th>Total Investments</th>
+                <th>Total Referral Commissions</th>
+                <th>Total Network Commissions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td th:text="${totalUsers}"></td>
+                <td th:text="${totalInvestments}"></td>
+                <td th:text="${totalReferralCommissions}"></td>
+                <td th:text="${totalNetworkCommissions}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>
