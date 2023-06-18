@@ -7,7 +7,7 @@
 <body>
 <div class="container mt-5">
   <h1>Update Investment Package</h1>
-  <form action="#" th:action="@{/admin/packages/update}" th:object="${package}" method="post">
+  <form action="#" th:action="@{/admin/package/update}" th:object="${package}" method="post">
     <input type="hidden" th:field="*{id}">
     <div class="form-group">
       <label for="name">Name:</label>
@@ -24,6 +24,10 @@
     <div class="form-group">
       <label for="roi">Return On Investment:</label>
       <input type="number" th:field="*{returnOnInvestment}" id="roi" class="form-control" required>
+    </div>
+    <div class="form-group">
+      <label for="roi">Cancellation:</label>
+      <input type="number" th:field="*{cancellation}" id="cancellation" class="form-control" required>
     </div>
     <button type="submit" class="btn btn-primary">Update Package</button>
   </form>
