@@ -173,7 +173,7 @@ public class UserController {
     }
 
     @GetMapping("/withdraw/request")
-    public String withdrawRequestForm(Principal principal,Model model){
+    public String withdrawRequestForm(Principal principal, Model model, RedirectAttributes redirectAttrs){
             if (principal != null) {
                 User user = userService.findByUsername(principal.getName());
                 if (user != null) {
@@ -181,6 +181,9 @@ public class UserController {
 
                 }
             }
+        if (redirectAttrs.getFlashAttributes().containsKey("error")) {
+            model.addAttribute("error", redirectAttrs.getFlashAttributes().get("error"));
+        }
             return "dashboard/pages/withdraw-request";
     }
 
