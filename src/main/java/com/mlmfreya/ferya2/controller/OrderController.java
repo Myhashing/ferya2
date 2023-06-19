@@ -300,11 +300,12 @@ public class OrderController {
                 paymentRequestUser.setUser(user);
                 paymentRequestUser.setStatus(PaymentRequestUser.Status.Pending);
                 paymentRequestUser.setWallet(wallet);
-                paymentRequestUserRepository.save(paymentRequestUser);
+                paymentRequestUser = paymentRequestUserRepository.save(paymentRequestUser); // get the saved PaymentRequestUser
                 model.addAttribute("walletAddress",paymentRequestUser.getWallet().getBase58());
                 model.addAttribute("timer",30 * 60);
                 model.addAttribute("amount",paymentRequestUser.getAmount());
-                interPaymentWatcherService.watcher(paymentRequestUser);
+                interPaymentWatcherService.watcher(paymentRequestUser.getId()); // pass the ID to the watcher method
+
                 return "/shop/payment";
             }
         }

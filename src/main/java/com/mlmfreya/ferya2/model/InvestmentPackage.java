@@ -22,6 +22,8 @@ public class InvestmentPackage {
     private int duration;
     private BigDecimal returnOnInvestment;
     private BigDecimal minInvestmentAmount;  // New field for minimum investment amount
+    private boolean cancellation = true;
+
 
     public enum Status{
         ACTIVE,DISABLE

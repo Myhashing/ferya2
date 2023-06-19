@@ -2,27 +2,38 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Add Investment Package</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 </head>
 <body>
-<h1>Add Investment Package</h1>
-<form action="#" th:action="@{/admin/package/add}" th:object="${package}" method="post">
-    <label for="name">Name:</label>
-    <input type="text" th:field="*{name}" id="name" required>
-    <br>
-    <label for="description">Description:</label>
-    <textarea th:field="*{description}" id="description" required></textarea>
-    <br>
-
-    <label for="duration">Duration:</label>
-    <input type="number" th:field="*{duration}" id="duration" required>
-    <br>
-    <label for="roi">Return On Investment:</label>
-    <input type="number" th:field="*{returnOnInvestment}" id="roi" required>
-    <br>
-    <label for="minInvestmentAmount">Minimum Investment Amount:</label>
-    <input type="number" th:field="*{minInvestmentAmount}" id="minInvestmentAmount" required>
-    <br>
-    <input type="submit" value="Add Package">
-</form>
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <h2 class="mb-4">Add Investment Package</h2>
+            <form action="#" th:action="@{/admin/package/add}" th:object="${package}" method="post">
+                <div class="form-group">
+                    <label for="name">Name:</label>
+                    <input type="text" th:field="*{name}" id="name" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="description">Description:</label>
+                    <textarea th:field="*{description}" id="description" class="form-control" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="duration">Duration:</label>
+                    <input type="number" th:field="*{duration}" id="duration" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="roi">Return On Investment:</label>
+                    <input type="number" th:field="*{returnOnInvestment}" id="roi" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="minInvestmentAmount">Minimum Investment Amount:</label>
+                    <input type="number" th:field="*{minInvestmentAmount}" id="minInvestmentAmount" class="form-control" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Add Package</button>
+            </form>
+        </div>
+    </div>
+</div>
 </body>
 </html>

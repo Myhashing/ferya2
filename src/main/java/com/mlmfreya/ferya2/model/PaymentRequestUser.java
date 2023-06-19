@@ -15,7 +15,7 @@ public class PaymentRequestUser {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long Id;
+    private Long id;
 
 
     @ManyToOne

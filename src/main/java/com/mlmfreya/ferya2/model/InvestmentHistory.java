@@ -24,5 +24,4 @@ public class InvestmentHistory {
     private LocalDateTime date;
 
 
-    // ... getters and setters ...
 }

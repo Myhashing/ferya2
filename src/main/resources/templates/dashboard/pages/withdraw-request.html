@@ -1,0 +1,56 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/master}">
+<head>
+  <meta charset="UTF-8">
+  <title>Freya - Coinnich</title>
+</head>
+<body>
+<div layout:fragment="content">
+
+  <!--begin::Content-->
+  <div id="kt_app_content" class="app-content flex-column-fluid">
+    <!--begin::Content container-->
+    <div id="kt_app_content_container" class="app-container container-xxl">
+      <!--begin::Card-->
+      <div class="card">
+        <!--begin::Card body-->
+        <div class="card-body">
+          <!--begin::Heading-->
+          <div class="card-px text-center pt-15 pb-15">
+            <!--begin::Title-->
+            <h2 class="fs-2x fw-bold mb-0">Withdraw</h2>
+            <!--end::Title-->
+            <!--begin::Description-->
+            <p class="text-gray-400 fs-4 fw-semibold py-7">
+              All withdraws need to approve by administration
+              <!--end::Description-->
+            <div th:if="${error != null && !error.isEmpty()}" class="alert alert-danger mt-3" role="alert">
+              <p th:text="${error}"></p>
+            </div>
+
+            <form  class="mx-auto w-100 mw-600px pt-15 pb-10 fv-plugins-bootstrap5 fv-plugins-framework" action="/withdraw" method="POST">
+              <div class="mb-10 fv-row fv-plugins-icon-container">
+                <label class="form-label mb-3" for="amount">Amount:</label>
+                <input type="number" class="form-control form-control-lg form-control-solid" id="amount" name="amount" step="0.01" min="0" required>
+              </div>
+              <button type="submit" class="btn btn-primary er fs-6 px-8 py-4">Submit Request</button>
+            </form>
+
+
+          </div>
+          <!--end::Heading-->
+
+        </div>
+        <!--end::Card body-->
+      </div>
+      <!--end::Card-->
+    </div>
+    <!--end::Content container-->
+  </div>
+  <!--end::Content-->
+</div>
+</body>
+</html>
