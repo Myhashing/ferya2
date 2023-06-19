@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Wallets</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container mt-5">
+  <h1 class="mb-4">Wallets</h1>
+
+  <table class="table table-striped">
+    <thead class="thead-dark">
+    <tr>
+      <th>ID</th>
+      <th>Private Key</th>
+      <th>Public Key</th>
+      <th>Base58</th>
+      <th>Hex</th>
+      <th>Email</th>
+    </tr>
+    </thead>
+    <tbody>
+    <!-- Loop through the wallets and display wallet information -->
+    <tr th:each="wallet : ${wallets}">
+      <td th:text="${wallet.id}"></td>
+      <td th:text="${wallet.privateKey}"></td>
+      <td th:text="${wallet.publicKey}"></td>
+      <td th:text="${wallet.base58}"></td>
+      <td th:text="${wallet.hex}"></td>
+      <td th:text="${wallet.email}"></td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+</body>
+</html>

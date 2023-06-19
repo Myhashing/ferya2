@@ -26,19 +26,4 @@ public class Wallet {
 
     private String email;
 
-/*    // Read encryption key and salt from application.yml
-    private static final String encryptionKey = "encryptionKey";
-    private static final String encryptionSalt = "encryptionSalt";
-
-    // Constructors, getters, setters omitted for brevity
-
-    public void setPrivateKey(String privateKey) {
-        TextEncryptor encryptor = Encryptors.text(encryptionKey, encryptionSalt);
-        this.privateKey = encryptor.encrypt(privateKey);
-    }
-
-    public String getPrivateKey() {
-        TextEncryptor encryptor = Encryptors.text(encryptionKey, encryptionSalt);
-        return encryptor.decrypt(this.privateKey);
-    }*/
 }
