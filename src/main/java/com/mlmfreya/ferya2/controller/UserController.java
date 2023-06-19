@@ -199,7 +199,7 @@ public class UserController {
                 return "redirect:/withdraw/request";
             }
         } catch (Exception e) {
-            redirectAttrs.addFlashAttribute("error", e.getMessage());
+            redirectAttrs.addFlashAttribute("error", "Insufficient balance or invalid amount.");
             return "redirect:/withdraw/request";
         }
     }
