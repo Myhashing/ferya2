@@ -169,6 +169,21 @@ public class UserController {
 
     }
 
+    @GetMapping("/withdraw/request")
+    public String withdrawRequestForm(Principal principal,Model model){
+            if (principal != null) {
+                User user = userService.findByUsername(principal.getName());
+                if (user != null) {
+                    model.addAttribute("user", user);
+
+                }
+            }
+            return "dashboard/pages/withdraw-request";
+
+
+
+    }
+
     @PostMapping("/withdraw")
     public String withdraw(@RequestParam("amount") BigDecimal amount, Principal principal,Model model ){
         try{
