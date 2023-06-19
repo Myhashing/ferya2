@@ -20,6 +20,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.math.BigDecimal;
 import java.nio.file.attribute.UserPrincipalNotFoundException;
@@ -184,21 +185,22 @@ public class UserController {
     }
 
     @PostMapping("/withdraw")
-    public String withdraw(@RequestParam("amount") BigDecimal amount, Principal principal, Model model) {
+    public String withdraw(@RequestParam("amount") BigDecimal amount, Principal principal, RedirectAttributes redirectAttrs) {
         try {
             User user = userService.getUserByEmail(principal.getName()).orElseThrow(() -> new UsernameNotFoundException(" User Not found"));
             if (user.getBalance().compareTo(BigDecimal.valueOf(30)) >= 0 && user.getBalance().compareTo(amount) >= 0) {
                 withdrawService.create(amount, user);
                 return "redirect:/withdraw?success";
             } else {
-                model.addAttribute("error", "Insufficient balance or invalid amount.");
+                redirectAttrs.addFlashAttribute("error", "Insufficient balance or invalid amount.");
                 return "redirect:/withdraw/request";
             }
         } catch (Exception e) {
-            model.addAttribute("error", e.getMessage());
+            redirectAttrs.addFlashAttribute("error", e.getMessage());
             return "redirect:/withdraw/request";
         }
     }
+
 
 
 

@@ -25,12 +25,13 @@
             <!--end::Title-->
             <!--begin::Description-->
             <p class="text-gray-400 fs-4 fw-semibold py-7">
-              All withdraws need to approve bt administartions
+              All withdraws need to approve by administration
               <!--end::Description-->
 
-            <div th:if="${error}" class="alert alert-danger mt-3" role="alert">
-              <p th:text="${error}"></p>
+            <div th:if="${flash.error}" class="alert alert-danger mt-3" role="alert">
+              <p th:text="${flash.error}"></p>
             </div>
+
             <form  class="mx-auto w-100 mw-600px pt-15 pb-10 fv-plugins-bootstrap5 fv-plugins-framework" action="/withdraw" method="POST">
               <div class="mb-10 fv-row fv-plugins-icon-container">
                 <label class="form-label mb-3" for="amount">Amount:</label>
