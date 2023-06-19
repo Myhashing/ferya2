@@ -126,12 +126,14 @@ public class UserController {
         }
     }
 
-    @GetMapping("/withdraw")
-    public String withdralist( Principal principal,Model model ){
+
+
+    @GetMapping("/statements")
+    public String statements( Principal principal,Model model ){
         try {
 
             if (principal != null) {
-               User user = userService.findByUsername(principal.getName());
+                User user = userService.findByUsername(principal.getName());
                 if (user != null) {
                     model.addAttribute("user", user);
                     List<WithdrawRequest> withdrawRequest = withdrawService.all(user);
@@ -148,8 +150,8 @@ public class UserController {
     }
 
 
-    @GetMapping("/statements")
-    public String statements( Principal principal,Model model ){
+    @GetMapping("/withdraw")
+    public String withdralist( Principal principal,Model model ){
         try {
 
             if (principal != null) {
@@ -179,28 +181,24 @@ public class UserController {
                 }
             }
             return "dashboard/pages/withdraw-request";
-
-
-
     }
 
     @PostMapping("/withdraw")
-    public String withdraw(@RequestParam("amount") BigDecimal amount, Principal principal,Model model ){
-        try{
-            User user = userService.getUserByEmail(principal.getName()).orElseThrow(()-> new UsernameNotFoundException(" User Not found"));
+    public String withdraw(@RequestParam("amount") BigDecimal amount, Principal principal, Model model) {
+        try {
+            User user = userService.getUserByEmail(principal.getName()).orElseThrow(() -> new UsernameNotFoundException(" User Not found"));
             if (user.getBalance().compareTo(BigDecimal.valueOf(30)) >= 0 && user.getBalance().compareTo(amount) >= 0) {
-                withdrawService.create(amount,user);
+                withdrawService.create(amount, user);
                 return "redirect:/withdraw?success";
             } else {
-                return "redirect:/withdraw?error";
+                model.addAttribute("error", "Insufficient balance or invalid amount.");
+                return "redirect:/withdraw/request";
             }
-        }catch(Exception e){
-            model.addAttribute("error",e.getMessage());
-            return "redirect:/withdraw?error";
+        } catch (Exception e) {
+            model.addAttribute("error", e.getMessage());
+            return "redirect:/withdraw/request";
         }
-
-
-        }
+    }
 
 
 
