@@ -72,7 +72,7 @@ public class UserController {
 
     @GetMapping("/public/forgot-password")
     public String forgetpassword(){
-        return "forgot-password";
+        return "forgot-password2";
     }
 
     @PostMapping("/public/forgot-password")
