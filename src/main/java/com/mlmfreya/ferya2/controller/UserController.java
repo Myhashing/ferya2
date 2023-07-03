@@ -57,7 +57,7 @@ public class UserController {
 
     }
 
-    @GetMapping("/register")
+/*    @GetMapping("/register")
     public ModelAndView registerForm() {
         return new ModelAndView("register", "user", new User());
     }
@@ -68,9 +68,9 @@ public class UserController {
 
         userService.registerUser(user);
         return "redirect:/login";
-    }
+    }*/
 
-    @GetMapping("/public/forget-password")
+    @GetMapping("/public/forgot-password")
     public String forgetpassword(){
         return "forget-password";
     }
