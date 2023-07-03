@@ -36,13 +36,17 @@
 <table>
     <thead>
     <tr>
+        <th>ID</th>
         <th>Full Name</th>
+        <th>Email</th>
         <th>Action</th>
     </tr>
     </thead>
     <tbody>
     <tr th:each="user : ${users}">
+        <td th:text="${user.id}"></td>
         <td th:text="${user.fullName}"></td>
+        <td th:text="${user.email}"></td>
         <td><a th:href="@{/admin/user/{id}(id=${user.id})}">Edit</a></td>
     </tr>
     </tbody>

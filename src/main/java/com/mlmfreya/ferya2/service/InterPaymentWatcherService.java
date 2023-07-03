@@ -26,11 +26,14 @@ public class InterPaymentWatcherService {
 
     @Autowired
     private InvestmentRepository investmentRepository;
-    public void watcher(PaymentRequestUser paymentRequestUser){
+    public void watcher(Long paymentRequestUserId){
         new Thread(()->{
             boolean paymentReceived = false;
             while (!paymentReceived){
                 try{
+                    PaymentRequestUser paymentRequestUser = paymentRequestUserRepository.findByIdWithUserAndInvestments(paymentRequestUserId)
+                            .orElseThrow(() -> new RuntimeException("PaymentRequestUser not found")); // get the PaymentRequestUser by its ID
+
                     BigDecimal balance = tronWebService.checkWalletBalance(paymentRequestUser.getWallet().getBase58()).divide(BigDecimal.valueOf(1000000));
                     if (balance.compareTo(paymentRequestUser.getAmount()) >= 0){
                         process(paymentRequestUser);
@@ -72,7 +75,7 @@ public class InterPaymentWatcherService {
         investmentHistoryRepository.save(investmentHistory1);
         //add to user's investment balance
         Investment investment = paymentRequestUser.getUser().getInvestments();
-        investment.setInvestedAmount(paymentRequestUser.getAmount());
+        investment.setInvestedAmount(paymentRequestUser.getAmount().add(paymentRequestUser.getUser().getInvestedAmount()));
         investmentRepository.save(investment);
         //update the payment request status
         paymentRequestUser.setStatus(PaymentRequestUser.Status.Paid);

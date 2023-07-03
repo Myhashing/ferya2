@@ -1,4 +1,4 @@
-package com.mlmfreya.ferya2.controller;
+package com.mlmfreya.ferya2.controller.admin;
 
 import com.mlmfreya.ferya2.exception.ResourceNotFoundException;
 import com.mlmfreya.ferya2.model.InvestmentPackage;

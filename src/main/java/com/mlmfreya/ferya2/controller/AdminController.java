@@ -3,6 +3,7 @@ package com.mlmfreya.ferya2.controller;
 import com.mlmfreya.ferya2.model.Commission;
 import com.mlmfreya.ferya2.model.User;
 import com.mlmfreya.ferya2.service.CommissionService;
+import com.mlmfreya.ferya2.service.InvestmentService;
 import com.mlmfreya.ferya2.service.UserService;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,13 +21,27 @@ public class AdminController {
 
     private final CommissionService commissionService;
     private final UserService userService;
+    private final InvestmentService investmentService;
+
 
     @Autowired
-    public AdminController(CommissionService commissionService, UserService userService) {
+    public AdminController(CommissionService commissionService, UserService userService, InvestmentService investmentService) {
 
         this.commissionService = commissionService;
         this.userService = userService;
+        this.investmentService = investmentService;
+
     }
+
+    @GetMapping("/dashboard")
+    public String dashboard(Model model) {
+        model.addAttribute("totalUsers", userService.countUsers());
+        model.addAttribute("totalInvestments", investmentService.countInvestments());
+        model.addAttribute("totalReferralCommissions", commissionService.countCommissionsByType(Commission.Type.REFERRAL));
+        model.addAttribute("totalNetworkCommissions", commissionService.countCommissionsByType(Commission.Type.NETWORK));
+        return "admin/dashboard";
+    }
+
 
     @GetMapping("/pendingCommissions")
     public String getPendingCommissions(Model model) {
@@ -41,7 +56,7 @@ public class AdminController {
         return "redirect:/admin/pendingCommissions"; // Redirect to the list of pending commissions after payout
     }
 
-    @RequestMapping("/direct-commission")
+    @GetMapping("/direct-commission")
     public String showDirectCommission(Model model) {
         List<User> eligibleUsers = userService.findUsersEligibleForDirectCommission();
         model.addAttribute("eligibleUsers", eligibleUsers);

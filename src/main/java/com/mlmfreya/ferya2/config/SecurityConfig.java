@@ -50,7 +50,7 @@ public class SecurityConfig {
                                         "/login", "/register",
                                         "/shop/**","/public/**",
                                         "/blog/**").permitAll()
-//                                .requestMatchers("/admin/**").hasRole(User.Role.ADMIN.toString())
+                                .requestMatchers("/admin/**").hasRole(User.Role.ADMIN.toString())
                                 .anyRequest().authenticated()
                 )
                 .formLogin().loginPage("/login").defaultSuccessUrl("/dashboard").failureUrl("/login?error=true").permitAll() // Redirect to "/dashboard" after successful login

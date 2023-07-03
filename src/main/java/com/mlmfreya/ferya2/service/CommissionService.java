@@ -127,4 +127,13 @@ public class CommissionService {
         }
     }
 
+    public Long countCommissionsByType(Commission.Type type) {
+        return commissionRepository.countCommissionsByType(type);
+    }
+
+    public BigDecimal sumCommissionsByType(Commission.Type type) {
+        return commissionRepository.sumCommissionsByType(type);
+    }
+
+
 }
