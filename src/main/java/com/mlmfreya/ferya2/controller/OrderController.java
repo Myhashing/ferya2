@@ -83,7 +83,7 @@ public class OrderController {
                             @RequestParam("investmentAmount") BigDecimal investmentAmount,
                             Model model, HttpSession session) {
         InvestmentPackage investmentPackage = packageService.getPackage(packageId);
-        if(this.cart == null) {
+        if(this.cart != null) {
             this.cart.clear();
         }
 
