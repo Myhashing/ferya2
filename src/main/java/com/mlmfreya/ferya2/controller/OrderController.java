@@ -159,6 +159,11 @@ public class OrderController {
             String apiResponse = tronWebService.makeApiRequest(createWalletApiUrl,"POST");
             ObjectMapper mapper = new ObjectMapper();
             WalletResponse response = mapper.readValue(apiResponse, WalletResponse.class);
+            // Check if the response contains the necessary data
+            if (response == null || response.getData() == null || response.getData().getAddress() == null) {
+                model.addAttribute("errorMessage", "The Tron node is currently offline, please retry in one hour.");
+                return "custom-error/500";
+            }
             Wallet wallet = new Wallet();
             wallet.setHex(response.getData().getAddress().getHex());
             wallet.setBase58(response.getData().getAddress().getBase58());
@@ -171,7 +176,7 @@ public class OrderController {
         } catch (IOException e) {
             // handle exception when calling the API
             e.printStackTrace();
-            return "error";
+            return "custom-error/500";
         }
 
         // save transaction to the database
