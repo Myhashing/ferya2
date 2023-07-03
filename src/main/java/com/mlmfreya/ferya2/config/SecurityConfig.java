@@ -1,6 +1,7 @@
 package com.mlmfreya.ferya2.config;
 
 
+import com.mlmfreya.ferya2.model.User;
 import com.mlmfreya.ferya2.repository.UserRepository;
 import com.mlmfreya.ferya2.service.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
