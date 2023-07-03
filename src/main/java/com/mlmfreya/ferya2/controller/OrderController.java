@@ -85,8 +85,12 @@ public class OrderController {
                             @RequestParam("investmentAmount") BigDecimal investmentAmount,
                             Model model, HttpSession session) {
         InvestmentPackage investmentPackage = packageService.getPackage(packageId);
-        if(this.cart != null) {
-            this.cart.clear();
+        // Get the cart from the session, create a new one if it's null
+        ShoppingCart cart = (ShoppingCart) session.getAttribute("cart");
+        if (cart == null) {
+            cart = new ShoppingCart();
+        } else {
+            cart.clear();
         }
 
         // Validate that the investment amount is not less than the minimum investment amount
