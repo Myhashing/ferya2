@@ -6,6 +6,8 @@ import com.mlmfreya.ferya2.repository.PaymentRequestRepository;
 import com.mlmfreya.ferya2.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.io.IOException;
 import java.math.BigDecimal;
 
 @Service
@@ -44,7 +46,7 @@ public class PaymentWatcherService {
                         processPayment(walletAddress, amount);
                         paymentReceived = true;
                     }
-                } catch (RuntimeException e) {
+                } catch (RuntimeException | IOException e) {
                     e.printStackTrace();
                     System.out.println("Error while checking wallet balance, retrying in 60 seconds...");
 
@@ -66,7 +68,7 @@ public class PaymentWatcherService {
     }
 
 
-    private void processPayment(String walletAddress, BigDecimal amount) {
+    private void processPayment(String walletAddress, BigDecimal amount) throws IOException {
         PaymentRequest paymentRequest = paymentRequestRepository.findPaymentRequestByWalletAddress(walletAddress);
         User user = new User();
         user.setPassword(paymentRequest.getPassword());
