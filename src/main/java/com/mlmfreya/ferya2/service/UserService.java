@@ -16,6 +16,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.LocalDateTime;
@@ -46,6 +47,8 @@ public class UserService {
     private InvestmentRepository investmentRepository;
 
 
+    @Autowired
+    private EmailService emailService;
     @Autowired
     private CommissionRepository commissionRepository;
     @Autowired
@@ -178,13 +181,14 @@ public class UserService {
 
 
 
-    public void sendPasswordResetEmail(User user) {
+    public void sendPasswordResetEmail(User user) throws IOException {
         String token = UUID.randomUUID().toString();
         user.setResetPasswordToken(token);
         userRepository.save(user);
 
         String resetPasswordLink = "/reset-password?token=" + token;
 
+        emailService.sendVerificationEmail(user,resetPasswordLink);
         SimpleMailMessage mailMessage = new SimpleMailMessage();
         mailMessage.setTo(user.getEmail());
         mailMessage.setSubject("Password Reset Request");

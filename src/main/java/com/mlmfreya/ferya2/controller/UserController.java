@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.nio.file.attribute.UserPrincipalNotFoundException;
 import java.security.Principal;
@@ -76,7 +77,7 @@ public class UserController {
     }
 
     @PostMapping("/public/forgot-password")
-    public String processForgotPassword(@RequestParam("email") String email, Model model) {
+    public String processForgotPassword(@RequestParam("email") String email, Model model) throws IOException {
         User user = userService.findByEmail(email);
         if (user == null) {
             model.addAttribute("message", "We couldn't find an account for that e-mail address.");
