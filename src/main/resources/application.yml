@@ -35,8 +35,4 @@ encryption:
 
 WithdrawLowLimit: 30.00
 WithdrawHighLimit: 1000.00
-
 tronApiAdress: https://tronapi.coinnich.com/api/tron
-sendgrid:
-  api:
-    key: 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
