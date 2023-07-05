@@ -189,11 +189,7 @@ public class UserService {
         String resetPasswordLink = "/reset-password?token=" + token;
 
         emailService.sendVerificationEmail(user,resetPasswordLink);
-        SimpleMailMessage mailMessage = new SimpleMailMessage();
-        mailMessage.setTo(user.getEmail());
-        mailMessage.setSubject("Password Reset Request");
-        mailMessage.setText("To complete the password reset process, please click here: " + resetPasswordLink);
-        javaMailSender.send(mailMessage);
+
     }
 
     public boolean verifyEmailToken(String token) {
