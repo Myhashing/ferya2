@@ -45,7 +45,7 @@ public class TronWebService {
 
     public BigDecimal checkWalletBalance(String walletAddress) {
       //  String apiUrl = TronApiAddress+"/getTokenBalance/" + walletAddress;
-        String apiUrl = TronApiAddress+"/getBalance/" + walletAddress;
+        String apiUrl = TronApiAddress+"/getTokenBalance/" + walletAddress;
         String apiResponse;
         try {
             apiResponse = makeApiRequest(apiUrl,"GET");
